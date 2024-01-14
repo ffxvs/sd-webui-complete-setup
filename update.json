@@ -6,8 +6,8 @@
                 {
                     "type": "sd",
                     "version": "2024.01.15",
-                    "url": "",
-                    "changelog": "- Refactor code\n- Add new models\n- Update new url"
+                    "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/paperspace/sd_webui_paperspace.ipynb",
+                    "changelog": "- Initial version"
                 }
             ]
         }
