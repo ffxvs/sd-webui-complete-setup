@@ -5,9 +5,9 @@
             "variants": [
                 {
                     "type": "sd",
-                    "version": "2024.01.15",
+                    "version": "2024.01.15.1",
                     "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/paperspace/sd_webui_paperspace.ipynb",
-                    "changelog": "- Initial version"
+                    "changelog": "- pytorch v2.0.1 and xformers v0.0.20"
                 }
             ]
         }
