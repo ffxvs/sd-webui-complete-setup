@@ -5,9 +5,32 @@
             "variants": [
                 {
                     "type": "sd",
-                    "version": "2024.01.15.1",
+                    "version": "2024.01.27",
                     "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/paperspace/sd_webui_paperspace.ipynb",
-                    "changelog": "- pytorch v2.0.1 and xformers v0.0.20"
+                    "changelog": "- Download webui configs automatically"
+                },
+                {
+                    "type": "sdxl",
+                    "version": "2024.01.27",
+                    "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/paperspace/sdxl_webui_paperspace.ipynb",
+                    "changelog": "- Download webui configs automatically"
+                }
+            ]
+        },
+        {
+            "id": "runpod",
+            "variants": [
+                {
+                    "type": "sd",
+                    "version": "2024.01.27",
+                    "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/runpod/sd_webui_runpod.ipynb",
+                    "changelog": "- Download webui configs automatically"
+                },
+                {
+                    "type": "sdxl",
+                    "version": "2024.01.27",
+                    "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/runpod/sdxl_webui_runpod.ipynb",
+                    "changelog": "- Download webui configs automatically"
                 }
             ]
         }
