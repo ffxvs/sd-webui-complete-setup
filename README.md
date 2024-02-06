@@ -22,7 +22,7 @@ Jupyter notebook for Stable Diffusion Webui with a wide range of features.
 7. Click the **"Open in Jupyterlab"** icon button in the left sidebar.
 8. Download [sd_webui_paperspace.ipynb](https://ffxvs.github.io/sd-webui-complete-setup/paperspace/sd_webui_paperspace.ipynb) for SD v1.5 and [sdxl_webui_paperspace.ipynb](https://ffxvs.github.io/sd-webui-complete-setup/paperspace/sdxl_webui_paperspace.ipynb) for SDXL.
 9. Upload them to the file browser in the left panel.
-10. Read this user guide to use the notebook.
+10. Read [this user guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Paperspace-Guide) to use the notebook.
 
 ### Runpod  
 1. Sign up and add some credit to your balance.
