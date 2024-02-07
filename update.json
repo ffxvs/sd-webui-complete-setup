@@ -5,15 +5,15 @@
             "variants": [
                 {
                     "type": "sd",
-                    "version": "2024.01.27",
+                    "version": "2024.02.07",
                     "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/paperspace/sd_webui_paperspace.ipynb",
-                    "changelog": "- Download webui configs automatically"
+                    "changelog": "• Update Henmix model URL"
                 },
                 {
                     "type": "sdxl",
-                    "version": "2024.01.27",
+                    "version": "2024.02.07",
                     "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/paperspace/sdxl_webui_paperspace.ipynb",
-                    "changelog": "- Download webui configs automatically"
+                    "changelog": "• Update Blue Pencil XL to v4.0.1\n• Add Unstable Diffusers v11+RunDiffusion\n• Update NewRealityXL to v2.1\n• Update ArienMixXL to v4\n• Update HelloWorld SDXL to v4"
                 }
             ]
         },
@@ -22,15 +22,15 @@
             "variants": [
                 {
                     "type": "sd",
-                    "version": "2024.01.27",
+                    "version": "2024.02.07",
                     "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/runpod/sd_webui_runpod.ipynb",
-                    "changelog": "- Download webui configs automatically"
+                    "changelog": "• Update Henmix model URL"
                 },
                 {
                     "type": "sdxl",
-                    "version": "2024.01.27",
+                    "version": "2024.02.07",
                     "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/runpod/sdxl_webui_runpod.ipynb",
-                    "changelog": "- Download webui configs automatically"
+                    "changelog": "• Update Blue Pencil XL to v4.0.1\n• Add Unstable Diffusers v11+RunDiffusion\n• Update NewRealityXL to v2.1\n• Update ArienMixXL to v4\n• Update HelloWorld SDXL to v4"
                 }
             ]
         }
