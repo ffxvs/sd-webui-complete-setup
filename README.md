@@ -36,3 +36,8 @@ Jupyter notebook for Stable Diffusion Webui with a wide range of features.
 10. Upload them to the file browser in the left panel.
 11. Read [this user guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Runpod-Guide) to use the notebook.
 12. Stop the Pod if you don't use it anymore. Terminate the pod to delete the Pod and its content. Don't forget to download images you generated.
+
+## Credits
+* [fast-stable-diffusion](https://github.com/TheLastBen/fast-stable-diffusion) by TheLastBen
+* [stable-diffusion-webui-colab](https://github.com/camenduru/stable-diffusion-webui-colab) by Camenduru
+* [stablediffusion_webui](https://github.com/sagiodev/stablediffusion_webui) by sagiodev

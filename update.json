@@ -5,15 +5,15 @@
             "variants": [
                 {
                     "type": "sd",
-                    "version": "2024.02.07",
+                    "version": "2024.02.08",
                     "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/paperspace/sd_webui_paperspace.ipynb",
-                    "changelog": "• Update Henmix model URL"
+                    "changelog": "• Add civitaiToken in 1.1 Function and Data - https://github.com/ffxvs/sd-webui-complete-setup/wiki/Paperspace-Guide#11-function-and-data"
                 },
                 {
                     "type": "sdxl",
-                    "version": "2024.02.07",
+                    "version": "2024.02.08",
                     "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/paperspace/sdxl_webui_paperspace.ipynb",
-                    "changelog": "• Update Blue Pencil XL to v4.0.1\n• Add Unstable Diffusers v11+RunDiffusion\n• Update NewRealityXL to v2.1\n• Update ArienMixXL to v4\n• Update HelloWorld SDXL to v4"
+                    "changelog": "• Add civitaiToken in 1.1 Function and Data - https://github.com/ffxvs/sd-webui-complete-setup/wiki/Paperspace-Guide#11-function-and-data\n• Update Dreamshaper Turbo to v2\n• Fix wrong model URLs\n• Add Embeddings Collection XL to pre-installed embeddings"
                 }
             ]
         },
@@ -22,15 +22,15 @@
             "variants": [
                 {
                     "type": "sd",
-                    "version": "2024.02.07",
+                    "version": "2024.02.08",
                     "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/runpod/sd_webui_runpod.ipynb",
-                    "changelog": "• Update Henmix model URL"
+                    "changelog": "• Add civitaiToken in 1.1 Function and Data - https://github.com/ffxvs/sd-webui-complete-setup/wiki/Runpod-Guide#11-function-and-data"
                 },
                 {
                     "type": "sdxl",
-                    "version": "2024.02.07",
+                    "version": "2024.02.08",
                     "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/runpod/sdxl_webui_runpod.ipynb",
-                    "changelog": "• Update Blue Pencil XL to v4.0.1\n• Add Unstable Diffusers v11+RunDiffusion\n• Update NewRealityXL to v2.1\n• Update ArienMixXL to v4\n• Update HelloWorld SDXL to v4"
+                    "changelog": "• Add civitaiToken in 1.1 Function and Data - https://github.com/ffxvs/sd-webui-complete-setup/wiki/Runpod-Guide#11-function-and-data\n• Update Dreamshaper Turbo to v2\n• Fix wrong model URLs\n• Add Embeddings Collection XL to pre-installed embeddings"
                 }
             ]
         }
