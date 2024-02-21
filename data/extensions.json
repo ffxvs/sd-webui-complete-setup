@@ -94,11 +94,6 @@
             "id": "tiledDiffusion",
             "name": "Tiled Diffusion & VAE",
             "url": "https://github.com/pkuliyi2015/multidiffusion-upscaler-for-automatic1111"
-        },
-        {
-            "id": "testExt",
-            "name": "Test Ext",
-            "url": "https://github.com/test/test-ext"
         }
     ]
 }
