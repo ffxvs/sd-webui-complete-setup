@@ -1,0 +1,99 @@
+{
+    "extensions": [
+        {
+            "id": "adetailer",
+            "name": "Adetailer (After Detailer)",
+            "url": "https://github.com/Bing-su/adetailer"
+        },
+        {
+            "id": "animateDiff",
+            "name": "AnimateDiff",
+            "url": "https://github.com/continue-revolution/sd-webui-animatediff"
+        },
+        {
+            "id": "bmab",
+            "name": "BMAB",
+            "url": "https://github.com/portu-sim/sd-webui-bmab"
+        },
+        {
+            "id": "depthLib",
+            "name": "Depth Map Library",
+            "url": "https://github.com/wywywywy/sd-webui-depth-lib"
+        },
+        {
+            "id": "huggingFace",
+            "name": "Hugging Face",
+            "url": "https://github.com/camenduru/stable-diffusion-webui-huggingface"
+        },
+        {
+            "id": "infiniteImg",
+            "name": "Infinite Image Browsing",
+            "url": "https://github.com/zanllp/sd-webui-infinite-image-browsing"
+        },
+        {
+            "id": "inpaintAny",
+            "name": "Inpaint Anything",
+            "url": "https://github.com/Uminosachi/sd-webui-inpaint-anything"
+        },
+        {
+            "id": "latentCouple",
+            "name": "Latent Couple",
+            "url": "https://github.com/aria1th/stable-diffusion-webui-two-shot"
+        },
+        {
+            "id": "miniPaint",
+            "name": "Mini Paint",
+            "url": "https://github.com/0Tick/a1111-mini-paint"
+        },
+        {
+            "id": "npw",
+            "name": "Negative Prompt Weight",
+            "url": "https://github.com/muerrilla/stable-diffusion-NPW"
+        },
+        {
+            "id": "openOutpaint",
+            "name": "openOutpaint",
+            "url": "https://github.com/zero01101/openOutpaint-webUI-extension"
+        },
+        {
+            "id": "photopea",
+            "name": "Photopea",
+            "url": "https://github.com/yankooliveira/sd-webui-photopea-embed"
+        },
+        {
+            "id": "promptHistory",
+            "name": "Prompt History",
+            "url": "https://github.com/namkazt/sd-webui-prompt-history"
+        },
+        {
+            "id": "rembg",
+            "name": "Remove Background",
+            "url": "https://github.com/AUTOMATIC1111/stable-diffusion-webui-rembg"
+        },
+        {
+            "id": "regionalPrompter",
+            "name": "Regional Prompter",
+            "url": "https://github.com/hako-mikan/sd-webui-regional-prompter"
+        },
+        {
+            "id": "sag",
+            "name": "Self Attention Guidance",
+            "url": "https://github.com/ashen-sensored/sd_webui_SAG"
+        },
+        {
+            "id": "styleXL",
+            "name": "Style Selector XL",
+            "url": "https://github.com/ahgsql/StyleSelectorXL"
+        },
+        {
+            "id": "tagComplete",
+            "name": "Tag Autocomplete",
+            "url": "https://github.com/DominikDoom/a1111-sd-webui-tagcomplete"
+        },
+        {
+            "id": "tiledDiffusion",
+            "name": "Tiled Diffusion & VAE",
+            "url": "https://github.com/pkuliyi2015/multidiffusion-upscaler-for-automatic1111"
+        }
+    ]
+}
