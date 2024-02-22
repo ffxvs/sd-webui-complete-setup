@@ -1,0 +1,44 @@
+{
+    "extensions": [
+        {
+            "id": "aspectRatio",
+            "name": "Aspect Ratio Helper",
+            "url": "https://github.com/thomasasfk/sd-webui-aspect-ratio-helper"
+        },
+        {
+            "id": "canvasZoom",
+            "name": "Canvas Zoom",
+            "url": "https://github.com/richrobber2/canvas-zoom"
+        },
+        {
+            "id": "cleaner",
+            "name": "Cleaner",
+            "url": "https://github.com/novitalabs/sd-webui-cleaner"
+        },
+        {
+            "id": "controlNet",
+            "name": "Controlnet",
+            "url": "https://github.com/Mikubill/sd-webui-controlnet"
+        },
+        {
+            "id": "deleteButton",
+            "name": "SD Delete Button",
+            "url": "https://github.com/reforget-id/sd_delete_button"
+        },
+        {
+            "id": "infiniteImg",
+            "name": "Infinite Image Browsing",
+            "url": "https://github.com/zanllp/sd-webui-infinite-image-browsing"
+        },
+        {
+            "id": "state",
+            "name": "State",
+            "url": "https://github.com/ilian6806/stable-diffusion-webui-state"
+        },
+        {
+            "id": "usdu",
+            "name": "Ultimate SD Upscale",
+            "url": "https://github.com/Coyote-A/ultimate-upscale-for-automatic1111"
+        }
+    ]
+}

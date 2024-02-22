@@ -26,11 +26,6 @@
             "url": "https://github.com/camenduru/stable-diffusion-webui-huggingface"
         },
         {
-            "id": "infiniteImg",
-            "name": "Infinite Image Browsing",
-            "url": "https://github.com/zanllp/sd-webui-infinite-image-browsing"
-        },
-        {
             "id": "inpaintAny",
             "name": "Inpaint Anything",
             "url": "https://github.com/Uminosachi/sd-webui-inpaint-anything"
@@ -44,6 +39,11 @@
             "id": "miniPaint",
             "name": "Mini Paint",
             "url": "https://github.com/0Tick/a1111-mini-paint"
+        },
+        {
+            "id": "modelDownloader",
+            "name": "SD Model Downloader",
+            "url": "https://github.com/Iyashinouta/sd-model-downloader"
         },
         {
             "id": "npw",
