@@ -1,0 +1,110 @@
+{
+    "models": [
+        {
+            "id": "absoluteReality",
+            "name": "Absolute Reality",
+            "variants": [
+                {
+                    "version": "v1.8.1",
+                    "url": "https://huggingface.co/Lykon/AbsoluteReality/resolve/main/AbsoluteReality_1.8.1_pruned.safetensors"
+                },
+                {
+                    "version": "v1.8.1-inpainting",
+                    "url": "https://huggingface.co/Lykon/AbsoluteReality/resolve/main/AbsoluteReality_1.8.1_INPAINTING.inpainting.safetensors"
+                }
+            ]
+        },
+        {
+            "id": "analogMadness",
+            "name": "Analog Madness",
+            "variants": [
+                {
+                    "version": "v7",
+                    "url": "https://civitai.com/api/download/models/261539?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                },
+                {
+                    "version": "v7-inpainting",
+                    "url": "https://civitai.com/api/download/models/269280?type=Model&format=SafeTensor&size=full&fp=fp16"
+                }
+            ]
+        },
+        {
+            "id": "cyberRealistic",
+            "name": "CyberRealistic",
+            "variants": [
+                {
+                    "version": "v4.1",
+                    "url": "https://huggingface.co/cyberdelia/CyberRealistic/resolve/main/CyberRealistic_V4.1_FP16.safetensors"
+                },
+                {
+                    "version": "v4.1-inpainting",
+                    "url": "https://civitai.com/api/download/models/256955?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                }
+            ]
+        },
+        {
+            "id": "epicPhotogasm",
+            "name": "epiCPhotoGasm",
+            "variants": [
+                {
+                    "version": "Last Unicorn",
+                    "url": "https://huggingface.co/jzli/epiCPhotoGasm-last-unicorn/resolve/main/epicphotogasm_lastUnicorn.safetensors"
+                },
+                {
+                    "version": "Z",
+                    "url": "https://civitai.com/api/download/models/201259?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                },
+                {
+                    "version": "Z-inpainting",
+                    "url": "https://civitai.com/api/download/models/201346?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                }
+            ]
+        },
+        {
+            "id": "epicRealism",
+            "name": "epiCRealism",
+            "variants": [
+                {
+                    "version": "Natural Sin",
+                    "url": "https://huggingface.co/Magamanny/epiCRealism/resolve/main/naturalSin/epicrealism_naturalSin.safetensors"
+                },
+                {
+                    "version": "Pure Evo v5",
+                    "url": "https://huggingface.co/Magamanny/epiCRealism/resolve/main/pureEvolution/epicrealism_pureEvolutionV5.safetensors"
+                },
+                {
+                    "version": "Pure Evo v5-inpainting",
+                    "url": "https://huggingface.co/Lola12/epicrealism_pureEvolutionV5-inpainting/resolve/main/epicrealism_pureEvolutionV5-inpainting.safetensors"
+                }
+            ]
+        },
+        {
+            "id": "realVision",
+            "name": "Realistic Vision",
+            "variants": [
+                {
+                    "version": "v6_b1_vae",
+                    "url": "https://civitai.com/api/download/models/245598?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                },
+                {
+                    "version": "v6_b1_vae-inpainting",
+                    "url": "https://civitai.com/api/download/models/245627?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                }
+            ]
+        },
+        {
+            "id": "reliberate",
+            "name": "Reliberate",
+            "variants": [
+                {
+                    "version": "v3",
+                    "url": "https://huggingface.co/XpucT/Reliberate/resolve/main/Reliberate_v3.safetensors"
+                },
+                {
+                    "version": "v3-inpainting",
+                    "url": "https://huggingface.co/XpucT/Reliberate/resolve/main/Reliberate_v3-inpainting.safetensors"
+                }
+            ]
+        }
+    ]
+}

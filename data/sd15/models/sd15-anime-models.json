@@ -1,0 +1,77 @@
+{
+    "models": [
+        {
+            "id": "anything",
+            "name": "Anything",
+            "variants": [
+                {
+                    "version": "Ink",
+                    "url": "https://huggingface.co/X779/Anything_ink/resolve/main/Anything-ink.safetensors"
+                }
+            ]
+        },
+        {
+            "name": "Babes",
+            "variants": [
+                {
+                    "version": "v3",
+                    "url": "https://huggingface.co/alexds9/Babes_3.0/resolve/main/Babes_3.0_fp16.safetensors"
+                }
+            ]
+        },
+        {
+            "id": "cetusMix",
+            "name": "Cetus-Mix",
+            "variants": [
+                {
+                    "version": "WhaleFall2",
+                    "url": "https://civitai.com/api/download/models/105924?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                }
+            ]
+        },
+        {
+            "id": "counterfeit",
+            "name": "Counterfeit",
+            "variants": [
+                {
+                    "version": "v3",
+                    "url": "https://huggingface.co/gsdf/Counterfeit-V3.0/resolve/main/Counterfeit-V3.0_fix_fp16.safetensors"
+                }
+            ]
+        },
+        {
+            "id": "meinaMix",
+            "name": "MeinaMix",
+            "variants": [
+                {
+                    "version": "v11",
+                    "url": "https://huggingface.co/asiryan/meinamix/resolve/main/meinamix_meinaV11.safetensors"
+                },
+                {
+                    "version": "v11-inpainting",
+                    "url": "https://huggingface.co/asiryan/meinamix/resolve/main/meinamix_v11-inpainting.safetensors"
+                }
+            ]
+        },
+        {
+            "id": "revAnimated",
+            "name": "ReV Animated",
+            "variants": [
+                {
+                    "version": "v1.2.2",
+                    "url": "https://huggingface.co/s6yx/ReV_Animated/resolve/main/rev_1.2.2/rev_1.2.2-fp16.safetensors"
+                }
+            ]
+        },
+        {
+            "id": "toonYou",
+            "name": "ToonYou",
+            "variants": [
+                {
+                    "version": "beta 6",
+                    "url": "https://huggingface.co/SavageSally/toonyou_beta6/resolve/main/toonyou_beta6.safetensors"
+                }
+            ]
+        }
+    ]
+}

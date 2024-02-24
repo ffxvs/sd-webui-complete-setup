@@ -1,0 +1,49 @@
+{
+    "models": [
+        {
+            "id": "arienmix",
+            "name": "ArienMixXL Asian portrait",
+            "variants": [
+                {
+                    "version": "v4",
+                    "url": "https://civitai.com/api/download/models/322265?type=Model&format=SafeTensor&size=pruned&fp=bf16"
+                }
+            ]
+        },
+        {
+            "id": "helloWorld",
+            "name": "LEOSAM\"s HelloWorld SDXL",
+            "variants": [
+                {
+                    "version": "v4",
+                    "url": "https://civitai.com/api/download/models/320950?type=Model&format=SafeTensor&size=full&fp=fp16"
+                },
+                {
+                    "version": "Turbo+LCM v2",
+                    "url": "https://civitai.com/api/download/models/243290?type=Model&format=SafeTensor&size=full&fp=fp16"
+                }
+            ]
+        },
+
+        {
+            "id": "sdvnReal",
+            "name": "SDVN6 RealXL",
+            "variants": [
+                {
+                    "version": "Detailface",
+                    "url": "https://civitai.com/api/download/models/134461?type=Model&format=SafeTensor&size=full&fp=fp16"
+                }
+            ]
+        },
+        {
+            "id": "xxmix9real",
+            "name": "XXMix 9realistic SDXL",
+            "variants": [
+                {
+                    "version": "v1",
+                    "url": "https://huggingface.co/Remilistrasza/XXMix_9realisticSDXL/resolve/main/xxmix9realisticsdxl_v10.safetensors"
+                }
+            ]
+        }
+    ]
+}

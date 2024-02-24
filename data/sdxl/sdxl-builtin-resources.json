@@ -1,0 +1,30 @@
+{
+    "lora": [
+        {
+            "name": "Detail Tweaker XL",
+            "url": "https://huggingface.co/ffxvs/lora-effects-xl/resolve/main/detail_tweaker_xl.safetensors"
+        }
+    ],
+    "embeddings": [
+        {
+            "name": "Negative prompts pack XL",
+            "url": "https://huggingface.co/ffxvs/negative-prompts-pack-xl"
+        },
+        {
+            "name": "Embeddings Collection XL",
+            "url": "https://huggingface.co/ffxvs/embeddings-collection-xl"
+        }
+    ],
+    "upscaler": [
+        {
+            "name": "UltraSharp",
+            "url": "https://huggingface.co/ffxvs/upscaler/resolve/main/UltraSharp_4x.pth"
+        }
+    ],
+    "vae": [
+        {
+            "name": "sdxl-vae-fp16-fix",
+            "url": "https://huggingface.co/ffxvs/vae-collection-xl/resolve/main/sdxl-vae-fp16-fix.safetensors"
+        }
+    ]
+}

@@ -1,0 +1,72 @@
+{
+    "models": [
+        {
+            "id": "animagine",
+            "name": "Animagine XL",
+            "variants": [
+                {
+                    "version": "v3",
+                    "url": "https://huggingface.co/cagliostrolab/animagine-xl-3.0/resolve/main/animagine-xl-3.0.safetensors"
+                }
+            ]
+        },
+        {
+            "id": "bluePencil",
+            "name": "Blue Pencil XL",
+            "variants": [
+                {
+                    "version": "v4.0.1",
+                    "url": "https://huggingface.co/bluepen5805/blue_pencil-XL/resolve/main/blue_pencil-XL-v4.0.1.safetensors"
+                }
+            ]
+        },
+        {
+            "id": "counterfeit",
+            "name": "CounterfeitXL",
+            "variants": [
+                {
+                    "version": "v2.5",
+                    "url": "https://huggingface.co/gsdf/CounterfeitXL-V2.0/resolve/main/CounterfeitXL-V2.5.safetensors"
+                }
+            ]
+        },
+        {
+            "id": "dynaVision",
+            "name": "DynaVision XL",
+            "variants": [
+                {
+                    "version": "v0.6.1.0_vae",
+                    "url": "https://civitai.com/api/download/models/297740?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                }
+            ]
+        },
+        {
+            "id": "sdxlNiji",
+            "name": "SDXL Niji",
+            "variants": [
+                {
+                    "version": "SE",
+                    "url": "https://huggingface.co/rafationgson/niji-sdxl/resolve/main/sdxlNijiSpecial_sdxlNijiSE.safetensors"
+                }
+            ]
+        },
+        {
+            "id": "unstableDiff",
+            "name": "SDXL Unstable Diffusers",
+            "variants": [
+                {
+                    "version": "v11",
+                    "url": "https://huggingface.co/frankjoshua/sdxlUnstableDiffusers_v11/resolve/main/sdxlUnstableDiffusers_v11.safetensors"
+                },
+                {
+                    "version": "v11+RunDiffusion",
+                    "url": "https://huggingface.co/Yamer-AI/SDXL_Unstable_Diffusers/resolve/main/Unstable%20Diffusers%20V11%20%2B%20RunDiffusion.safetensors"
+                },
+                {
+                    "version": "Turbo v10",
+                    "url": "https://civitai.com/api/download/models/247214?type=Model&format=SafeTensor&size=full&fp=fp16"
+                }
+            ]
+        }
+    ]
+}

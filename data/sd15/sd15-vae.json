@@ -1,0 +1,36 @@
+{
+    "vae": [
+        {
+            "id": "blessed2",
+            "name": "Blessed2",
+            "desc": "iCoMix",
+            "url": [
+                "https://huggingface.co/ffxvs/vae-collection/resolve/main/blessed2.vae.pt"
+            ]
+        },
+        {
+            "id": "clearVAE",
+            "name": "ClearVAE",
+            "desc": "Anime models",
+            "url": [
+                "https://huggingface.co/ffxvs/vae-collection/resolve/main/clearVAE.safetensors"
+            ]
+        },
+        {
+            "id": "kl_f8_anime2",
+            "name": "kl-f8-anime2",
+            "desc": "CetusMix, Fantasy World, PastelMix, Waifu, Yozora",
+            "url": [
+                "https://huggingface.co/ffxvs/vae-collection/resolve/main/kl-f8-anime2.ckpt"
+            ]
+        },
+        {
+            "id": "novelAI",
+            "name": "NAI/NovelAI",
+            "desc": "Anything v3, Counterfeit, OrangeMix",
+            "url": [
+                "https://huggingface.co/ffxvs/vae-collection/resolve/main/novelAI.vae.pt"
+            ]
+        }
+    ]
+}

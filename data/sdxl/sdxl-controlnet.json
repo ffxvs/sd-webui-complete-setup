@@ -1,0 +1,44 @@
+{
+    "blur": [
+        "https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/kohya_controllllite_xl_blur.safetensors"
+    ],
+    "blur_anime": [
+        "https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/kohya_controllllite_xl_blur_anime.safetensors"
+    ],
+    "canny": [
+        "https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/diffusers_xl_canny_mid.safetensors"
+    ],
+    "canny_anime": [
+        "https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/kohya_controllllite_xl_canny_anime.safetensors"
+    ],
+    "depth": [
+        "https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/diffusers_xl_depth_mid.safetensors"
+    ],
+    "depth_anime": [
+        "https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/kohya_controllllite_xl_depth_anime.safetensors"
+    ],
+    "ipadapter": [
+        "https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/ip-adapter_xl.pth"
+    ],
+    "lineart": [
+        "https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/t2i-adapter_diffusers_xl_lineart.safetensors"
+    ],
+    "openpose": [
+        "https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/thibaud_xl_openpose_256lora.safetensors"
+    ],
+    "openpose_anime": [
+        "https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/kohya_controllllite_xl_openpose_anime_v2.safetensors"
+    ],
+    "recolor": [
+        "https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/sai_xl_recolor_128lora.safetensors"
+    ],
+    "scribble_anime": [
+        "https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/kohya_controllllite_xl_scribble_anime.safetensors"
+    ],
+    "sketch": [
+        "https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/sai_xl_sketch_256lora.safetensors"
+    ],
+    "softedge": [
+        "https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/sargezt_xl_softedge.safetensors"
+    ]
+}

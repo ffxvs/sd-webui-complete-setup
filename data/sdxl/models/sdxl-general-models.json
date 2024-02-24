@@ -1,0 +1,70 @@
+{
+    "models": [
+        {
+            "id": "copaxTimeless",
+            "name": "Copax TimeLessXL",
+            "variants": [
+                {
+                    "version": "v9",
+                    "url": "https://civitai.com/api/download/models/293413?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                },
+                {
+                    "version": "Turbo v1",
+                    "url": "https://civitai.com/api/download/models/247259?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                }
+            ]
+        },
+        {
+            "id": "dreamShaper",
+            "name": "DreamShaper XL",
+            "variants": [
+                {
+                    "version": "aplha2",
+                    "url": "https://huggingface.co/Lykon/DreamShaper/resolve/main/DreamShaperXL1.0Alpha2_fixedVae_half_00001_.safetensors"
+                },
+                {
+                    "version": "Turbo DPM++ SDE v2",
+                    "url": "https://huggingface.co/Lykon/dreamshaper-xl-v2-turbo/resolve/main/DreamShaperXL_Turbo_v2.safetensors"
+                }
+            ]
+        },
+        {
+            "id": "juggernaut",
+            "name": "Juggernaut XL",
+            "variants": [
+                {
+                    "version": "v8",
+                    "url": "https://huggingface.co/Dremmar/juggernaut_v8/resolve/main/juggernautXL_v8Rundiffusion.safetensors"
+                }
+            ]
+        },
+        {
+            "id": "protoVision",
+            "name": "ProtoVision XL",
+            "variants": [
+                {
+                    "version": "v6.6.0_vae",
+                    "url": "https://civitai.com/api/download/models/265938?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                }
+            ]
+        },
+        {
+            "id": "sdxl",
+            "name": "SD XL",
+            "variants": [
+                {
+                    "version": "v1_vae",
+                    "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0_0.9vae.safetensors"
+                },
+                {
+                    "version": "v1_vae-refiner",
+                    "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0_0.9vae.safetensors"
+                },
+                {
+                    "version": "Turbo v1",
+                    "url": "https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/sd_xl_turbo_1.0_fp16.safetensors"
+                }
+            ]
+        }
+    ]
+}
