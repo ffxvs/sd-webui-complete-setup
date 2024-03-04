@@ -15,8 +15,12 @@
             "name": "Blue Pencil XL",
             "variants": [
                 {
-                    "version": "v4.0.1",
-                    "url": "https://huggingface.co/bluepen5805/blue_pencil-XL/resolve/main/blue_pencil-XL-v4.0.1.safetensors"
+                    "version": "v5",
+                    "url": "https://huggingface.co/bluepen5805/blue_pencil-XL/resolve/main/blue_pencil-XL-v5.0.0.safetensors"
+                },
+                {
+                    "version": "Lightning v5",
+                    "url": "https://huggingface.co/bluepen5805/blue_pencil-XL/resolve/main/blue_pencil-XL-v5.0.0-lightning.safetensors"
                 }
             ]
         },

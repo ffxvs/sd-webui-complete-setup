@@ -33,8 +33,8 @@
             "name": "CyberRealistic",
             "variants": [
                 {
-                    "version": "v4.1",
-                    "url": "https://huggingface.co/cyberdelia/CyberRealistic/resolve/main/CyberRealistic_V4.1_FP16.safetensors"
+                    "version": "v4.2",
+                    "url": "https://civitai.com/api/download/models/372799?type=Model&format=SafeTensor&size=pruned&fp=fp16"
                 },
                 {
                     "version": "v4.1-inpainting",
@@ -47,12 +47,12 @@
             "name": "epiCPhotoGasm",
             "variants": [
                 {
-                    "version": "Last Unicorn",
-                    "url": "https://huggingface.co/jzli/epiCPhotoGasm-last-unicorn/resolve/main/epicphotogasm_lastUnicorn.safetensors"
+                    "version": "AmateurRealLife",
+                    "url": "https://huggingface.co/drxd/epiCPhotoGasm-AmateurRealLife/resolve/main/epicphotogasm_amateurreallife.safetensors"
                 },
                 {
-                    "version": "Z",
-                    "url": "https://civitai.com/api/download/models/201259?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                    "version": "Last Unicorn",
+                    "url": "https://huggingface.co/jzli/epiCPhotoGasm-last-unicorn/resolve/main/epicphotogasm_lastUnicorn.safetensors"
                 },
                 {
                     "version": "Z-inpainting",

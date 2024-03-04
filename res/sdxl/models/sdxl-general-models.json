@@ -5,8 +5,8 @@
             "name": "Copax TimeLessXL",
             "variants": [
                 {
-                    "version": "v9",
-                    "url": "https://civitai.com/api/download/models/293413?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                    "version": "v10",
+                    "url": "https://civitai.com/api/download/models/344540?type=Model&format=SafeTensor&size=pruned&fp=fp16"
                 },
                 {
                     "version": "Turbo v1",
@@ -19,12 +19,12 @@
             "name": "DreamShaper XL",
             "variants": [
                 {
-                    "version": "aplha2",
-                    "url": "https://huggingface.co/Lykon/DreamShaper/resolve/main/DreamShaperXL1.0Alpha2_fixedVae_half_00001_.safetensors"
+                    "version": "Lightning v1",
+                    "url": "https://huggingface.co/Lykon/dreamshaper-xl-lightning/resolve/main/DreamShaperXL_Lightning.safetensors"
                 },
                 {
-                    "version": "Turbo DPM++ SDE v2",
-                    "url": "https://huggingface.co/Lykon/dreamshaper-xl-v2-turbo/resolve/main/DreamShaperXL_Turbo_v2.safetensors"
+                    "version": "Turbo DPM++ SDE v2.1",
+                    "url": "https://huggingface.co/Lykon/dreamshaper-xl-v2-turbo/resolve/main/DreamShaperXL_Turbo_v2_1.safetensors"
                 }
             ]
         },
@@ -33,8 +33,12 @@
             "name": "Juggernaut XL",
             "variants": [
                 {
-                    "version": "v8",
-                    "url": "https://huggingface.co/Dremmar/juggernaut_v8/resolve/main/juggernautXL_v8Rundiffusion.safetensors"
+                    "version": "v9",
+                    "url": "https://huggingface.co/RunDiffusion/Juggernaut-XL-v9/resolve/main/Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors"
+                },
+                {
+                    "version": "Lightning v9",
+                    "url": "https://huggingface.co/RunDiffusion/Juggernaut-XL-Lightning/resolve/main/Juggernaut_RunDiffusionPhoto2_Lightning_4Steps.safetensors"
                 }
             ]
         },

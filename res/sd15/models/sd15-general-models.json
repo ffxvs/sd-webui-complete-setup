@@ -33,11 +33,11 @@
             "name": "Experience",
             "variants": [
                 {
-                    "version": "Exp v10",
+                    "version": "v10",
                     "url": "https://huggingface.co/Schisim/Experience/resolve/main/Experience_v10-FP16.safetensors"
                 },
                 {
-                    "version": "Real Exp v3",
+                    "version": "Realistic Exp v3",
                     "url": "https://huggingface.co/Schisim/Experience/resolve/main/Realistic_Experience_v3-FP16.safetensors"
                 }
             ]

@@ -15,6 +15,10 @@
             "name": "NightVision XL",
             "variants": [
                 {
+                    "version": "v0.8.1.1",
+                    "url": "https://civitai.com/api/download/models/343830?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                },
+                {
                     "version": "v0.7.9.1_vae",
                     "url": "https://civitai.com/api/download/models/247444?type=Model&format=SafeTensor&size=pruned&fp=fp16"
                 }
@@ -35,12 +39,16 @@
             "name": "Realities Edge XL",
             "variants": [
                 {
-                    "version": "v5",
-                    "url": "https://civitai.com/api/download/models/183894?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                    "version": "v7",
+                    "url": "https://civitai.com/api/download/models/346399?type=Model&format=SafeTensor&size=pruned&fp=fp16"
                 },
                 {
-                    "version": "Turbo v2",
-                    "url": "https://civitai.com/api/download/models/294995?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                    "version": "Lightning v7",
+                    "url": "https://civitai.com/api/download/models/356366?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                },
+                {
+                    "version": "Turbo v7",
+                    "url": "https://civitai.com/api/download/models/356472?type=Model&format=SafeTensor&size=pruned&fp=fp16"
                 }
             ]
         },
@@ -49,16 +57,20 @@
             "name": "RealVisXL",
             "variants": [
                 {
-                    "version": "v3_vae",
-                    "url": "https://huggingface.co/SG161222/RealVisXL_V3.0/resolve/main/RealVisXL_V3.0.safetensors"
+                    "version": "v4_vae",
+                    "url": "hhttps://huggingface.co/SG161222/RealVisXL_V4.0/resolve/main/RealVisXL_V4.0.safetensors"
                 },
                 {
-                    "version": "v3_vae-inpainting",
-                    "url": "https://civitai.com/api/download/models/297320?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                    "version": "Lightning v4_vae",
+                    "url": "https://huggingface.co/SG161222/RealVisXL_V4.0_Lightning/resolve/main/RealVisXL_V4.0_Lightning.safetensors"
                 },
                 {
                     "version": "Turbo v3_vae",
                     "url": "https://huggingface.co/SG161222/RealVisXL_V3.0_Turbo/resolve/main/RealVisXL_V3.0_Turbo.safetensors"
+                },
+                {
+                    "version": "v3_vae-inpainting",
+                    "url": "https://civitai.com/api/download/models/297320?type=Model&format=SafeTensor&size=pruned&fp=fp16"
                 }
             ]
         }

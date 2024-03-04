@@ -25,7 +25,7 @@
             "name": "Chilled Remix",
             "variants": [
                 {
-                    "version": "Remix v2",
+                    "version": "v2",
                     "url": "https://huggingface.co/sazyou-roukaku/chilled_remix/resolve/main/chilled_remix_v2.safetensors"
                 },
                 {

@@ -15,8 +15,12 @@
             "name": "LEOSAM's HelloWorld SDXL",
             "variants": [
                 {
-                    "version": "v4",
-                    "url": "https://civitai.com/api/download/models/320950?type=Model&format=SafeTensor&size=full&fp=fp16"
+                    "version": "v5",
+                    "url": "https://huggingface.co/KamCastle/HelloWorld/resolve/main/leosamsHelloworldXL_helloworldXL50GPT4V.safetensors"
+                },
+                {
+                    "version": "Lightning Euler a v5",
+                    "url": "https://civitai.com/api/download/models/355837?type=Model&format=SafeTensor&size=pruned&fp=fp16"
                 },
                 {
                     "version": "Turbo+LCM v2",
