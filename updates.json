@@ -1,0 +1,44 @@
+{
+    "paperspace": [
+        {
+            "id": "auto1111",
+            "version": "2024.03.05",
+            "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui/sd_webui_paperspace.ipynb",
+            "changelog": "• Rework notebook\n• Update Webui v1.8.0"
+        },
+        {
+            "id": "forge",
+            "version": "2024.03.05",
+            "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui-forge/sd_webui_forge_paperspace.ipynb",
+            "changelog": "Initial version"
+        }
+    ],
+    "runpod": [
+        {
+            "id": "auto1111",
+            "version": "2024.03.05",
+            "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui/sd_webui_runpod.ipynb",
+            "changelog": "• Rework notebook\n• Update Webui v1.8.0"
+        },
+        {
+            "id": "forge",
+            "version": "2024.03.05",
+            "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui-forge/sd_webui_forge_runpod.ipynb",
+            "changelog": "Initial version"
+        }
+    ],
+    "resources": [
+        {
+            "id": "sd15",
+            "version": "2024.03.04",
+            "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/resource-lists/sd15_resource_lists.ipynb",
+            "changelog": "Initial version"
+        },
+        {
+            "id": "sdxl",
+            "version": "2024.03.04",
+            "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/resource-lists/sdxl_resource_lists.ipynb",
+            "changelog": "Initial version"
+        }
+    ]
+}
