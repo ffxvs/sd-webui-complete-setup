@@ -4,7 +4,7 @@ Jupyter notebook for Stable Diffusion Web UI and Stable Diffusion Web UI Forge.
 ![Notebook_preview](https://github.com/ffxvs/sd-webui-complete-setup/assets/156585597/52855d70-7c6b-42af-aa15-9ea67c99a5e5)
 
 ## Features  
-* SD Web UI Auto1111 and SD Web UI Forge
+* SD Web UI and SD Web UI Forge
 * Support for Paperspace and Runpod
 * Notebook for installing Web UI, downloading SD v1.5 and SDXL models.
 * Checking the latest version of the notebook.
@@ -24,7 +24,7 @@ Jupyter notebook for Stable Diffusion Web UI and Stable Diffusion Web UI Forge.
 6. Click **View Advanced Options.**
 7. Fill in the Container's name and command field as follows and leave other field blank. Just click copy button on the right.
    * Container's name
-     * SD Web UI Auto1111
+     * SD Web UI
        ```
        ffxvs/sd-webui-containers:auto1111-latest
        ```
@@ -48,9 +48,9 @@ Jupyter notebook for Stable Diffusion Web UI and Stable Diffusion Web UI Forge.
 
 ### Runpod  
 1. [Sign up](https://www.runpod.io/console/signup) and add some credit to your [balance](https://www.runpod.io/console/user/billing).
-2. Open one of these template to create a Pod : [SD Web UI Auto1111](https://www.runpod.io/console/gpu-cloud?template=38adx50leu) / [SD Web UI Forge](https://www.runpod.io/console/gpu-cloud?template=kwef1wl832)
+2. Open one of these template to create a Pod : [SD Web UI](https://www.runpod.io/console/gpu-cloud?template=38adx50leu) / [SD Web UI Forge](https://www.runpod.io/console/gpu-cloud?template=kwef1wl832)
 3. Make sure the template is : 
-   * SD Web UI Auto1111 : `ffxvs/sd-webui-containers:auto1111-latest`
+   * SD Web UI : `ffxvs/sd-webui-containers:auto1111-latest`
    * SD Web UI Forge : `ffxvs/sd-webui-containers:forge-latest`
 4. Select _Secure Cloud_ if you want to use _Network Volume (Persistent Storage)_, or Community Cloud if you want to use cheaper GPU.
 5. Choose a GPU with at least 16GB VRAM, for example RTX A4000, RTX A4500, RTX 3090.
