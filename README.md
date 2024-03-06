@@ -55,7 +55,7 @@ Jupyter notebook for Stable Diffusion Web UI and Stable Diffusion Web UI Forge.
 6. Continue and Deploy, then go to My Pods. Wait until the Pod is ready.
 7. On the Pod you just created, click **Connect** then **Connect to HTTP Service [Port 8888]** to open Jupyterlab.
 8. There will be 3 ipynb notebook files.
-   * `sd_webui_paperspace.ipynb` or `sd_webui_forge_paperspace.ipynb` for installing Web UI.
+   * `sd_webui_runpod.ipynb` or `sd_webui_forge_runpod.ipynb` for installing Web UI.
    * `sd15_resource_lists.ipynb` for downloading SD v1.5 models.
    * `sdxl_resource_lists.ipynb` for downloading SDXL models.
 9. Read [Runpod Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Runpod-Guide) and [Resource Lists Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Resource-Lists-Guide) to use the notebooks.
