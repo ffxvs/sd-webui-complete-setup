@@ -30,9 +30,9 @@
     "resources": [
         {
             "id": "sd15",
-            "version": "2024.03.04",
+            "version": "2024.03.06",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/resource-lists/sd15_resource_lists.ipynb",
-            "changelog": "Initial version"
+            "changelog": "Fix typo on otherLora"
         },
         {
             "id": "sdxl",
