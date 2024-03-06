@@ -44,6 +44,8 @@ Jupyter notebook for Stable Diffusion Web UI and Stable Diffusion Web UI Forge.
    * `sdxl_resource_lists.ipynb` for downloading SDXL models.
 11. Read [Paperspace Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Paperspace-Guide) and [Resource Lists Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Resource-Lists-Guide) to use the notebooks.
 
+<br>
+
 ### Runpod  
 1. [Sign up](https://www.runpod.io/console/signup) and add some credit to your [balance](https://www.runpod.io/console/user/billing).
 2. Open one of these template to create a Pod : [SD Web UI Auto1111](https://www.runpod.io/console/gpu-cloud?template=38adx50leu) / [SD Web UI Forge](https://www.runpod.io/console/gpu-cloud?template=kwef1wl832)
