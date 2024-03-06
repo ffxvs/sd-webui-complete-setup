@@ -1,17 +1,18 @@
 # Stable Diffusion Webui Complete Setup  
-Jupyter notebook for Stable Diffusion Webui with a wide range of features.
+Jupyter notebook for Stable Diffusion Web UI and Stable Diffusion Web UI Forge.
 
-![notebook-preview](https://github.com/ffxvs/sd-webui-complete-setup/assets/156585597/dd598e9b-bf07-4e46-81d4-7831b7b66568)
+![Notebook_preview](https://github.com/ffxvs/sd-webui-complete-setup/assets/156585597/52855d70-7c6b-42af-aa15-9ea67c99a5e5)
 
 ## Features  
-* Support for Paperspace and Runpod, others to come.
+* SD Web UI Auto1111 and SD Web UI Forge
+* Support for Paperspace and Runpod
+* Notebook for installing Web UI, downloading SD v1.5 and SDXL models.
 * Checking the latest version of the notebook.
-* Storing resources such as models, loRA, embeddings, outputs in shared storage (Paperspace).
+* Storing resources such as models, loRA, embeddings, outputs in shared storage.
 * List of some popular extensions.
 * List of several popular models in 4 categories, namely Anime/Cartoon/3D, General Purpose, Realistic, Woman.
 * List of some useful resources for loRA, embedding, upscaler, and VAE.
-* Install extension, loRA, embedding, upscaler, VAE from URLs.
-* Zip outputs for easier download (Paperspace).
+* Install extensions, loRA, embedding, upscaler, VAE from URLs.
 
 ## How to use  
 ### Paperspace  
@@ -20,23 +21,45 @@ Jupyter notebook for Stable Diffusion Webui with a wide range of features.
 3. Select the **"Start from Scratch"** template
 4. Choose one of the free GPUs with at least 16GB VRAM (except Free-P5000).
 5. Set the Auto-shutdown timeout to 6 hours.
-6. Start notebook and wait.
-7. Click the **"Open in Jupyterlab"** icon button in the left sidebar.
-8. Download [sd_webui_paperspace.ipynb](https://ffxvs.github.io/sd-webui-complete-setup/paperspace/sd_webui_paperspace.ipynb) for SD v1.5 and [sdxl_webui_paperspace.ipynb](https://ffxvs.github.io/sd-webui-complete-setup/paperspace/sdxl_webui_paperspace.ipynb) for SDXL.
-9. Upload them to the file browser in the left panel.
-10. Read [this guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Paperspace-Guide) to use the notebook.
+6. Click **View Advanced Options.**
+7. Fill in the Container's name and command field as follows and leave other field blank. Just click copy button on the right.
+   * Container's name
+     * SD Web UI Auto1111
+       ```
+       ffxvs/sd-webui-containers:auto1111-latest
+       ```
+     * SD Web UI Forge
+       ```
+       ffxvs/sd-webui-containers:forge-latest
+       ```
+   * Container's command
+     ```
+     bash /paperspace-start.sh
+     ```
+8. Start notebook and wait until the machine is running.
+9. Click the **"Open in Jupyterlab"** icon button in the left sidebar.
+10. There will be 3 ipynb notebook files.
+   * `sd_webui_paperspace.ipynb` or `sd_webui_forge_paperspace.ipynb` for installing Web UI.
+   * `sd15_resource_lists.ipynb` for downloading SD v1.5 models.
+   * `sdxl_resource_lists.ipynb` for downloading SDXL models.
+11. Read [Paperspace Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Paperspace-Guide) and [Resource Lists Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Resource-Lists-Guide) to use the notebooks.
 
 ### Runpod  
 1. [Sign up](https://www.runpod.io/console/signup) and add some credit to your [balance](https://www.runpod.io/console/user/billing).
-2. Open [this link](https://www.runpod.io/console/gpu-browse) to create a Pod.
-3. Choose a GPU with at least 16GB VRAM, for example RTX A4000, RTX A4500, RTX 3090.
-4. Click Deploy. Set the Temporary Disk to 10 GB and the Persistent Volume to 20 GB or larger.
-5. Make sure the template used is **"Runpod Pytorch 2.0.1"**.
-6. Click Deploy and go to "My Pods".
-7. On the Pod you just created, click **Connect** then **Connect to Jupyterlab**.
-9. Download [sd_webui_paperspace.ipynb](https://ffxvs.github.io/sd-webui-complete-setup/runpod/sd_webui_runpod.ipynb) for SD v1.5 and [sdxl_webui_paperspace.ipynb](https://ffxvs.github.io/sd-webui-complete-setup/runpod/sdxl_webui_runpod.ipynb) for SDXL.
-10. Upload them to the file browser in the left panel.
-11. Read [this guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Runpod-Guide) to use the notebook.
+2. Open one of these template to create a Pod : [SD Web UI Auto1111](https://www.runpod.io/console/gpu-cloud?template=38adx50leu) / [SD Web UI Forge](https://www.runpod.io/console/gpu-cloud?template=kwef1wl832)
+3. Make sure the template is : 
+   * SD Web UI Auto1111 : `ffxvs/sd-webui-containers:auto1111-latest`
+   * SD Web UI Forge : `ffxvs/sd-webui-containers:forge-latest`
+4. Select _Secure Cloud_ if you want to use _Network Volume (Persistent Storage)_, or Community Cloud if you want to use cheaper GPU.
+5. Choose a GPU with at least 16GB VRAM, for example RTX A4000, RTX A4500, RTX 3090.
+6. Continue and Deploy, then go to My Pods. Wait until the Pod is ready.
+7. On the Pod you just created, click **Connect** then **Connect to HTTP Service [Port 8888]** to open Jupyterlab.
+8. There will be 3 ipynb notebook files.
+   * `sd_webui_paperspace.ipynb` or `sd_webui_forge_paperspace.ipynb` for installing Web UI.
+   * `sd15_resource_lists.ipynb` for downloading SD v1.5 models.
+   * `sdxl_resource_lists.ipynb` for downloading SDXL models.
+9. Read [Runpod Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Runpod-Guide) and [Resource Lists Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Resource-Lists-Guide) to use the notebooks.
+10. You can click **Connect to HTTP Service [Port 3001]** after installing and launching the Web UI.
 12. Stop the Pod if you don't use it anymore. Terminate the pod to delete the Pod and its content. Don't forget to download images you generated.
 
 ## Credits
