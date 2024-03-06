@@ -2,9 +2,9 @@
     "paperspace": [
         {
             "id": "auto1111",
-            "version": "2024.03.05",
+            "version": "2024.03.06",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui/sd_webui_paperspace.ipynb",
-            "changelog": "• Rework notebook\n• Update Webui v1.8.0"
+            "changelog": "• Fix Paperspace port"
         },
         {
             "id": "forge",
