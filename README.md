@@ -6,6 +6,7 @@ Jupyter notebook for Stable Diffusion Web UI and Stable Diffusion Web UI Forge.
 ## Features  
 * SD Web UI and SD Web UI Forge
 * Support for Paperspace and Runpod
+* Using small Docker containers under 5GB
 * Notebook for installing Web UI, downloading SD v1.5 and SDXL models.
 * Checking the latest version of the notebook.
 * Storing resources such as models, loRA, embeddings, outputs in shared storage.
