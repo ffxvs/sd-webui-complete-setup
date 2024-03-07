@@ -22,9 +22,9 @@
         },
         {
             "id": "forge",
-            "version": "2024.03.05",
+            "version": "2024.03.07",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui-forge/sd_webui_forge_runpod.ipynb",
-            "changelog": "Initial version"
+            "changelog": "Minor fixes - wrong local URL"
         }
     ],
     "resources": [
