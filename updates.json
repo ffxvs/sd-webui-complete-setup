@@ -2,29 +2,29 @@
     "paperspace": [
         {
             "id": "auto1111",
-            "version": "2024.03.06",
+            "version": "2024.03.07",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui/sd_webui_paperspace.ipynb",
-            "changelog": "• Fix Paperspace port"
+            "changelog": "• Fix error in Check for Updates"
         },
         {
             "id": "forge",
-            "version": "2024.03.05",
+            "version": "2024.03.07",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui-forge/sd_webui_forge_paperspace.ipynb",
-            "changelog": "Initial version"
+            "changelog": "• Fix error in Check for Updates"
         }
     ],
     "runpod": [
         {
             "id": "auto1111",
-            "version": "2024.03.05",
+            "version": "2024.03.07",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui/sd_webui_runpod.ipynb",
-            "changelog": "• Rework notebook\n• Update Webui v1.8.0"
+            "changelog": "• Fix error in Check for Updates"
         },
         {
             "id": "forge",
-            "version": "2024.03.07",
+            "version": "2024.03.07a",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui-forge/sd_webui_forge_runpod.ipynb",
-            "changelog": "Minor fixes - wrong local URL"
+            "changelog": "• Fix error in Check for Updates"
         }
     ],
     "resources": [
