@@ -47,8 +47,8 @@ Jupyter notebook for Stable Diffusion Web UI and Stable Diffusion Web UI Forge.
 <br>
 
 ### Runpod  
-1. [Sign up](https://www.runpod.io/console/signup) and add some credit to your [balance](https://www.runpod.io/console/user/billing).
-2. Open one of these template to create a Pod : [SD Web UI](https://www.runpod.io/console/gpu-cloud?template=38adx50leu) / [SD Web UI Forge](https://www.runpod.io/console/gpu-cloud?template=kwef1wl832)
+1. [Sign up](https://runpod.io?ref=synjcfeg) and add some credit to your [balance](https://www.runpod.io/console/user/billing).
+2. Open one of these template to create a Pod : [SD Web UI](https://runpod.io/console/gpu-cloud?template=38adx50leu&ref=synjcfeg) / [SD Web UI Forge](https://runpod.io/console/gpu-cloud?template=kwef1wl832&ref=synjcfeg)
 3. Make sure the template is : 
    * SD Web UI : `ffxvs/sd-webui-containers:auto1111-latest`
    * SD Web UI Forge : `ffxvs/sd-webui-containers:forge-latest`
@@ -62,7 +62,7 @@ Jupyter notebook for Stable Diffusion Web UI and Stable Diffusion Web UI Forge.
    * `sdxl_resource_lists.ipynb` for downloading SDXL models.
 9. Read [Runpod Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Runpod-Guide) and [Resource Lists Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Resource-Lists-Guide) to use the notebooks.
 10. You can click **Connect to HTTP Service [Port 3001]** after installing and launching the Web UI.
-12. Stop the Pod if you don't use it anymore. Terminate the pod to delete the Pod and its content. Don't forget to download images you generated.
+11. Stop the Pod if you don't use it anymore. Terminate the pod to delete the Pod and its content. Don't forget to download images you generated.
 
 ## Credits
 * [fast-stable-diffusion](https://github.com/TheLastBen/fast-stable-diffusion) by TheLastBen
