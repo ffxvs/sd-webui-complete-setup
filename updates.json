@@ -2,43 +2,43 @@
     "paperspace": [
         {
             "id": "auto1111",
-            "version": "2024.03.07",
+            "version": "2024.03.09",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui/sd_webui_paperspace.ipynb",
-            "changelog": "• Fix error in Check for Updates"
+            "changelog": "• Fix error when installing extensions from URLs"
         },
         {
             "id": "forge",
-            "version": "2024.03.07",
+            "version": "2024.03.09",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui-forge/sd_webui_forge_paperspace.ipynb",
-            "changelog": "• Fix error in Check for Updates"
+            "changelog": "• Fix error when installing extensions from URLs"
         }
     ],
     "runpod": [
         {
             "id": "auto1111",
-            "version": "2024.03.07",
+            "version": "2024.03.09",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui/sd_webui_runpod.ipynb",
-            "changelog": "• Fix error in Check for Updates"
+            "changelog": "• Fix error when installing extensions from URLs"
         },
         {
             "id": "forge",
-            "version": "2024.03.07a",
+            "version": "2024.03.09",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui-forge/sd_webui_forge_runpod.ipynb",
-            "changelog": "• Fix error in Check for Updates"
+            "changelog": "• Fix error when installing extensions from URLs"
         }
     ],
     "resources": [
         {
             "id": "sd15",
-            "version": "2024.03.06",
+            "version": "2024.03.09",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/resource-lists/sd15_resource_lists.ipynb",
-            "changelog": "Fix typo on otherLora"
+            "changelog": "• Fix error in Check for updates cell\n• Refactor code for other resources"
         },
         {
             "id": "sdxl",
-            "version": "2024.03.04",
+            "version": "2024.03.09",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/resource-lists/sdxl_resource_lists.ipynb",
-            "changelog": "Initial version"
+            "changelog": "• Fix typo in controlNet\n• Fix error in Check for updates cell\n• Refactor code for other resources"
         }
     ]
 }
