@@ -2,29 +2,29 @@
     "paperspace": [
         {
             "id": "auto1111",
-            "version": "2024.03.09",
+            "version": "2024.03.14",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui/sd_webui_paperspace.ipynb",
-            "changelog": "• Fix error when installing extensions from URLs"
+            "changelog": "• Remove --no-gradio-queue"
         },
         {
             "id": "forge",
-            "version": "2024.03.09",
+            "version": "2024.03.14",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui-forge/sd_webui_forge_paperspace.ipynb",
-            "changelog": "• Fix error when installing extensions from URLs"
+            "changelog": "• Remove --no-gradio-queue"
         }
     ],
     "runpod": [
         {
             "id": "auto1111",
-            "version": "2024.03.09",
+            "version": "2024.03.14",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui/sd_webui_runpod.ipynb",
-            "changelog": "• Fix error when installing extensions from URLs"
+            "changelog": "• Remove --no-gradio-queue"
         },
         {
             "id": "forge",
-            "version": "2024.03.09",
+            "version": "2024.03.14",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui-forge/sd_webui_forge_runpod.ipynb",
-            "changelog": "• Fix error when installing extensions from URLs"
+            "changelog": "• Remove --no-gradio-queue"
         }
     ],
     "resources": [
