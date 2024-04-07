@@ -30,15 +30,15 @@
     "resources": [
         {
             "id": "sd15",
-            "version": "2024.03.09",
+            "version": "2024.04.07",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/resource-lists/sd15_resource_lists.ipynb",
-            "changelog": "• Fix error in Check for updates cell\n• Refactor code for other resources"
+            "changelog": "• Add ipadapter_face in controlNet\n• Fix ipadapter urls\n• Update Babes to v3.1\n• Update CyberRealistic Inpainting to v4.2\n• Update epiCPhotoGasm to Ultimate Fidelity"
         },
         {
             "id": "sdxl",
-            "version": "2024.03.09",
+            "version": "2024.04.07",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/resource-lists/sdxl_resource_lists.ipynb",
-            "changelog": "• Fix typo in controlNet\n• Fix error in Check for updates cell\n• Refactor code for other resources"
+            "changelog": "• Add ipadapter_vit_h, ipadapter_plus, ipadapter_plus_face in controlNet\n• Fix ipadapter urls\n• Add Anything XL to anime models\n• Update Animagine XL to v3.1\n• Update Blue Pencil XL to v6\n• Update SDXL Unstable Diffusers to NihilMania\n• Update Copax TimeLessXL to v11\n• Update NewRealityXL to v3\n• Add SOAP (Shot On A Phone) LoRA"
         }
     ]
 }

@@ -4,7 +4,7 @@
             "id": "blurXL",
             "name": "Blur SDXL",
             "url": [
-                "https://huggingface.co/ffxvs/lora-effects-xl/resolve/main/blur_sdxl.safetensors"
+                "https://huggingface.co/ffxvs/lora-effects-xl/resolve/main/blur_xl.safetensors"
             ]
         },
         {
@@ -42,6 +42,13 @@
             "name": "XL More Art Full",
             "url": [
                 "https://huggingface.co/ffxvs/lora-effects-xl/resolve/main/xl_more_art-full_v1.safetensors"
+            ]
+        },
+        {
+            "id": "soap",
+            "name": "SOAP (Shot On A Phone)",
+            "url": [
+                "https://huggingface.co/ffxvs/lora-effects-xl/resolve/main/soap_xl.safetensors"
             ]
         }
     ]

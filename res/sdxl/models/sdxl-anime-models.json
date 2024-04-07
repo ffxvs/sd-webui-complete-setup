@@ -1,12 +1,22 @@
 {
     "models": [
         {
+            "id": "anything",
+            "name": "Anything XL",
+            "variants": [
+                {
+                    "version": "XL",
+                    "url": "https://huggingface.co/nyanntama/AnythingXL/resolve/main/AnythingXL_xl.safetensors"
+                }
+            ]
+        },
+        {
             "id": "animagine",
             "name": "Animagine XL",
             "variants": [
                 {
-                    "version": "v3",
-                    "url": "https://huggingface.co/cagliostrolab/animagine-xl-3.0/resolve/main/animagine-xl-3.0.safetensors"
+                    "version": "v3.1",
+                    "url": "https://huggingface.co/cagliostrolab/animagine-xl-3.1/resolve/main/animagine-xl-3.1.safetensors"
                 }
             ]
         },
@@ -15,8 +25,8 @@
             "name": "Blue Pencil XL",
             "variants": [
                 {
-                    "version": "v5",
-                    "url": "https://huggingface.co/bluepen5805/blue_pencil-XL/resolve/main/blue_pencil-XL-v5.0.0.safetensors"
+                    "version": "v6",
+                    "url": "https://huggingface.co/bluepen5805/blue_pencil-XL/resolve/main/blue_pencil-XL-v6.0.0.safetensors"
                 },
                 {
                     "version": "Lightning v5",
@@ -58,6 +68,10 @@
             "id": "unstableDiff",
             "name": "SDXL Unstable Diffusers",
             "variants": [
+                {
+                    "version": "NihilMania",
+                    "url": "https://civitai.com/api/download/models/395107?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                },
                 {
                     "version": "v11",
                     "url": "https://huggingface.co/frankjoshua/sdxlUnstableDiffusers_v11/resolve/main/sdxlUnstableDiffusers_v11.safetensors"

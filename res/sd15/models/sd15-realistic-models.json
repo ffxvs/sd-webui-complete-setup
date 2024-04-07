@@ -37,8 +37,8 @@
                     "url": "https://civitai.com/api/download/models/372799?type=Model&format=SafeTensor&size=pruned&fp=fp16"
                 },
                 {
-                    "version": "v4.1-inpainting",
-                    "url": "https://civitai.com/api/download/models/256955?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                    "version": "v4.2-inpainting",
+                    "url": "https://civitai.com/api/download/models/410468?type=Model&format=SafeTensor&size=pruned&fp=fp16"
                 }
             ]
         },
@@ -47,12 +47,12 @@
             "name": "epiCPhotoGasm",
             "variants": [
                 {
-                    "version": "AmateurRealLife",
-                    "url": "https://huggingface.co/drxd/epiCPhotoGasm-AmateurRealLife/resolve/main/epicphotogasm_amateurreallife.safetensors"
+                    "version": "Ultimate Fidelity",
+                    "url": "https://civitai.com/api/download/models/429454?type=Model&format=SafeTensor&size=pruned&fp=fp16"
                 },
                 {
-                    "version": "Last Unicorn",
-                    "url": "https://huggingface.co/jzli/epiCPhotoGasm-last-unicorn/resolve/main/epicphotogasm_lastUnicorn.safetensors"
+                    "version": "AmateurRealLife",
+                    "url": "https://huggingface.co/drxd/epiCPhotoGasm-AmateurRealLife/resolve/main/epicphotogasm_amateurreallife.safetensors"
                 },
                 {
                     "version": "Z-inpainting",

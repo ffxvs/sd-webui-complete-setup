@@ -5,6 +5,10 @@
             "name": "NewRealityXL",
             "variants": [
                 {
+                    "version": "v3",
+                    "url": "https://huggingface.co/misri/newrealityxlAllInOne_30Experimental/resolve/main/newrealityxlAllInOne_30Experimental.safetensors"
+                },
+                {
                     "version": "v2.1",
                     "url": "https://huggingface.co/nncyberpunk/NewRealityXL-2.1/resolve/main/newrealityxlAllInOne_21.safetensors"
                 }

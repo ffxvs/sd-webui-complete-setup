@@ -5,8 +5,12 @@
             "name": "Copax TimeLessXL",
             "variants": [
                 {
-                    "version": "v10",
-                    "url": "https://civitai.com/api/download/models/344540?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                    "version": "v11",
+                    "url": "https://civitai.com/api/download/models/399446?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                },
+                {
+                    "version": "Lightning v11",
+                    "url": "https://civitai.com/api/download/models/404559?type=Model&format=SafeTensor&size=pruned&fp=fp16"
                 },
                 {
                     "version": "Turbo v1",

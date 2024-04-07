@@ -15,8 +15,8 @@
             "name": "Babes",
             "variants": [
                 {
-                    "version": "v3",
-                    "url": "https://huggingface.co/alexds9/Babes_3.0/resolve/main/Babes_3.0_fp16.safetensors"
+                    "version": "v3.1",
+                    "url": "https://civitai.com/api/download/models/393438?type=Model&format=SafeTensor&size=pruned&fp=fp16"
                 }
             ]
         },
