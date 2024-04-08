@@ -59,8 +59,8 @@
             "name": "ReV Animated",
             "variants": [
                 {
-                    "version": "v1.2.2",
-                    "url": "https://huggingface.co/s6yx/ReV_Animated/resolve/main/rev_1.2.2/rev_1.2.2-fp16.safetensors"
+                    "version": "v2_vae",
+                    "url": "https://civitai.com/api/download/models/428862?type=Model&format=SafeTensor&size=full&fp=fp16"
                 }
             ]
         },

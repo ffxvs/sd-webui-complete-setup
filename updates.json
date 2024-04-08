@@ -30,9 +30,9 @@
     "resources": [
         {
             "id": "sd15",
-            "version": "2024.04.07",
+            "version": "2024.04.08",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/resource-lists/sd15_resource_lists.ipynb",
-            "changelog": "• Add ipadapter_face in controlNet\n• Fix ipadapter urls\n• Update Babes to v3.1\n• Update CyberRealistic Inpainting to v4.2\n• Update epiCPhotoGasm to Ultimate Fidelity"
+            "changelog": "• Add ipadapter_face in controlNet\n• Fix ipadapter urls\n• Update Babes to v3.1\n• Update CyberRealistic Inpainting to v4.2\n• Update epiCPhotoGasm to Ultimate Fidelity\n• Update Rev Animated to v2"
         },
         {
             "id": "sdxl",
