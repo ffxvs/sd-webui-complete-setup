@@ -2,29 +2,29 @@
     "paperspace": [
         {
             "id": "auto1111",
-            "version": "2024.03.24",
+            "version": "2024.05.20",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui/sd_webui_paperspace.ipynb",
-            "changelog": "• Temporarily disable ngrok"
+            "changelog": "• Fix Check for updates"
         },
         {
             "id": "forge",
-            "version": "2024.03.24",
+            "version": "2024.05.20",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui-forge/sd_webui_forge_paperspace.ipynb",
-            "changelog": "• Temporarily disable ngrok"
+            "changelog": "• Fix Check for updates"
         }
     ],
     "runpod": [
         {
             "id": "auto1111",
-            "version": "2024.03.20",
+            "version": "2024.05.20",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui/sd_webui_runpod.ipynb",
-            "changelog": "• Add Web UI authentication"
+            "changelog": "• Fix Check for updates"
         },
         {
             "id": "forge",
-            "version": "2024.03.20",
+            "version": "2024.05.20",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui-forge/sd_webui_forge_runpod.ipynb",
-            "changelog": "• Add Web UI authentication"
+            "changelog": "• Fix Check for updates"
         }
     ],
     "resources": [
