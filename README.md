@@ -65,6 +65,19 @@ Jupyter notebook for Stable Diffusion Web UI and Stable Diffusion Web UI Forge.
 10. You can click **Connect to HTTP Service [Port 3001]** after installing and launching the Web UI.
 11. Stop the Pod if you don't use it anymore. Terminate the pod to delete the Pod and its content. Don't forget to download images you generated.
 
+<br>
+
+### Download Notebooks manually
+In case you can't download the latest notebooks from **Check for Updates** cell, you can download them manually from the links below :
+- SD Web UI for Paperspace : [sd_webui_paperspace.ipynb](https://ffxvs.github.io/sd-webui-complete-setup/sd-webui/sd_webui_paperspace.ipynb)
+- SD Web UI for RunPod : [sd_webui_runpod.ipynb](https://ffxvs.github.io/sd-webui-complete-setup/sd-webui/sd_webui_runpod.ipynb) 
+- SD Web UI Forge for Paperspace : [sd_webui_forge_paperspace.ipynb](https://ffxvs.github.io/sd-webui-complete-setup/sd-webui-forge/sd_webui_forge_paperspace.ipynb)
+- SD Web UI Forge for RunPod : [sd_webui_forge_runpod.ipynb](https://ffxvs.github.io/sd-webui-complete-setup/sd-webui-forge/sd_webui_forge_runpod.ipynb)
+- SD v1.5 resource lists : [sd15_resource_lists.ipynb](https://ffxvs.github.io/sd-webui-complete-setup/resource-lists/sd15_resource_lists.ipynb)
+- SDXL resource lists : [sdxl_resource_lists.ipynb](https://ffxvs.github.io/sd-webui-complete-setup/resource-lists/sdxl_resource_lists.ipynb)
+
+<br>
+
 ## Credits
 * [fast-stable-diffusion](https://github.com/TheLastBen/fast-stable-diffusion) by TheLastBen
 * [stable-diffusion-webui-colab](https://github.com/camenduru/stable-diffusion-webui-colab) by Camenduru
