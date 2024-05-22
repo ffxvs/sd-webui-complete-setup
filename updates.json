@@ -2,13 +2,13 @@
     "paperspace": [
         {
             "id": "auto1111",
-            "version": "2024.05.22.a",
+            "version": "2024.05.22.b",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui/sd_webui_paperspace.ipynb",
             "changelog": "• Add temporary storage feature, see instructions https://github.com/ffxvs/sd-webui-complete-setup/wiki/Paperspace-Guide#21-web-ui\n• Add python dependency for BMAB extension\n• Refactor code\n• Fix error on launch (setuptools)"
         },
         {
             "id": "forge",
-            "version": "2024.05.22.a",
+            "version": "2024.05.22.b",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui-forge/sd_webui_forge_paperspace.ipynb",
             "changelog": "• Add temporary storage feature, see instructions https://github.com/ffxvs/sd-webui-complete-setup/wiki/Paperspace-Guide#21-web-ui\n• Add python dependency for BMAB extension\n• Refactor code\n• Fix error on launch (setuptools)"
         }
