@@ -38,7 +38,7 @@ Jupyter notebook for Stable Diffusion Web UI and Stable Diffusion Web UI Forge.
      bash /paperspace-start.sh
      ```
 8. Start notebook and wait until the machine is running.
-9. Click the **"Open in Jupyterlab"** icon button in the left sidebar.
+9. Duplicate your tab to keep the console open. Then click the **"Open in Jupyterlab"** button (the orange circle icon) in the left sidebar.
 10. There will be 3 ipynb notebook files.
    * `sd_webui_paperspace.ipynb` or `sd_webui_forge_paperspace.ipynb` for installing Web UI.
    * `sd15_resource_lists.ipynb` for downloading SD v1.5 models.
