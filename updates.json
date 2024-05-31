@@ -30,9 +30,9 @@
     "resources": [
         {
             "id": "sd15",
-            "version": "2024.05.20",
+            "version": "2024.05.31",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/resource-lists/sd15_resource_lists.ipynb",
-            "changelog": "• Fix Check for updates"
+            "changelog": "• Update ReV Animated to v2 Pruned\n• Add Realistic Vision Hyper v5.1_vae and Inpainting\n• Add Henmix Real v6a and v6b"
         },
         {
             "id": "sdxl",

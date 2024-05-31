@@ -39,12 +39,16 @@
             "name": "Henmix Real",
             "variants": [
                 {
-                    "version": "v4",
-                    "url": "https://huggingface.co/BBlou/henmix/resolve/main/henmixReal_v40.safetensors"
+                    "version": "v6b",
+                    "url": "https://huggingface.co/Jeang122/HenmixRealv6b/resolve/main/henmixReal_v6b.safetensors"
                 },
                 {
-                    "version": "v5c",
-                    "url": "https://huggingface.co/lraza8632/HenMixReal_v5/resolve/main/henmixReal_v5c.safetensors"
+                    "version": "v6a",
+                    "url": "https://civitai.com/api/download/models/315518?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                },
+                {
+                    "version": "v4",
+                    "url": "https://huggingface.co/BBlou/henmix/resolve/main/henmixReal_v40.safetensors"
                 }
             ]
         },

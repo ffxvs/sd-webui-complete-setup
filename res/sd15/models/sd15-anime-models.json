@@ -59,8 +59,8 @@
             "name": "ReV Animated",
             "variants": [
                 {
-                    "version": "v2_vae",
-                    "url": "https://civitai.com/api/download/models/428862?type=Model&format=SafeTensor&size=full&fp=fp16"
+                    "version": "v2",
+                    "url": "https://civitai.com/api/download/models/474453?type=Model&format=SafeTensor&size=pruned&fp=fp16"
                 }
             ]
         },

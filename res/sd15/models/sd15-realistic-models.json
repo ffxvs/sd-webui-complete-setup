@@ -48,7 +48,7 @@
             "variants": [
                 {
                     "version": "Ultimate Fidelity",
-                    "url": "https://civitai.com/api/download/models/429454?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                    "url": "https://huggingface.co/sinkinai/epiCPhotoGasm-UltimateFidelity/resolve/main/epicphotogasm_ultimateFidelity.safetensors"
                 },
                 {
                     "version": "AmateurRealLife",
@@ -89,6 +89,14 @@
                 {
                     "version": "v6_b1_vae-inpainting",
                     "url": "https://civitai.com/api/download/models/245627?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                },
+                {
+                    "version": "Hyper v5.1_vae",
+                    "url": "https://civitai.com/api/download/models/501240?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                },
+                {
+                    "version": "Hyper v5.1_vae-inpainting",
+                    "url": "https://civitai.com/api/download/models/501286?type=Model&format=SafeTensor&size=pruned&fp=fp16"
                 }
             ]
         },
