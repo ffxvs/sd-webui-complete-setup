@@ -36,9 +36,9 @@
         },
         {
             "id": "sdxl",
-            "version": "2024.05.20",
+            "version": "2024.05.31",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/resource-lists/sdxl_resource_lists.ipynb",
-            "changelog": "• Fix Check for updates"
+            "changelog": "• Add Pony Diffusion XL\n• Update Copax Timeless: v12, Lightning v11, Turbo v2\n• Update Juggernaut: X, Hyper X\n• Add ZavyChromaXL\n• Update NewRealityXL: v4, Lightning v1\n• Update ArienMixXL to v4.5\n• Update LEOSAM's HelloWorld to v6"
         }
     ]
 }

@@ -5,16 +5,16 @@
             "name": "Copax TimeLessXL",
             "variants": [
                 {
-                    "version": "v11",
-                    "url": "https://civitai.com/api/download/models/399446?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                    "version": "v12",
+                    "url": "https://huggingface.co/jetjodh/CopaxTimeLessXLv12/resolve/main/copaxTimelessxlSDXL1_v12.safetensors"
                 },
                 {
                     "version": "Lightning v11",
                     "url": "https://civitai.com/api/download/models/404559?type=Model&format=SafeTensor&size=pruned&fp=fp16"
                 },
                 {
-                    "version": "Turbo v1",
-                    "url": "https://civitai.com/api/download/models/247259?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+                    "version": "Turbo v2",
+                    "url": "https://civitai.com/api/download/models/505697?type=Model&format=SafeTensor&size=pruned&fp=fp16"
                 }
             ]
         },
@@ -37,8 +37,12 @@
             "name": "Juggernaut XL",
             "variants": [
                 {
-                    "version": "v9",
-                    "url": "https://huggingface.co/RunDiffusion/Juggernaut-XL-v9/resolve/main/Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors"
+                    "version": "X",
+                    "url": "https://huggingface.co/RunDiffusion/Juggernaut-X-v10/resolve/main/Juggernaut-X-RunDiffusion-NSFW.safetensors"
+                },
+                {
+                    "version": "Hyper X",
+                    "url": "https://huggingface.co/RunDiffusion/Juggernaut-X-Hyper/resolve/main/JuggernautXRundiffusion_Hyper.safetensors"
                 },
                 {
                     "version": "Lightning v9",
@@ -71,6 +75,16 @@
                 {
                     "version": "Turbo v1",
                     "url": "https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/sd_xl_turbo_1.0_fp16.safetensors"
+                }
+            ]
+        },
+        {
+            "id": "zavyChroma",
+            "name": "ZavyChromaXL",
+            "variants": [
+                {
+                    "version": "v7",
+                    "url": "https://huggingface.co/misri/zavychromaxl_v70/resolve/main/zavychromaxl_v70.safetensors"
                 }
             ]
         }

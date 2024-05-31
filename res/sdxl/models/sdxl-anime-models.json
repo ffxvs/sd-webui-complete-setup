@@ -55,6 +55,20 @@
             ]
         },
         {
+            "id": "ponyDiffusion",
+            "name": "Pony Diffusion XL",
+            "variants": [
+                {
+                    "version": "v6",
+                    "url": "https://huggingface.co/Dragonstalker/Pony_Diffusion_v6/resolve/main/ponyDiffusionV6XL.safetensors"
+                },
+                {
+                    "version": "Turbo DPO v6",
+                    "url": "https://huggingface.co/Bakanayatsu/ponyDiffusion-V6-XL-Turbo-DPO/resolve/main/ponyDiffusionV6XL_v6TurboDPOMerge.safetensors"
+                }
+            ]
+        },
+        {
             "id": "sdxlNiji",
             "name": "SDXL Niji",
             "variants": [
