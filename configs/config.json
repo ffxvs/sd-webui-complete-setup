@@ -1,7 +1,7 @@
 {
     "samples_save": true,
     "samples_format": "jpg",
-    "samples_filename_pattern": "[datetime<%d-%m-%Y>]",
+    "samples_filename_pattern": "[datetime<%d-%m-%Y_%H%M%S>]",
     "save_images_add_number": true,
     "grid_save": true,
     "grid_format": "jpg",
@@ -117,13 +117,7 @@
     "live_preview_refresh_period": 1000,
     "hide_samplers": [
         "DPM fast",
-        "DPM++ SDE",
-        "DPM++ 2M",
-        "LMS",
-        "DPM2",
-        "DPM++ 2M SDE",
-        "PLMS",
-        "DPM++ 2M SDE Heun"
+        "PLMS"
     ],
     "eta_ddim": 0.0,
     "eta_ancestral": 1.0,
@@ -282,7 +276,7 @@
     "SCUNET_tile_overlap": 8,
     "list_hidden_files": false,
     "randn_source": "GPU",
-    "cross_attention_optimization": "sdp-no-mem - scaled dot product without memory efficient attention",
+    "cross_attention_optimization": "xformers",
     "s_min_uncond": 0,
     "token_merging_ratio": 0,
     "token_merging_ratio_img2img": 0,
@@ -575,11 +569,8 @@
     "bmab_mask_model": "sam_vit_b",
     "bmab_use_specific_model": false,
     "bmab_model": "",
-    "bmab_cn_openpose": "control_v11p_sd15_openpose_fp16 [73c2b67d]",
-    "bmab_cn_lineart": "control_v11p_sd15_lineart [43d4be0d]",
-    "bmab_cn_inpaint": "control_v11p_sd15_inpaint_fp16 [be8bc0ed]",
-    "bmab_cn_tile_resample": "control_v11f1e_sd15_tile_fp16 [3b860298]",
     "styles_ui": "select-list",
     "enable_styleselector_by_default": false,
-    "controlnet_clip_detector_on_cpu": false
+    "controlnet_clip_detector_on_cpu": true,
+    "interrupt_after_current": false
 }
