@@ -8,9 +8,9 @@
         },
         {
             "id": "forge",
-            "version": "2024.07.27",
+            "version": "2024.07.31",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui-forge/sd_webui_forge_paperspace.ipynb",
-            "changelog": "• Use previous version of Forge (29be1da)\n • Fixed launch error"
+            "changelog": "• Fix \"error: pathspec '29be1da' did not match any file(s) known to git\" when installing Web UI"
         }
     ],
     "runpod": [
@@ -22,9 +22,9 @@
         },
         {
             "id": "forge",
-            "version": "2024.07.27",
+            "version": "2024.07.31",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui-forge/sd_webui_forge_runpod.ipynb",
-            "changelog": "• Use previous version of Forge (29be1da)\n • Fixed launch error"
+            "changelog": "• Fix \"error: pathspec '29be1da' did not match any file(s) known to git\" when installing Web UI"
         }
     ],
     "resources": [
