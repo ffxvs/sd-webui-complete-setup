@@ -298,7 +298,9 @@
     "keyedit_delimiters": ".,\\/!?%^*;:{}=`~()",
     "ui_tab_order": [
         "txt2img",
+        "Txt2img",
         "img2img",
+        "Img2img",
         "Extras",
         "PNG Info",
         "Checkpoint Merger",
@@ -306,8 +308,7 @@
         "Cleaner",
         "Mini Paint",
         "Photopea",
-        "Infinite image browsing",
-        "Model Downloader"
+        "Infinite image browsing"
     ],
     "hires_fix_show_sampler": true,
     "hires_fix_show_prompts": false,

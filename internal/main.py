@@ -6,13 +6,12 @@ from urllib.parse import urlparse
 
 import ipywidgets as widgets
 import requests
-from IPython.core.display_functions import display
-
+from IPython.display import display, Markdown
 
 # #################### GLOBAL PATHS ####################
 
 root = '/notebooks'
-webui = root + os.environ.get('WEBUI_DIR')
+webui = root + os.environ.get('WEBUI_DIR', '')
 modules_path = webui + '/modules'
 
 outputs_path = webui + '/outputs'
@@ -99,8 +98,9 @@ def apply_envs2():
 
 # Run external program
 def run_process(command: str, hide_output=True):
-    command = command.split()
-    subprocess.run(command, capture_output=hide_output, text=True, check=True)
+    # command = command.split()
+    # subprocess.run(command, capture_output=hide_output, text=True, check=True)
+    subprocess.run(command, shell=True)
 
 
 # Update ubuntu dependencies
@@ -204,7 +204,7 @@ def downloader(url: str, path: str, overwrite=False, civitai_token=''):
         aria2c += ' --allow-overwrite'
     if '.' in filename and filename.split('.')[-1] != '':
         aria2c += f' -o {filename}'
-    run_process(aria2c)
+    run_process(aria2c, hide_output=False)
 
 
 # Git clone repo
@@ -297,6 +297,13 @@ def model_mapper(name: str, version: str, url: str):
     }
 
 
+class ModelMapper:
+    def __init__(self, name: str, version: str, url: str):
+        self.name = name
+        self.version = version
+        self.url = url
+
+
 # Selected models
 def selected_models(models_url: str):
     model_list = []
@@ -305,11 +312,7 @@ def selected_models(models_url: str):
         if is_selected != 'Select version...':
             for variant in model['variants']:
                 if variant['version'] == is_selected:
-                    model_list.append(model_mapper(
-                        model['name'],
-                        variant['version'],
-                        variant['url']
-                    ))
+                    model_list.append(ModelMapper(model['name'], variant['version'], variant['url']))
     return model_list
 
 
@@ -317,8 +320,8 @@ def selected_models(models_url: str):
 def download_models(models_url: str, subdir: str, civitai=''):
     print('⏳ Downloading selected models...')
     for model in selected_models(models_url):
-        print(f"\n* {model['name']} | {model['version']}")
-        downloader(model['url'], f'{models_path}/{subdir}', civitai_token=civitai)
+        print(f"\n* {model.name} | {model.version}")
+        downloader(model.url, f'{models_path}/{subdir}', civitai_token=civitai)
 
 
 # Download built-in resources
@@ -444,7 +447,7 @@ def launch_webui(dark_theme: bool, username: str, password: str, ngrok_token: st
 
     args += ' --listen --port 3000'
     print('Launching Web UI...')
-    run_process(f"python webui.py {args}", False)
+    run_process(f'python webui.py {args}', False)
 
 
 def initialization_forge():
@@ -454,3 +457,41 @@ def initialization_forge():
     update_deps()
     create_shared_storage()
     install_forge()
+    completed_message()
+
+
+def models_selection(models_url: str, subdir: str, civitai=''):
+    dropdowns = []
+    for model in get_resource(models_url):
+        options = ['Select version'] + [variant['version'] for variant in model['variants']]
+        dropdown = widgets.Dropdown(options=options, value='Select version', layout=widgets.Layout(width='200px'))
+        label = widgets.Label(model['name'], layout=widgets.Layout(width='150px'))
+        homepage_links = " | ".join([f"<a href='{site['url']}' target='_blank'>{site['name']}</a>" for site in model['homepage']])
+        homepage_label = widgets.HTML(f'<div class="jp-RenderedText" style="white-space:nowrap; display: inline-flex;"><pre>{homepage_links}</pre></div>')
+        items = widgets.HBox([label, dropdown, homepage_label])
+        dropdowns.append((model["name"], dropdown, model["variants"], items))
+
+    submit_button = widgets.Button(description='Download', button_style='success')
+    output = widgets.Output()
+
+    def on_press(button):
+        selected_versions = []
+        for name, menu, variants, _ in dropdowns:
+            selected_version = menu.value
+            if selected_version != 'Select version':
+                for variant in variants:
+                    if variant['version'] == selected_version:
+                        selected_versions.append((name, selected_version, variant["url"]))
+
+        with output:
+            output.clear_output()
+            for name, version, url in selected_versions:
+                print(f'\n* {name} | {version}')
+                downloader(url, f'{models_path}/{subdir}', civitai_token=civitai)
+
+    submit_button.on_click(on_press)
+    for _, _, _, items in dropdowns:
+        display(items)
+        print('')
+
+    display(submit_button, output)
