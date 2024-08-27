@@ -1,78 +1,126 @@
-{
-    "models": [
-        {
-            "id": "anything",
-            "name": "Anything",
-            "variants": [
-                {
-                    "version": "Ink",
-                    "url": "https://huggingface.co/X779/Anything_ink/resolve/main/Anything-ink.safetensors"
-                }
-            ]
-        },
-        {
-            "id": "babes",
-            "name": "Babes",
-            "variants": [
-                {
-                    "version": "v3.1",
-                    "url": "https://civitai.com/api/download/models/393438?type=Model&format=SafeTensor&size=pruned&fp=fp16"
-                }
-            ]
-        },
-        {
-            "id": "cetusMix",
-            "name": "Cetus-Mix",
-            "variants": [
-                {
-                    "version": "WhaleFall2",
-                    "url": "https://civitai.com/api/download/models/105924?type=Model&format=SafeTensor&size=pruned&fp=fp16"
-                }
-            ]
-        },
-        {
-            "id": "counterfeit",
-            "name": "Counterfeit",
-            "variants": [
-                {
-                    "version": "v3",
-                    "url": "https://huggingface.co/gsdf/Counterfeit-V3.0/resolve/main/Counterfeit-V3.0_fix_fp16.safetensors"
-                }
-            ]
-        },
-        {
-            "id": "meinaMix",
-            "name": "MeinaMix",
-            "variants": [
-                {
-                    "version": "v11",
-                    "url": "https://huggingface.co/asiryan/meinamix/resolve/main/meinamix_meinaV11.safetensors"
-                },
-                {
-                    "version": "v11-inpainting",
-                    "url": "https://huggingface.co/asiryan/meinamix/resolve/main/meinamix_v11-inpainting.safetensors"
-                }
-            ]
-        },
-        {
-            "id": "revAnimated",
-            "name": "ReV Animated",
-            "variants": [
-                {
-                    "version": "v2",
-                    "url": "https://civitai.com/api/download/models/474453?type=Model&format=SafeTensor&size=pruned&fp=fp16"
-                }
-            ]
-        },
-        {
-            "id": "toonYou",
-            "name": "ToonYou",
-            "variants": [
-                {
-                    "version": "beta 6",
-                    "url": "https://huggingface.co/SavageSally/toonyou_beta6/resolve/main/toonyou_beta6.safetensors"
-                }
-            ]
-        }
-    ]
-}
+[
+    {
+        "id": "anything",
+        "name": "Anything",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/9409?modelVersionId=90854"
+            }
+        ],
+        "variants": [
+            {
+                "version": "Ink",
+                "url": "https://huggingface.co/X779/Anything_ink/resolve/main/Anything-ink.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "babes",
+        "name": "Babes",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/2220"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v3.1",
+                "url": "https://civitai.com/api/download/models/393438?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+            }
+        ]
+    },
+    {
+        "id": "cetusMix",
+        "name": "Cetus-Mix",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/6755"
+            }
+        ],
+        "variants": [
+            {
+                "version": "WhaleFall2",
+                "url": "https://civitai.com/api/download/models/105924?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+            }
+        ]
+    },
+    {
+        "id": "counterfeit",
+        "name": "Counterfeit",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/4468"
+            },
+            {
+                "name": "HuggingFace",
+                "url": "https://huggingface.co/gsdf/Counterfeit-V3.0"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v3",
+                "url": "https://huggingface.co/gsdf/Counterfeit-V3.0/resolve/main/Counterfeit-V3.0_fix_fp16.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "meinaMix",
+        "name": "MeinaMix",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/4468"
+            },
+            {
+                "name": "HuggingFace",
+                "url": "https://huggingface.co/Meina/MeinaMix_V11"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v11",
+                "url": "https://huggingface.co/asiryan/meinamix/resolve/main/meinamix_meinaV11.safetensors"
+            },
+            {
+                "version": "v11-inpainting",
+                "url": "https://huggingface.co/asiryan/meinamix/resolve/main/meinamix_v11-inpainting.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "revAnimated",
+        "name": "ReV Animated",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/7371"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v2",
+                "url": "https://civitai.com/api/download/models/474453?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+            }
+        ]
+    },
+    {
+        "id": "toonYou",
+        "name": "ToonYou",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/30240"
+            }
+        ],
+        "variants": [
+            {
+                "version": "beta 6",
+                "url": "https://huggingface.co/SavageSally/toonyou_beta6/resolve/main/toonyou_beta6.safetensors"
+            }
+        ]
+    }
+]
