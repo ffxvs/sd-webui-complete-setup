@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 
 import ipywidgets as widgets
 import requests
-from IPython.display import display, Markdown
+from IPython.display import display
 
 # #################### GLOBAL PATHS ####################
 
@@ -63,7 +63,7 @@ sdxl_lora_list_url = main_repo_url + '/res/sdxl/sdxl-lora.json'
 sd = 'sd'
 sdxl = 'sdxl'
 boolean = [False, True]
-exclude_exts_forge = ['controlNet']
+exclude_exts_forge = ['controlNet', 'canvasZoom', 'cleaner']
 request_headers = {
     "Cache-Control": "no-cache, no-store, must-revalidate",
     "Pragma": "no-cache",
