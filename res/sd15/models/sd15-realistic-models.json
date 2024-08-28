@@ -19,7 +19,7 @@
                     "url": "https://huggingface.co/Lykon/AbsoluteReality/resolve/main/AbsoluteReality_1.8.1_pruned.safetensors"
                 },
                 {
-                    "version": "v1.8.1-inpainting",
+                    "version": "v1.8.1 - Inpainting",
                     "url": "https://huggingface.co/Lykon/AbsoluteReality/resolve/main/AbsoluteReality_1.8.1_INPAINTING.inpainting.safetensors"
                 }
             ]
@@ -39,7 +39,7 @@
                     "url": "https://civitai.com/api/download/models/261539?type=Model&format=SafeTensor&size=pruned&fp=fp16"
                 },
                 {
-                    "version": "v7-inpainting",
+                    "version": "v7 - Inpainting",
                     "url": "https://civitai.com/api/download/models/269280?type=Model&format=SafeTensor&size=full&fp=fp16"
                 }
             ]

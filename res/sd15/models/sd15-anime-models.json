@@ -86,7 +86,7 @@
                 "url": "https://huggingface.co/asiryan/meinamix/resolve/main/meinamix_meinaV11.safetensors"
             },
             {
-                "version": "v11-inpainting",
+                "version": "v11 - Inpainting",
                 "url": "https://huggingface.co/asiryan/meinamix/resolve/main/meinamix_v11-inpainting.safetensors"
             }
         ]

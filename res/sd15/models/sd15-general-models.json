@@ -58,11 +58,11 @@
         ],
         "variants": [
             {
-                "version": "v10",
+                "version": "Experience v10",
                 "url": "https://huggingface.co/Schisim/Experience/resolve/main/Experience_v10-FP16.safetensors"
             },
             {
-                "version": "Realistic Exp v3",
+                "version": "Realistic Experience v3",
                 "url": "https://huggingface.co/Schisim/Experience/resolve/main/Realistic_Experience_v3-FP16.safetensors"
             }
         ]

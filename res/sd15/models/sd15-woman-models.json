@@ -42,11 +42,11 @@
         ],
         "variants": [
             {
-                "version": "v2",
+                "version": "Remix v2",
                 "url": "https://huggingface.co/sazyou-roukaku/chilled_remix/resolve/main/chilled_remix_v2.safetensors"
             },
             {
-                "version": "Reversemix v2",
+                "version": "ReverseMix v2",
                 "url": "https://huggingface.co/sazyou-roukaku/chilled_remix/resolve/main/chilled_reversemix_v2.safetensors"
             }
         ]
