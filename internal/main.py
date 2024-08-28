@@ -2,10 +2,13 @@ import json
 import os
 import re
 import subprocess
+import pty
+import time
 from urllib.parse import urlparse
 
 import ipywidgets as widgets
 import requests
+from IPython import get_ipython
 from IPython.display import display
 
 # #################### GLOBAL PATHS ####################
@@ -100,7 +103,7 @@ def apply_envs2():
 def run_process(command: str, hide_output=True):
     # command = command.split()
     # subprocess.run(command, capture_output=hide_output, text=True, check=True)
-    subprocess.run(command, shell=True)
+    subprocess.run(command, capture_output=hide_output, text=True, bufsize=1, shell=True)
 
 
 # Update ubuntu dependencies
@@ -198,13 +201,23 @@ def downloader(url: str, path: str, overwrite=False, civitai_token=''):
     url_path = parsed_url.path
     filename = os.path.basename(url_path)
     formatted_url = f'"{url}"'
-    aria2c = f'aria2c --download-result=hide --console-log-level=error -c -x 16 -s 16 -k 1M -d {path} {formatted_url}'
+    aria2c = f'stdbuf -oL aria2c --download-result=hide --console-log-level=error -c -x 16 -s 16 -k 1M -d {path} {url}'
 
     if overwrite:
         aria2c += ' --allow-overwrite'
     if '.' in filename and filename.split('.')[-1] != '':
         aria2c += f' -o {filename}'
+
+    subprocess.run(aria2c, text=True, shell=True, bufsize=1)
+    get_ipython().system_raw(aria2c)
     run_process(aria2c, hide_output=False)
+
+    with subprocess.Popen(aria2c.split(), stdout=subprocess.PIPE, text=True, bufsize=1) as sp:
+        for line in sp.stdout:
+            dh = display(print(line, flush=True), display_id=True)
+            # print(line, flush=True)
+            time.sleep(1)
+            dh.update(line)
 
 
 # Git clone repo
@@ -230,7 +243,7 @@ def silent_get(command: str):
 # Install Web UI Forge
 def install_forge():
     os.chdir(root)
-    print('⏳ Installing Stable Diffusion Web UI Forge...')
+    print('⏳ Installing/Updating Stable Diffusion Web UI Forge...')
     webui_version = 'main'
     silent_clone(f'-b {webui_version} https://github.com/lllyasviel/stable-diffusion-webui-forge', root, update=True)
     os.chdir(webui)
@@ -447,7 +460,7 @@ def launch_webui(dark_theme: bool, username: str, password: str, ngrok_token: st
 
     args += ' --listen --port 3000'
     print('Launching Web UI...')
-    run_process(f'python webui.py {args}', False)
+    pty.spawn(f'python webui.py {args}'.split())
 
 
 def initialization_forge():
@@ -488,6 +501,7 @@ def models_selection(models_url: str, subdir: str, civitai=''):
             for name, version, url in selected_versions:
                 print(f'\n* {name} | {version}')
                 downloader(url, f'{models_path}/{subdir}', civitai_token=civitai)
+            completed_message()
 
     submit_button.on_click(on_press)
     for _, _, _, items in dropdowns:
