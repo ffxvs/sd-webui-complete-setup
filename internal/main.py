@@ -1,14 +1,13 @@
 import json
 import os
-import re
-import subprocess
 import pty
-import time
+import re
+import signal
+import subprocess
 from urllib.parse import urlparse
 
 import ipywidgets as widgets
 import requests
-from IPython import get_ipython
 from IPython.display import display
 
 # #################### GLOBAL PATHS ####################
@@ -65,6 +64,7 @@ sdxl_lora_list_url = main_repo_url + '/res/sdxl/sdxl-lora.json'
 
 sd = 'sd'
 sdxl = 'sdxl'
+runport_port = 3000
 boolean = [False, True]
 exclude_exts_forge = ['controlNet', 'canvasZoom', 'cleaner']
 request_headers = {
@@ -100,10 +100,10 @@ def apply_envs2():
 
 
 # Run external program
-def run_process(command: str, hide_output=True):
-    # command = command.split()
-    # subprocess.run(command, capture_output=hide_output, text=True, check=True)
-    subprocess.run(command, capture_output=hide_output, text=True, bufsize=1, shell=True)
+def run_process(command: str, hide_output=True, use_shell=False):
+    if not use_shell:
+        command = command.split()
+    subprocess.run(command, capture_output=hide_output, text=True, bufsize=1, shell=use_shell)
 
 
 # Update ubuntu dependencies
@@ -197,27 +197,28 @@ def downloader(url: str, path: str, overwrite=False, civitai_token=''):
         else:
             url += f'?token={civitai_token}'
 
+    prev_line = ''
     parsed_url = urlparse(url)
     url_path = parsed_url.path
     filename = os.path.basename(url_path)
-    formatted_url = f'"{url}"'
-    aria2c = f'stdbuf -oL aria2c --download-result=hide --console-log-level=error -c -x 16 -s 16 -k 1M -d {path} {url}'
+    on_completed = 'internal/on-completed.sh'
+    aria2c = f'stdbuf -oL aria2c --on-download-complete={on_completed} --download-result=hide --console-log-level=error -c -x 16 -s 16 -k 1M -d {path} {url}'
 
     if overwrite:
         aria2c += ' --allow-overwrite'
     if '.' in filename and filename.split('.')[-1] != '':
         aria2c += f' -o {filename}'
 
-    subprocess.run(aria2c, text=True, shell=True, bufsize=1)
-    get_ipython().system_raw(aria2c)
-    run_process(aria2c, hide_output=False)
-
     with subprocess.Popen(aria2c.split(), stdout=subprocess.PIPE, text=True, bufsize=1) as sp:
         for line in sp.stdout:
-            dh = display(print(line, flush=True), display_id=True)
-            # print(line, flush=True)
-            time.sleep(1)
-            dh.update(line)
+            if line.startswith('[#'):
+                text = 'Download progress {}'.format(line.strip('\n'))
+                print('\r' + ' ' * 80 + '\r' + text, end='\r', flush=True)
+                prev_line = text
+            elif line.startswith('[COMPLETED]'):
+                print(f'{prev_line} - {line}')
+            else:
+                print(line)
 
 
 # Git clone repo
@@ -440,8 +441,10 @@ def launch_webui(dark_theme: bool, username: str, password: str, ngrok_token: st
     with open(blocks_path, 'r') as file:
         content = file.read()
 
-    pattern = re.compile(r'print\(\s*strings\.en\["RUNNING_LOCALLY_SEPARATED"]\.format\(\s*self\.protocol, self\.server_name, self\.server_port\s*\)\s*\)')
-    replace = re.sub(pattern, 'print(strings.en["RUNNING_LOCALLY"].format(f\'https://{os.environ.get("RUNPOD_POD_ID")}-3001.proxy.runpod.net\'))',content)
+    pattern = re.compile(
+        r'print\(\s*strings\.en\["RUNNING_LOCALLY_SEPARATED"]\.format\(\s*self\.protocol, self\.server_name, self\.server_port\s*\)\s*\)')
+    replace = re.sub(pattern, 'print(strings.en["RUNNING_LOCALLY"].format(f\'https://{os.environ.get("RUNPOD_POD_ID")}-3001.proxy.runpod.net\'))',
+                     content)
 
     with open(blocks_path, 'w') as file:
         file.write(replace)
@@ -458,9 +461,13 @@ def launch_webui(dark_theme: bool, username: str, password: str, ngrok_token: st
     if cors:
         args += f' --cors-allow-origins {cors}'
 
-    args += ' --listen --port 3000'
+    args += f' --listen --port {runport_port}'
+    close_port(runport_port)
     print('Launching Web UI...')
-    pty.spawn(f'python webui.py {args}'.split())
+    try:
+        pty.spawn(f'python webui.py {args}'.split())
+    except KeyboardInterrupt:
+        print('--Process terminated--')
 
 
 def initialization_forge():
@@ -477,10 +484,11 @@ def models_selection(models_url: str, subdir: str, civitai=''):
     dropdowns = []
     for model in get_resource(models_url):
         options = ['Select version'] + [variant['version'] for variant in model['variants']]
-        dropdown = widgets.Dropdown(options=options, value='Select version', layout=widgets.Layout(width='200px'))
-        label = widgets.Label(model['name'], layout=widgets.Layout(width='150px'))
+        dropdown = widgets.Dropdown(options=options, value='Select version', layout=widgets.Layout(width='250px'))
+        label = widgets.Label(model['name'], layout=widgets.Layout(width='200px'))
         homepage_links = " | ".join([f"<a href='{site['url']}' target='_blank'>{site['name']}</a>" for site in model['homepage']])
-        homepage_label = widgets.HTML(f'<div class="jp-RenderedText" style="white-space:nowrap; display: inline-flex;"><pre>{homepage_links}</pre></div>')
+        homepage_label = widgets.HTML(
+            f'<div class="jp-RenderedText" style="white-space:nowrap; display: inline-flex;"><pre>{homepage_links}</pre></div>')
         items = widgets.HBox([label, dropdown, homepage_label])
         dropdowns.append((model["name"], dropdown, model["variants"], items))
 
@@ -498,10 +506,13 @@ def models_selection(models_url: str, subdir: str, civitai=''):
 
         with output:
             output.clear_output()
-            for name, version, url in selected_versions:
-                print(f'\n* {name} | {version}')
-                downloader(url, f'{models_path}/{subdir}', civitai_token=civitai)
-            completed_message()
+            try:
+                for name, version, url in selected_versions:
+                    print(f'\n* {name} | {version}')
+                    downloader(url, f'{models_path}/{subdir}', civitai_token=civitai)
+                completed_message()
+            except KeyboardInterrupt:
+                print('--Download interrupted--')
 
     submit_button.on_click(on_press)
     for _, _, _, items in dropdowns:
@@ -509,3 +520,12 @@ def models_selection(models_url: str, subdir: str, civitai=''):
         print('')
 
     display(submit_button, output)
+
+
+def close_port(port_number):
+    result = subprocess.run(['lsof', '-i', f':{port_number}'], capture_output=True, text=True)
+    lines = result.stdout.strip().split('\n')
+
+    if len(lines) > 1:
+        pid = int(lines[1].split()[1])
+        os.kill(pid, signal.SIGTERM)
