@@ -1,82 +1,158 @@
-{
-    "models": [
-        {
-            "id": "newReality",
-            "name": "NewRealityXL",
-            "variants": [
-                {
-                    "version": "v4",
-                    "url": "https://huggingface.co/misri/newrealityxlAllInOne_Newreality40/resolve/main/newrealityxlAllInOne_Newreality40.safetensors"
-                },
-                {
-                    "version": "Lightning v1",
-                    "url": "https://civitai.com/api/download/models/498484?type=Model&format=SafeTensor&size=full&fp=fp16"
-                }
-            ]
-        },
-        {
-            "id": "nightVision",
-            "name": "NightVision XL",
-            "variants": [
-                {
-                    "version": "v0.8.1.1",
-                    "url": "https://civitai.com/api/download/models/343830?type=Model&format=SafeTensor&size=pruned&fp=fp16"
-                },
-                {
-                    "version": "v0.7.9.1_vae",
-                    "url": "https://civitai.com/api/download/models/247444?type=Model&format=SafeTensor&size=pruned&fp=fp16"
-                }
-            ]
-        },
-        {
-            "id": "realismEngine",
-            "name": "Realism Engine SDXL",
-            "variants": [
-                {
-                    "version": "v3_vae",
-                    "url": "https://huggingface.co/misri/realismEngineSDXL_v30VAE/resolve/main/realismEngineSDXL_v30VAE.safetensors"
-                }
-            ]
-        },
-        {
-            "id": "realEdge",
-            "name": "Realities Edge XL",
-            "variants": [
-                {
-                    "version": "v7",
-                    "url": "https://civitai.com/api/download/models/346399?type=Model&format=SafeTensor&size=pruned&fp=fp16"
-                },
-                {
-                    "version": "Lightning v7",
-                    "url": "https://civitai.com/api/download/models/356366?type=Model&format=SafeTensor&size=pruned&fp=fp16"
-                },
-                {
-                    "version": "Turbo v7",
-                    "url": "https://civitai.com/api/download/models/356472?type=Model&format=SafeTensor&size=pruned&fp=fp16"
-                }
-            ]
-        },
-        {
-            "id": "realVis",
-            "name": "RealVisXL",
-            "variants": [
-                {
-                    "version": "v4_vae",
-                    "url": "hhttps://huggingface.co/SG161222/RealVisXL_V4.0/resolve/main/RealVisXL_V4.0.safetensors"
-                },
-                {
-                    "version": "Lightning v4_vae",
-                    "url": "https://huggingface.co/SG161222/RealVisXL_V4.0_Lightning/resolve/main/RealVisXL_V4.0_Lightning.safetensors"
-                },
-                {
-                    "version": "Turbo v3_vae",
-                    "url": "https://huggingface.co/SG161222/RealVisXL_V3.0_Turbo/resolve/main/RealVisXL_V3.0_Turbo.safetensors"
-                },
-                {
-                    "version": "v3_vae-inpainting",
-                    "url": "https://civitai.com/api/download/models/297320?type=Model&format=SafeTensor&size=pruned&fp=fp16"
-                }
-            ]
-        }
-    ]
-}
+[
+    {
+        "id": "epiCRealismXL",
+        "name": "epiCRealism XL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/161068?modelVersionId=690310"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v8-KiSS",
+                "url": "https://huggingface.co/misri/epicrealismXL_v8Kiss/resolve/main/epicrealismXL_v8Kiss.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "nightVision",
+        "name": "NightVision XL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/128607"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v9",
+                "url": "https://huggingface.co/asiryan/night-vision-xl/resolve/main/nightvisionxl_V900.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "ponyRealism",
+        "name": "Pony Realism",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/372465"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v2.1 Main (VAE)",
+                "url": "https://huggingface.co/LyliaEngine/ponyRealism_v21MainVAE/resolve/main/ponyRealism_v21MainVAE.safetensors"
+            },
+            {
+                "version": "v2.1 Alternative (VAE)",
+                "url": "https://civitai.com/api/download/models/582944?type=Model&format=SafeTensor&size=full&fp=fp16"
+            },
+            {
+                "version": "v2.1 Lightning 8S (VAE)",
+                "url": "https://civitai.com/api/download/models/546030?type=Model&format=SafeTensor&size=full&fp=fp16"
+            },
+            {
+                "version": "v2.1 - Inpainting (VAE)",
+                "url": "https://civitai.com/api/download/models/610021?type=Model&format=SafeTensor&size=full&fp=fp16"
+            }
+        ]
+    },
+    {
+        "id": "realismEngine",
+        "name": "Realism Engine SDXL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/152525"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v3 (VAE)",
+                "url": "https://huggingface.co/misri/realismEngineSDXL_v30VAE/resolve/main/realismEngineSDXL_v30VAE.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "realEdge",
+        "name": "Realities Edge XL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/129666"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v7",
+                "url": "https://civitai.com/api/download/models/346399?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+            },
+            {
+                "version": "Lightning v7",
+                "url": "https://civitai.com/api/download/models/356366?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+            },
+            {
+                "version": "Turbo v7",
+                "url": "https://huggingface.co/rafationgson/realities-edge-xl/resolve/main/RealitiesEdgeXLLIGHTNING_TURBOV7.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "realVis",
+        "name": "RealVisXL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/139562"
+            },
+            {
+                "name": "HuggingFace",
+                "url": "https://huggingface.co/SG161222/RealVisXL_V4.0"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v4 (VAE)",
+                "url": "hhttps://huggingface.co/SG161222/RealVisXL_V4.0/resolve/main/RealVisXL_V4.0.safetensors"
+            },
+            {
+                "version": "Lightning v4 (VAE)",
+                "url": "https://huggingface.co/SG161222/RealVisXL_V4.0_Lightning/resolve/main/RealVisXL_V4.0_Lightning.safetensors"
+            },
+            {
+                "version": "Turbo v3 (VAE)",
+                "url": "https://huggingface.co/SG161222/RealVisXL_V3.0_Turbo/resolve/main/RealVisXL_V3.0_Turbo.safetensors"
+            },
+            {
+                "version": "v3 - Inpainting (VAE)",
+                "url": "https://civitai.com/api/download/models/297320?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+            }
+        ]
+    },
+    {
+        "id": "newReality",
+        "name": "STOIQO NewReality",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/161068?modelVersionId=690310"
+            }
+        ],
+        "variants": [
+            {
+                "version": "XL PRO",
+                "url": "https://civitai.com/api/download/models/690310?type=Model&format=SafeTensor&size=full&fp=fp16"
+            },
+            {
+                "version": "v4",
+                "url": "https://huggingface.co/misri/newrealityxlAllInOne_Newreality40/resolve/main/newrealityxlAllInOne_Newreality40.safetensors"
+            },
+            {
+                "version": "Lightning v1",
+                "url": "https://civitai.com/api/download/models/498484?type=Model&format=SafeTensor&size=full&fp=fp16"
+            }
+        ]
+    }
+]

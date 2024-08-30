@@ -1,92 +1,162 @@
-{
-    "models": [
-        {
-            "id": "copaxTimeless",
-            "name": "Copax TimeLessXL",
-            "variants": [
-                {
-                    "version": "v12",
-                    "url": "https://huggingface.co/jetjodh/CopaxTimeLessXLv12/resolve/main/copaxTimelessxlSDXL1_v12.safetensors"
-                },
-                {
-                    "version": "Lightning v11",
-                    "url": "https://civitai.com/api/download/models/404559?type=Model&format=SafeTensor&size=pruned&fp=fp16"
-                },
-                {
-                    "version": "Turbo v2",
-                    "url": "https://civitai.com/api/download/models/505697?type=Model&format=SafeTensor&size=pruned&fp=fp16"
-                }
-            ]
-        },
-        {
-            "id": "dreamShaper",
-            "name": "DreamShaper XL",
-            "variants": [
-                {
-                    "version": "Lightning v1",
-                    "url": "https://huggingface.co/Lykon/dreamshaper-xl-lightning/resolve/main/DreamShaperXL_Lightning.safetensors"
-                },
-                {
-                    "version": "Turbo DPM++ SDE v2.1",
-                    "url": "https://huggingface.co/Lykon/dreamshaper-xl-v2-turbo/resolve/main/DreamShaperXL_Turbo_v2_1.safetensors"
-                }
-            ]
-        },
-        {
-            "id": "juggernaut",
-            "name": "Juggernaut XL",
-            "variants": [
-                {
-                    "version": "X",
-                    "url": "https://huggingface.co/RunDiffusion/Juggernaut-X-v10/resolve/main/Juggernaut-X-RunDiffusion-NSFW.safetensors"
-                },
-                {
-                    "version": "Hyper X",
-                    "url": "https://huggingface.co/RunDiffusion/Juggernaut-X-Hyper/resolve/main/JuggernautXRundiffusion_Hyper.safetensors"
-                },
-                {
-                    "version": "Lightning v9",
-                    "url": "https://huggingface.co/RunDiffusion/Juggernaut-XL-Lightning/resolve/main/Juggernaut_RunDiffusionPhoto2_Lightning_4Steps.safetensors"
-                }
-            ]
-        },
-        {
-            "id": "protoVision",
-            "name": "ProtoVision XL",
-            "variants": [
-                {
-                    "version": "v6.6.0_vae",
-                    "url": "https://civitai.com/api/download/models/265938?type=Model&format=SafeTensor&size=pruned&fp=fp16"
-                }
-            ]
-        },
-        {
-            "id": "sdxl",
-            "name": "SD XL",
-            "variants": [
-                {
-                    "version": "v1_vae",
-                    "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0_0.9vae.safetensors"
-                },
-                {
-                    "version": "v1_vae-refiner",
-                    "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0_0.9vae.safetensors"
-                },
-                {
-                    "version": "Turbo v1",
-                    "url": "https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/sd_xl_turbo_1.0_fp16.safetensors"
-                }
-            ]
-        },
-        {
-            "id": "zavyChroma",
-            "name": "ZavyChromaXL",
-            "variants": [
-                {
-                    "version": "v7",
-                    "url": "https://huggingface.co/misri/zavychromaxl_v70/resolve/main/zavychromaxl_v70.safetensors"
-                }
-            ]
-        }
-    ]
-}
+[
+    {
+        "id": "copaxTimeless",
+        "name": "Copax TimeLessXL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/118111?modelVersionId=724334"
+            }
+        ],
+        "variants": [
+            {
+                "version": "XIII",
+                "url": "https://civitai.com/api/download/models/724334?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+            },
+            {
+                "version": "Lightning v11",
+                "url": "https://civitai.com/api/download/models/404559?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+            },
+            {
+                "version": "Turbo v2",
+                "url": "https://civitai.com/api/download/models/505697?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+            }
+        ]
+    },
+    {
+        "id": "dreamShaper",
+        "name": "DreamShaper XL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/112902"
+            },
+            {
+                "name": "HuggingFace",
+                "url": "https://huggingface.co/Lykon/dreamshaper-xl-lightning"
+            }
+        ],
+        "variants": [
+            {
+                "version": "Lightning v1",
+                "url": "https://huggingface.co/Lykon/dreamshaper-xl-lightning/resolve/main/DreamShaperXL_Lightning.safetensors"
+            },
+            {
+                "version": "Turbo DPM++ SDE v2.1",
+                "url": "https://huggingface.co/Lykon/dreamshaper-xl-v2-turbo/resolve/main/DreamShaperXL_Turbo_v2_1.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "juggernaut",
+        "name": "Juggernaut XL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/133005"
+            },
+            {
+                "name": "HuggingFace",
+                "url": "https://huggingface.co/RunDiffusion/Juggernaut-XI-v11"
+            }
+        ],
+        "variants": [
+            {
+                "version": "XI",
+                "url": "https://civitai.com/api/download/models/471120?type=Model&format=SafeTensor&size=full&fp=fp16"
+            },
+            {
+                "version": "Hyper X",
+                "url": "https://huggingface.co/RunDiffusion/Juggernaut-X-Hyper/resolve/main/JuggernautXRundiffusion_Hyper.safetensors"
+            },
+            {
+                "version": "Lightning v9",
+                "url": "https://huggingface.co/RunDiffusion/Juggernaut-XL-Lightning/resolve/main/Juggernaut_RunDiffusionPhoto2_Lightning_4Steps.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "helloWorld",
+        "name": "LEOSAM's HelloWorld SDXL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/43977"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v7",
+                "url": "https://huggingface.co/DasonLe/Leosam_HelloWorldXL_v7/resolve/main/Leosam_HelloWorldXL_v7.safetensors"
+            },
+            {
+                "version": "Lightning Euler a v5",
+                "url": "https://huggingface.co/Maxclon/LEOSAM_HelloWorld_XL_Lightning/resolve/main/leosamsHelloworldXL_hw50EulerALightning.safetensors"
+            },
+            {
+                "version": "Turbo+LCM v2",
+                "url": "https://civitai.com/api/download/models/243290?type=Model&format=SafeTensor&size=full&fp=fp16"
+            }
+        ]
+    },
+    {
+        "id": "protoVision",
+        "name": "ProtoVision XL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/125703"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v6.6.0 (VAE)",
+                "url": "https://civitai.com/api/download/models/265938?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+            }
+        ]
+    },
+    {
+        "id": "sdxl",
+        "name": "SDXL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/101055"
+            },
+            {
+                "name": "HuggingFace",
+                "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v1 (VAE)",
+                "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0_0.9vae.safetensors"
+            },
+            {
+                "version": "v1 - Refiner (VAE)",
+                "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0_0.9vae.safetensors"
+            },
+            {
+                "version": "Turbo v1",
+                "url": "https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/sd_xl_turbo_1.0_fp16.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "zavyChroma",
+        "name": "ZavyChromaXL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/119229"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v9",
+                "url": "https://huggingface.co/misri/zavychromaxl_v90/resolve/main/zavychromaxl_v90.safetensors"
+            }
+        ]
+    }
+]

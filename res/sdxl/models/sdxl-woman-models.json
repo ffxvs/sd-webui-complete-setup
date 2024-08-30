@@ -1,53 +1,106 @@
-{
-    "models": [
-        {
-            "id": "arienmix",
-            "name": "ArienMixXL Asian portrait",
-            "variants": [
-                {
-                    "version": "v4.5",
-                    "url": "https://civitai.com/api/download/models/448627?type=Model&format=SafeTensor&size=pruned&fp=bf16"
-                }
-            ]
-        },
-        {
-            "id": "helloWorld",
-            "name": "LEOSAM's HelloWorld SDXL",
-            "variants": [
-                {
-                    "version": "v6",
-                    "url": "https://huggingface.co/misri/leosamsHelloworldXL_helloworldXL60/resolve/main/leosamsHelloworldXL_helloworldXL60.safetensors"
-                },
-                {
-                    "version": "Lightning Euler a v5",
-                    "url": "https://huggingface.co/Maxclon/LEOSAM_HelloWorld_XL_Lightning/resolve/main/leosamsHelloworldXL_hw50EulerALightning.safetensors"
-                },
-                {
-                    "version": "Turbo+LCM v2",
-                    "url": "https://civitai.com/api/download/models/243290?type=Model&format=SafeTensor&size=full&fp=fp16"
-                }
-            ]
-        },
-
-        {
-            "id": "sdvnReal",
-            "name": "SDVN6 RealXL",
-            "variants": [
-                {
-                    "version": "Detailface",
-                    "url": "https://civitai.com/api/download/models/134461?type=Model&format=SafeTensor&size=full&fp=fp16"
-                }
-            ]
-        },
-        {
-            "id": "xxmix9real",
-            "name": "XXMix 9realistic SDXL",
-            "variants": [
-                {
-                    "version": "v1",
-                    "url": "https://huggingface.co/Remilistrasza/XXMix_9realisticSDXL/resolve/main/xxmix9realisticsdxl_v10.safetensors"
-                }
-            ]
-        }
-    ]
-}
+[
+    {
+        "id": "arienmix",
+        "name": "ArienMixXL Asian portrait",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/118913"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v4.5",
+                "url": "https://civitai.com/api/download/models/448627?type=Model&format=SafeTensor&size=pruned&fp=bf16"
+            }
+        ]
+    },
+    {
+        "id": "afroditeXL",
+        "name": "AfroditeXL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/207101"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v3.1",
+                "url": "https://huggingface.co/nncyberpunk/SDXL1.0_AfroditeXL_31/resolve/main/SDXL1.0_AfroditeXL_31.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "babes",
+        "name": "BABES by Stable Yogi",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/174687"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v1",
+                "url": "https://civitai.com/api/download/models/353319?type=Model&format=SafeTensor&size=full&fp=fp16"
+            }
+        ]
+    },
+    {
+        "id": "lustify",
+        "name": "LUSTIFY!",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/LUSTIFY!"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v2",
+                "url": "https://huggingface.co/MishGUN1/LUSTIFY_V2/resolve/main/lustifySDXLNSFWSFW_v20.safetensors"
+            },
+            {
+                "version": "Lightning v2",
+                "url": "https://civitai.com/api/download/models/709664?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+            },
+            {
+                "version": "v2 - Inpainting",
+                "url": "https://civitai.com/api/download/models/715933?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+            }
+        ]
+    },
+    {
+        "id": "sdvnReal",
+        "name": "SDVN6 RealXL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/118114"
+            }
+        ],
+        "variants": [
+            {
+                "version": "Detailface",
+                "url": "https://huggingface.co/womeik2/sdvn6-realxl/resolve/main/sdvn6Realxl_detailface.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "xxmix9real",
+        "name": "XXMix 9realistic SDXL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/118114"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v1",
+                "url": "https://huggingface.co/Remilistrasza/XXMix_9realisticSDXL/resolve/main/xxmix9realisticsdxl_v10.safetensors"
+            }
+        ]
+    }
+]
