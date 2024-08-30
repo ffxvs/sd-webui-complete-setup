@@ -215,8 +215,10 @@ def downloader(url: str, path: str, overwrite=False, civitai_token=''):
                 text = 'Download progress {}'.format(line.strip('\n'))
                 print('\r' + ' ' * 80 + '\r' + text, end='\r', flush=True)
                 prev_line = text
-            elif line.startswith('[COMPLETED]'):
+            elif line.startswith('[COMPLETED]') and prev_line != '':
                 print(f'{prev_line} - {line}')
+            elif line.startswith('[COMPLETED]') and prev_line == '':
+                print(f'Download completed')
             else:
                 print(line)
 
