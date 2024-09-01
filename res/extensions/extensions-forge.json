@@ -85,12 +85,6 @@
             "enabled": true
         },
         {
-            "id": "tiledDiffusion",
-            "name": "Tiled Diffusion & VAE",
-            "url": "https://github.com/Jaylen-Lee/tilediffusion-demofusion-for-automatic1111-webui",
-            "enabled": true
-        },
-        {
             "id": "vectorscope",
             "name": "Vectorscope CC",
             "url": "https://github.com/Haoming02/sd-webui-vectorscope-cc",

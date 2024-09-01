@@ -15,6 +15,7 @@ from IPython.display import display
 root = '/notebooks'
 webui = root + os.environ.get('WEBUI_DIR', '')
 modules_path = webui + '/modules'
+oncompleted_path = '/internal/on-completed.sh'
 
 outputs_path = webui + '/outputs'
 extensions_path = webui + '/extensions'
@@ -113,6 +114,10 @@ def update_deps():
     run_process('apt -y -q update')
 
 
+def set_oncompleted_permission():
+    run_process(f'chmod +x {oncompleted_path}')
+
+
 # Create symlink
 def symlink(source: str, destination: str):
     if os.path.exists(source) and not os.path.islink(destination):
@@ -202,8 +207,7 @@ def downloader(url: str, path: str, overwrite=False, civitai_token=''):
     parsed_url = urlparse(url)
     url_path = parsed_url.path
     filename = os.path.basename(url_path)
-    on_completed = 'internal/on-completed.sh'
-    aria2c = f'stdbuf -oL aria2c --on-download-complete={on_completed} --download-result=hide --console-log-level=error -c -x 16 -s 16 -k 1M -d {path} {url}'
+    aria2c = f'stdbuf -oL aria2c --on-download-complete={oncompleted_path} --download-result=hide --console-log-level=error -c -x 16 -s 16 -k 1M -d {path} {url}'
 
     if overwrite:
         aria2c += ' --allow-overwrite'
@@ -216,9 +220,8 @@ def downloader(url: str, path: str, overwrite=False, civitai_token=''):
                 text = 'Download progress {}'.format(line.strip('\n'))
                 print('\r' + ' ' * 80 + '\r' + text, end='\r', flush=True)
                 prev_line = text
-            elif line.startswith('[COMPLETED]') and prev_line != '':
-                print(f'{prev_line} - {line}')
-            elif line.startswith('[COMPLETED]') and prev_line == '':
+            elif line.startswith('[COMPLETED]'):
+                if prev_line != '': print('')
                 print(f'Download completed')
             else:
                 print(line)
@@ -263,8 +266,8 @@ def install_forge():
 
 # Install built-in extensions
 def install_builtin_exts(update=False):
-    print("⏳ Installing built-in extensions...")
-    for ext in get_resource(builtin_exts_url):
+    print("\n⏳ Installing built-in extensions...")
+    for ext in get_resource(builtin_exts_forge_url):
         print(ext['name'] + '...')
         silent_clone(ext['url'], extensions_path, update)
 
@@ -434,22 +437,28 @@ def close_port(port_number):
 def initialization_forge():
     apply_envs1()
     apply_envs2()
-    hide_samplers()
     update_deps()
     create_shared_storage()
+    set_oncompleted_permission()
+    hide_samplers()
     install_forge()
     completed_message()
 
 
 def models_selection(models_url: str, subdir: str, civitai=''):
     dropdowns = []
+    models_header = widgets.HTML('<h3 style="width: 200px;">Models Name</h3>')
+    versions_header = widgets.HTML('<h3 style="width: 250px;">Versions</h3>')
+    homepages_header = widgets.HTML('<h3 style="width: 100px;">Homepages</h3>')
+    headers = widgets.HBox([models_header, versions_header, homepages_header])
+
     for model in get_resource(models_url):
         options = ['Select version'] + [variant['version'] for variant in model['variants']]
-        dropdown = widgets.Dropdown(options=options, value='Select version', layout=widgets.Layout(width='250px'))
+        dropdown = widgets.Dropdown(options=options, value='Select version', layout=widgets.Layout(width='230px'))
         label = widgets.Label(model['name'], layout=widgets.Layout(width='200px'))
-        homepage_links = ' | '.join([f'<a href="{site['url']}" target="_blank">{site["name"]}</a>' for site in model['homepage']])
+        homepage_links = ' | '.join([f'<a href="{site["url"]}" target="_blank">{site["name"]}</a>' for site in model['homepage']])
         homepage_label = widgets.HTML(
-            f'<div class="jp-RenderedText" style="white-space:nowrap; display: inline-flex;"><pre>{homepage_links}</pre></div>')
+            f'<div class="jp-RenderedText" style="padding-left:20px; white-space:nowrap; display: inline-flex;"><pre>{homepage_links}</pre></div>')
         items = widgets.HBox([label, dropdown, homepage_label])
         dropdowns.append((model['name'], dropdown, model['variants'], items))
 
@@ -473,9 +482,10 @@ def models_selection(models_url: str, subdir: str, civitai=''):
                     downloader(url, f'{models_path}/{subdir}', civitai_token=civitai)
                 completed_message()
             except KeyboardInterrupt:
-                print('--Download interrupted--')
+                print('\n\n--Download interrupted--')
 
     download_button.on_click(on_press)
+    display(headers)
     for _, _, _, items in dropdowns:
         display(items)
         print('')
@@ -487,16 +497,16 @@ def extensions_selection(exts_url: str):
     checkboxes = []
     exts_header = widgets.HTML('<h3 style="width: 250px; text-align: center;">Extensions</h3>')
     status_header = widgets.HTML('<h3 style="width: 120px; text-align: center;">Status</h3>')
-    homepage_header = widgets.HTML('<h3 style="width: 120px; text-align: center;">Homepage</h3>')
-    headers = widgets.HBox([exts_header, status_header, homepage_header])
+    homepages_header = widgets.HTML('<h3 style="width: 120px; text-align: center;">Homepages</h3>')
+    headers = widgets.HBox([exts_header, status_header, homepages_header])
 
     for ext in get_resource(exts_url)['extensions']:
-        directory = f'{models_path}/{ext['url'].split("/")[-1]}'
+        directory = f"{extensions_path}/{ext['url'].split('/')[-1]}"
         if os.path.exists(directory):
-            installed_status = "installed"
+            installed_status = 'installed'
             enabled = True
         else:
-            installed_status = "not installed"
+            installed_status = 'not installed'
             if ext['enabled']:
                 enabled = True
             else:
@@ -505,7 +515,7 @@ def extensions_selection(exts_url: str):
         checkbox = widgets.Checkbox(value=enabled, description=ext['name'], indent=False, layout={'width': '250px'})
         status = widgets.HTML(f'<div style="text-align: center; width: 120px;">{installed_status}</div>')
         homepage = widgets.HTML(f'<div class="jp-RenderedText" style="width: 105px; text-align: center; white-space:nowrap; display: inline-grid;">'
-                                f'<pre><a href="{ext['url']}" target="_blank">GitHub</a></pre></div>')
+                                f'<pre><a href="{ext["url"]}" target="_blank">GitHub</a></pre></div>')
         items = widgets.HBox([checkbox, status, homepage])
         checkboxes.append((ext, checkbox, items))
 
@@ -525,11 +535,11 @@ def extensions_selection(exts_url: str):
                 for _id, name, url in selected_exts:
                     if _id == 'bmab':
                         run_process('pip install -q basicsr')
-                    print(f'\n* {name}...')
+                    print(f'{name}...')
                     silent_clone(url, extensions_path, update=update_exts.value)
                 completed_message()
             except KeyboardInterrupt:
-                print('--Download interrupted--')
+                print('\n\n--Install interrupted--')
 
     download_button.on_click(on_press)
     display(headers)
