@@ -37,8 +37,10 @@ shared_config_path = shared_storage + '/config'
 
 # Resource URLs
 main_repo_url = 'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/dev'
-builtin_exts_url = main_repo_url + '/res/builtin-extensions.json'
-extensions_url = main_repo_url + '/res/extensions.json'
+builtin_exts_url = main_repo_url + '/res/extensions/builtin-extensions.json'
+builtin_exts_forge_url = main_repo_url + '/res/extensions/builtin-extensions-forge.json'
+extensions_url = main_repo_url + '/res/extensions/extensions.json'
+extensions_forge_url = main_repo_url + '/res/extensions/extensions-forge.json'
 upscaler_list_url = main_repo_url + '/res/upscaler.json'
 
 sd15_controlnet_url = main_repo_url + '/res/sd15/sd15-controlnet.json'

@@ -1,0 +1,130 @@
+{
+    "extensions": [
+        {
+            "id": "adetailer",
+            "name": "Adetailer (After Detailer)",
+            "url": "https://github.com/Bing-su/adetailer",
+            "enabled": true
+        },
+        {
+            "id": "animateDiff",
+            "name": "AnimateDiff",
+            "url": "https://github.com/continue-revolution/sd-webui-animatediff",
+            "enabled": false
+        },
+        {
+            "id": "bmab",
+            "name": "BMAB",
+            "url": "https://github.com/portu-sim/sd-webui-bmab",
+            "enabled": false
+        },
+        {
+            "id": "depthLib",
+            "name": "Depth Map Library",
+            "url": "https://github.com/wywywywy/sd-webui-depth-lib",
+            "enabled": false
+        },
+        {
+            "id": "huggingFace",
+            "name": "Hugging Face",
+            "url": "https://github.com/camenduru/stable-diffusion-webui-huggingface",
+            "enabled": false
+        },
+        {
+            "id": "inpaintAny",
+            "name": "Inpaint Anything",
+            "url": "https://github.com/Uminosachi/sd-webui-inpaint-anything",
+            "enabled": false
+        },
+        {
+            "id": "latentCouple",
+            "name": "Latent Couple",
+            "url": "https://github.com/aria1th/stable-diffusion-webui-two-shot",
+            "enabled": false
+        },
+        {
+            "id": "miniPaint",
+            "name": "Mini Paint",
+            "url": "https://github.com/0Tick/a1111-mini-paint",
+            "enabled": true
+        },
+        {
+            "id": "modelDownloader",
+            "name": "SD Model Downloader",
+            "url": "https://github.com/Iyashinouta/sd-model-downloader",
+            "enabled": false
+        },
+        {
+            "id": "npw",
+            "name": "Negative Prompt Weight",
+            "url": "https://github.com/muerrilla/stable-diffusion-NPW",
+            "enabled": false
+        },
+        {
+            "id": "openOutpaint",
+            "name": "openOutpaint",
+            "url": "https://github.com/zero01101/openOutpaint-webUI-extension",
+            "enabled": false
+        },
+        {
+            "id": "photopea",
+            "name": "Photopea",
+            "url": "https://github.com/yankooliveira/sd-webui-photopea-embed",
+            "enabled": true
+        },
+        {
+            "id": "promptHistory",
+            "name": "Prompt History",
+            "url": "https://github.com/namkazt/sd-webui-prompt-history",
+            "enabled": false
+        },
+        {
+            "id": "rembg",
+            "name": "Remove Background",
+            "url": "https://github.com/AUTOMATIC1111/stable-diffusion-webui-rembg",
+            "enabled": false
+        },
+        {
+            "id": "regionalPrompter",
+            "name": "Regional Prompter",
+            "url": "https://github.com/hako-mikan/sd-webui-regional-prompter",
+            "enabled": false
+        },
+        {
+            "id": "sag",
+            "name": "Self Attention Guidance",
+            "url": "https://github.com/ashen-sensored/sd_webui_SAG",
+            "enabled": false
+        },
+        {
+            "id": "styleXL",
+            "name": "Style Selector XL",
+            "url": "https://github.com/ahgsql/StyleSelectorXL",
+            "enabled": false
+        },
+        {
+            "id": "tabsExtension",
+            "name": "Tabs Extension",
+            "url": "https://github.com/Haoming02/sd-webui-tabs-extension",
+            "enabled": false
+        },
+        {
+            "id": "tagComplete",
+            "name": "Tag Autocomplete",
+            "url": "https://github.com/DominikDoom/a1111-sd-webui-tagcomplete",
+            "enabled": true
+        },
+        {
+            "id": "tiledDiffusion",
+            "name": "Tiled Diffusion & VAE",
+            "url": "https://github.com/pkuliyi2015/multidiffusion-upscaler-for-automatic1111",
+            "enabled": true
+        },
+        {
+            "id": "vectorscope",
+            "name": "Vectorscope CC",
+            "url": "https://github.com/Haoming02/sd-webui-vectorscope-cc",
+            "enabled": false
+        }
+    ]
+}
