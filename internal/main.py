@@ -68,7 +68,6 @@ sd = 'sd'
 sdxl = 'sdxl'
 runport_port = 3000
 boolean = [False, True]
-exclude_exts_forge = ['controlNet', 'canvasZoom', 'cleaner']
 request_headers = {
     "Cache-Control": "no-cache, no-store, must-revalidate",
     "Pragma": "no-cache",
@@ -263,26 +262,11 @@ def install_forge():
 
 
 # Install built-in extensions
-def download_default_exts(update_exts=False):
+def install_builtin_exts(update=False):
     print("⏳ Installing built-in extensions...")
-    for ext in get_resource(builtin_exts_url)['extensions']:
-        if not ext['id'] in exclude_exts_forge:
-            print(ext['name'] + '...')
-            silent_clone(ext['url'], extensions_path, update_exts)
-
-
-# Install selected extensions
-def download_exts(update_exts=False):
-    print("\n⏳ Installing selected extensions...")
-    for ext in get_resource(extensions_url)['extensions']:
-        try:
-            if eval(ext['id']):
-                if ext['id'] == 'bmab':
-                    run_process('pip install -q basicsr')
-                print(ext['name'] + '...')
-                silent_clone(ext['url'], extensions_path, update_exts)
-        except:
-            pass
+    for ext in get_resource(builtin_exts_url):
+        print(ext['name'] + '...')
+        silent_clone(ext['url'], extensions_path, update)
 
 
 # Install other extensions
@@ -304,42 +288,6 @@ def download_controlnet(controlnet: list, url: str, subdir: str):
             for url in controlnet_data[model]:
                 downloader(url, f'{controlnet_models_path}/{subdir}')
                 print('')
-
-
-# Model mapper
-def model_mapper(name: str, version: str, url: str):
-    return {
-        'name': name,
-        'version': version,
-        'url': url
-    }
-
-
-class ModelMapper:
-    def __init__(self, name: str, version: str, url: str):
-        self.name = name
-        self.version = version
-        self.url = url
-
-
-# Selected models
-def selected_models(models_url: str):
-    model_list = []
-    for model in get_resource(models_url)['models']:
-        is_selected = eval(model['id'])
-        if is_selected != 'Select version...':
-            for variant in model['variants']:
-                if variant['version'] == is_selected:
-                    model_list.append(ModelMapper(model['name'], variant['version'], variant['url']))
-    return model_list
-
-
-# Download selected models
-def download_models(models_url: str, subdir: str, civitai=''):
-    print('⏳ Downloading selected models...')
-    for model in selected_models(models_url):
-        print(f"\n* {model.name} | {model.version}")
-        downloader(model.url, f'{models_path}/{subdir}', civitai_token=civitai)
 
 
 # Download built-in resources
@@ -367,6 +315,8 @@ def download_builtin_resources(resources_url: str, subdir: str):
             print(item['name'] + '...')
             if resource_type == 'embeddings':
                 silent_clone(item['url'], f'{parentdir}/{subdir}', True)
+            elif resource_type == 'upscaler':
+                downloader(item['url'], parentdir)
             else:
                 downloader(item['url'], f'{parentdir}/{subdir}')
 
@@ -445,10 +395,8 @@ def launch_webui(dark_theme: bool, username: str, password: str, ngrok_token: st
     with open(blocks_path, 'r') as file:
         content = file.read()
 
-    pattern = re.compile(
-        r'print\(\s*strings\.en\["RUNNING_LOCALLY_SEPARATED"]\.format\(\s*self\.protocol, self\.server_name, self\.server_port\s*\)\s*\)')
-    replace = re.sub(pattern, 'print(strings.en["RUNNING_LOCALLY"].format(f\'https://{os.environ.get("RUNPOD_POD_ID")}-3001.proxy.runpod.net\'))',
-                     content)
+    pattern = re.compile(r'print\(\s*strings\.en\["RUNNING_LOCALLY_SEPARATED"]\.format\(\s*self\.protocol, self\.server_name, self\.server_port\s*\)\s*\)')
+    replace = re.sub(pattern, 'print(strings.en["RUNNING_LOCALLY"].format(f\'https://{os.environ.get("RUNPOD_POD_ID")}-3001.proxy.runpod.net\'))', content)
 
     with open(blocks_path, 'w') as file:
         file.write(replace)
@@ -474,6 +422,15 @@ def launch_webui(dark_theme: bool, username: str, password: str, ngrok_token: st
         print('--Process terminated--')
 
 
+def close_port(port_number):
+    result = subprocess.run(['lsof', '-i', f':{port_number}'], capture_output=True, text=True)
+    lines = result.stdout.strip().split('\n')
+
+    if len(lines) > 1:
+        pid = int(lines[1].split()[1])
+        os.kill(pid, signal.SIGTERM)
+
+
 def initialization_forge():
     apply_envs1()
     apply_envs2()
@@ -490,13 +447,13 @@ def models_selection(models_url: str, subdir: str, civitai=''):
         options = ['Select version'] + [variant['version'] for variant in model['variants']]
         dropdown = widgets.Dropdown(options=options, value='Select version', layout=widgets.Layout(width='250px'))
         label = widgets.Label(model['name'], layout=widgets.Layout(width='200px'))
-        homepage_links = " | ".join([f"<a href='{site['url']}' target='_blank'>{site['name']}</a>" for site in model['homepage']])
+        homepage_links = ' | '.join([f'<a href="{site['url']}" target="_blank">{site["name"]}</a>' for site in model['homepage']])
         homepage_label = widgets.HTML(
             f'<div class="jp-RenderedText" style="white-space:nowrap; display: inline-flex;"><pre>{homepage_links}</pre></div>')
         items = widgets.HBox([label, dropdown, homepage_label])
-        dropdowns.append((model["name"], dropdown, model["variants"], items))
+        dropdowns.append((model['name'], dropdown, model['variants'], items))
 
-    submit_button = widgets.Button(description='Download', button_style='success')
+    download_button = widgets.Button(description='Download', button_style='success')
     output = widgets.Output()
 
     def on_press(button):
@@ -518,18 +475,65 @@ def models_selection(models_url: str, subdir: str, civitai=''):
             except KeyboardInterrupt:
                 print('--Download interrupted--')
 
-    submit_button.on_click(on_press)
+    download_button.on_click(on_press)
     for _, _, _, items in dropdowns:
         display(items)
         print('')
 
-    display(submit_button, output)
+    display(download_button, output)
 
 
-def close_port(port_number):
-    result = subprocess.run(['lsof', '-i', f':{port_number}'], capture_output=True, text=True)
-    lines = result.stdout.strip().split('\n')
+def extensions_selection(exts_url: str):
+    checkboxes = []
+    exts_header = widgets.HTML('<h3 style="width: 250px; text-align: center;">Extensions</h3>')
+    status_header = widgets.HTML('<h3 style="width: 120px; text-align: center;">Status</h3>')
+    homepage_header = widgets.HTML('<h3 style="width: 120px; text-align: center;">Homepage</h3>')
+    headers = widgets.HBox([exts_header, status_header, homepage_header])
 
-    if len(lines) > 1:
-        pid = int(lines[1].split()[1])
-        os.kill(pid, signal.SIGTERM)
+    for ext in get_resource(exts_url)['extensions']:
+        directory = f'{models_path}/{ext['url'].split("/")[-1]}'
+        if os.path.exists(directory):
+            installed_status = "installed"
+            enabled = True
+        else:
+            installed_status = "not installed"
+            if ext['enabled']:
+                enabled = True
+            else:
+                enabled = False
+
+        checkbox = widgets.Checkbox(value=enabled, description=ext['name'], indent=False, layout={'width': '250px'})
+        status = widgets.HTML(f'<div style="text-align: center; width: 120px;">{installed_status}</div>')
+        homepage = widgets.HTML(f'<div class="jp-RenderedText" style="width: 105px; text-align: center; white-space:nowrap; display: inline-grid;">'
+                                f'<pre><a href="{ext['url']}" target="_blank">GitHub</a></pre></div>')
+        items = widgets.HBox([checkbox, status, homepage])
+        checkboxes.append((ext, checkbox, items))
+
+    update_exts = widgets.Checkbox(value=False, description='Update all extensions', indent=False, layout={'margin': '2px 0 0 50px'})
+    download_button = widgets.Button(description='Install', button_style='success')
+    footer = widgets.HBox([download_button, update_exts])
+    output = widgets.Output()
+
+    def on_press(button):
+        selected_exts = [(_ext['id'], _ext['name'], _ext['url']) for _ext, _checkbox, _ in checkboxes if _checkbox.value]
+
+        with output:
+            output.clear_output()
+            try:
+                install_builtin_exts(update_exts.value)
+                print("\n⏳ Installing selected extensions...")
+                for _id, name, url in selected_exts:
+                    if _id == 'bmab':
+                        run_process('pip install -q basicsr')
+                    print(f'\n* {name}...')
+                    silent_clone(url, extensions_path, update=update_exts.value)
+                completed_message()
+            except KeyboardInterrupt:
+                print('--Download interrupted--')
+
+    download_button.on_click(on_press)
+    display(headers)
+    for _, _, items in checkboxes:
+        display(items)
+    print('')
+    display(footer, output)

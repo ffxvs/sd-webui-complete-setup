@@ -19,12 +19,6 @@
             "enabled": false
         },
         {
-            "id": "huggingFace",
-            "name": "Hugging Face",
-            "url": "https://github.com/camenduru/stable-diffusion-webui-huggingface",
-            "enabled": false
-        },
-        {
             "id": "miniPaint",
             "name": "Mini Paint",
             "url": "https://github.com/0Tick/a1111-mini-paint",
@@ -58,6 +52,12 @@
             "id": "promptHistory",
             "name": "Prompt History",
             "url": "https://github.com/namkazt/sd-webui-prompt-history",
+            "enabled": false
+        },
+        {
+            "id": "huggingFace",
+            "name": "Push to HuggingFace",
+            "url": "https://github.com/camenduru/stable-diffusion-webui-huggingface",
             "enabled": false
         },
         {
