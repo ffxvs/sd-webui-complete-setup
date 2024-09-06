@@ -382,7 +382,7 @@ def launch_webui(dark_theme: bool, username: str, password: str, ngrok_token: st
     try:
         pty.spawn(f'python webui.py {args}'.split())
     except KeyboardInterrupt:
-        print('--Process terminated--')
+        print('\n--Process terminated--')
 
 
 def initialization_forge():
@@ -447,10 +447,9 @@ def download_controlnet(controlnet: list, url: str, subdir: str):
     controlnet_data = get_resources(url)
     for model in controlnet:
         if controlnet[model]:
-            print('\n' + model + '...')
+            print('\n* ' + model + '...')
             for url in controlnet_data[model]:
                 downloader(url, f'{controlnet_models_path}/{subdir}')
-                print('')
 
 
 def resources_selection(builtin_res_url: str, resources_url: str, subdir: str, civitai=''):

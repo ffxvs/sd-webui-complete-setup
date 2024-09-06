@@ -1,0 +1,41 @@
+{
+    "auto1111": [
+        {
+            "id": "paperspace",
+            "version": ""
+        },
+        {
+            "id": "runpod",
+            "version": ""
+        }
+    ],
+    "forge": [
+        {
+            "id": "paperspace",
+            "version": ""
+        },
+        {
+            "id": "runpod",
+            "version": "2024.09.05"
+        }
+    ],
+    "resources": [
+        {
+            "id": "sd15",
+            "version": "2024.09.05"
+        },
+        {
+            "id": "sdxl",
+            "version": "2024.09.05"
+        }
+    ],
+    "containers": [
+        {
+            "id": "auto1111",
+            "version": ""
+        },
+        {
+            "id": "forge",
+            "version": "2024.09.06"}
+    ]
+}
