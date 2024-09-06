@@ -198,7 +198,9 @@ def storage_symlinks():
 
 # Get resources list json
 def get_resources(url: str):
-    res = requests.get(url, headers=request_headers)
+    session = requests.Session()
+    session.cache_disabled = True
+    res = session.get(url, headers=request_headers)
     if res.status_code == 200:
         return res.json()
     else:
