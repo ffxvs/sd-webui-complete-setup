@@ -1,5 +1,5 @@
 {
-    "lora": [
+    "LoRA": [
         {
             "name": "Add More Details - Detail Enhancer/Tweaker",
             "url": "https://huggingface.co/ffxvs/lora-effects/resolve/main/add_more_details.safetensors"
@@ -11,13 +11,9 @@
         {
             "name": "Epi Noise Offset",
             "url": "https://huggingface.co/ffxvs/lora-effects/resolve/main/epiNoiseoffset_v2.safetensors"
-        },
-        {
-            "name": "LowRA",
-            "url": "https://huggingface.co/ffxvs/lora-effects/resolve/main/lowRA.safetensors"
         }
     ],
-    "embeddings": [
+    "Embeddings": [
         {
             "name": "Negative prompts pack",
             "url": "https://huggingface.co/ffxvs/negative-prompts-pack"
@@ -27,13 +23,13 @@
             "url": "https://huggingface.co/ffxvs/embeddings-collection"
         }
     ],
-    "upscaler": [
+    "Upscaler": [
         {
             "name": "UltraSharp",
             "url": "https://huggingface.co/ffxvs/upscaler/resolve/main/UltraSharp_4x.pth"
         }
     ],
-    "vae": [
+    "VAE": [
         {
             "name": "vae-ft-mse-840000",
             "url": "https://huggingface.co/stabilityai/sd-vae-ft-mse-original/resolve/main/vae-ft-mse-840000-ema-pruned.safetensors"

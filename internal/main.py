@@ -51,9 +51,7 @@ sd15_general_models_url = main_repo_url + '/res/sd15/models/sd15-general-models.
 sd15_realistic_models_url = main_repo_url + '/res/sd15/models/sd15-realistic-models.json'
 sd15_woman_models_url = main_repo_url + '/res/sd15/models/sd15-woman-models.json'
 sd15_builtin_resources_url = main_repo_url + '/res/sd15/sd15-builtin-resources.json'
-sd15_lora_list_url = main_repo_url + '/res/sd15/sd15-lora.json'
-sd15_embedding_list_url = main_repo_url + '/res/sd15/sd15-embeddings.json'
-sd15_vae_list_url = main_repo_url + '/res/sd15/sd15-vae.json'
+sd15_resources_url = main_repo_url + '/res/sd15/sd15-resources.json'
 
 sdxl_controlnet_url = main_repo_url + '/res/sdxl/sdxl-controlnet.json'
 sdxl_anime_models_url = main_repo_url + '/res/sdxl/models/sdxl-anime-models.json'
@@ -61,13 +59,16 @@ sdxl_general_models_url = main_repo_url + '/res/sdxl/models/sdxl-general-models.
 sdxl_realistic_models_url = main_repo_url + '/res/sdxl/models/sdxl-realistic-models.json'
 sdxl_woman_models_url = main_repo_url + '/res/sdxl/models/sdxl-woman-models.json'
 sdxl_builtin_resources_url = main_repo_url + '/res/sdxl/sdxl-builtin-resources.json'
-sdxl_lora_list_url = main_repo_url + '/res/sdxl/sdxl-lora.json'
+sdxl_resources_url = main_repo_url + '/res/sdxl/sdxl-resources.json'
+
 
 # #################### VARIABLES ####################
 
 sd = 'sd'
 sdxl = 'sdxl'
-runport_port = 3000
+runpod = 'runpod'
+paperspace = 'paperspace'
+runpod_port = 3000
 boolean = [False, True]
 request_headers = {
     "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -132,6 +133,15 @@ def completed_message():
     display(completed)
 
 
+def close_port(port_number):
+    result = subprocess.run(['lsof', '-i', f':{port_number}'], capture_output=True, text=True)
+    lines = result.stdout.strip().split('\n')
+
+    if len(lines) > 1:
+        pid = int(lines[1].split()[1])
+        os.kill(pid, signal.SIGTERM)
+
+
 # Hide samplers
 def hide_samplers():
     config_file = f'{shared_config_path}/config.json'
@@ -187,7 +197,7 @@ def storage_symlinks():
 
 
 # Get resources list json
-def get_resource(url: str):
+def get_resources(url: str):
     res = requests.get(url, headers=request_headers)
     if res.status_code == 200:
         return res.json()
@@ -264,124 +274,73 @@ def install_forge():
     storage_symlinks()
 
 
+# Install selected extensions
+def extensions_selection(_builtin_exts_url: str, _exts_url: str):
+    checkboxes = []
+    exts_header = widgets.HTML('<h3 style="width: 250px; text-align: center;">Extensions</h3>')
+    status_header = widgets.HTML('<h3 style="width: 120px; text-align: center;">Status</h3>')
+    homepages_header = widgets.HTML('<h3 style="width: 120px; text-align: center;">Homepages</h3>')
+    headers = widgets.HBox([exts_header, status_header, homepages_header])
+    output = widgets.Output()
+    display(headers)
+
+    for ext in get_resources(_exts_url):
+        directory = f"{extensions_path}/{ext['url'].split('/')[-1]}"
+        if os.path.exists(directory):
+            installed_status = 'installed'
+            enabled = True
+        else:
+            installed_status = 'not installed'
+            enabled = True if ext['enabled'] else False
+
+        checkbox = widgets.Checkbox(value=enabled, description=ext['name'], indent=False, layout={'width': '250px'})
+        status = widgets.HTML(f'<div style="text-align: center; width: 120px;">{installed_status}</div>')
+        homepage = widgets.HTML(f'<div class="jp-RenderedText" style="width: 105px; text-align: center; white-space:nowrap; display: inline-grid;">'
+                                f'<pre><a href="{ext["url"]}" target="_blank">GitHub</a></pre></div>')
+        item = widgets.HBox([checkbox, status, homepage])
+        checkboxes.append((ext, checkbox))
+        display(item)
+
+    def on_press(button):
+        selected_exts = [(_ext['id'], _ext['name'], _ext['url']) for _ext, _checkbox, _ in checkboxes if _checkbox.value]
+        with output:
+            output.clear_output()
+            try:
+                install_builtin_exts(_builtin_exts_url, update_exts.value)
+                print("\n⏳ Installing selected extensions...")
+                for _id, name, url in selected_exts:
+                    if _id == 'bmab':
+                        run_process('pip install -q basicsr')
+                    print(f'{name}...')
+                    silent_clone(url, extensions_path, update=update_exts.value)
+                completed_message()
+            except KeyboardInterrupt:
+                print('\n\n--Install interrupted--')
+
+    update_exts = widgets.Checkbox(value=False, description='Update all extensions', indent=False, layout={'margin': '2px 0 0 50px'})
+    download_button = widgets.Button(description='Install', button_style='success')
+    footer = widgets.HBox([download_button, update_exts])
+    download_button.on_click(on_press)
+    print('')
+    display(footer, output)
+
+
 # Install built-in extensions
-def install_builtin_exts(update=False):
+def install_builtin_exts(exts_url: str, update=False):
     print("\n⏳ Installing built-in extensions...")
-    for ext in get_resource(builtin_exts_forge_url):
+    for ext in get_resources(exts_url):
         print(ext['name'] + '...')
         silent_clone(ext['url'], extensions_path, update)
 
 
 # Install other extensions
-def download_other_exts(extensions: list, update_exts=False):
+def install_other_exts(extensions: list, update_exts=False):
     if extensions:
         print("⏳ Installing extensions...")
         for ext in extensions:
             name = ext.split('/')[-1]
             print(name + '...')
             silent_clone(ext, extensions_path, update_exts)
-
-
-# Download ControlNet
-def download_controlnet(controlnet: list, url: str, subdir: str):
-    controlnet_data = get_resource(url)
-    for model in controlnet:
-        if controlnet[model]:
-            print('\n' + model + '...')
-            for url in controlnet_data[model]:
-                downloader(url, f'{controlnet_models_path}/{subdir}')
-                print('')
-
-
-# Download built-in resources
-def download_builtin_resources(resources_url: str, subdir: str):
-    section = ''
-    parentdir = ''
-    resources = get_resource(resources_url)
-    for resource_type, items in resources.items():
-        match resource_type:
-            case 'embeddings':
-                section = 'Embeddings'
-                parentdir = embeddings_path
-            case 'lora':
-                section = 'LoRA'
-                parentdir = lora_path
-            case 'upscaler':
-                section = 'Upscaler'
-                parentdir = upscaler_path
-            case 'vae':
-                section = 'VAE'
-                parentdir = vae_path
-
-        print(f'⏳ Downloading built-in {section}...')
-        for item in items:
-            print(item['name'] + '...')
-            if resource_type == 'embeddings':
-                silent_clone(item['url'], f'{parentdir}/{subdir}', True)
-            elif resource_type == 'upscaler':
-                downloader(item['url'], parentdir)
-            else:
-                downloader(item['url'], f'{parentdir}/{subdir}')
-
-
-# Selected resources
-def selected_resources(resource_list: list, resource_path: str):
-    for resource in resource_list:
-        if eval(resource['id']):
-            print(f"\n {resource['name']}...")
-            for url in resource['url']:
-                downloader(url, resource_path)
-                print('')
-
-
-# Download selected LoRA
-def download_lora(lora_url: str, subdir: str):
-    print('\n\n⏳ Downloading selected LoRA...')
-    selected_resources(get_resource(lora_url)['lora'], f'{lora_path}/{subdir}')
-
-
-# Download selected embeddings
-def download_embeddings(embeddings_url: str, subdir: str):
-    print('\n\n⏳ Downloading selected embeddings...')
-    for embedding in get_resource(embeddings_url)['embeddings']:
-        if eval(embedding['id']):
-            print(embedding['name'] + '...')
-            silent_clone(embedding['url'], f'{embeddings_path}/{subdir}', True)
-
-
-# Download selected upscaler
-def download_upscaler():
-    print('\n\n⏳ Downloading selected upscaler...')
-    selected_resources(get_resource(upscaler_list_url)['upscaler'], upscaler_path)
-
-
-# Download selected VAE
-def download_vae(vae_url: str, subdir: str):
-    print('\n\n⏳ Downloading selected LoRA...')
-    selected_resources(get_resource(vae_url)['vae'], f'{vae_path}/{subdir}')
-
-
-# Other resources
-def other_resources(resource_list: list, resource_path: str, civitai=''):
-    for resource in resource_list:
-        print('\n' + resource)
-        downloader(resource, resource_path, civitai_token=civitai)
-
-
-# Download other resources
-def download_other_resources(subdir: str, lora: list, embeddings: list, upscaler: list, vae: list, civitai=''):
-    if lora:
-        print('\n\n⏳ Downloading LoRA...')
-        other_resources(lora, f'{lora_path}/{subdir}', civitai)
-    if embeddings:
-        print('\n\n⏳ Downloading embeddings...')
-        other_resources(embeddings, f'{embeddings_path}/{subdir}', civitai)
-    if upscaler:
-        print('\n\n⏳ Downloading upscaler...')
-        other_resources(upscaler, upscaler_path, civitai)
-    if vae:
-        print('\n\n⏳ Downloading VAE...')
-        other_resources(vae, f'{vae_path}/{subdir}', civitai)
 
 
 # Launch Web UI
@@ -416,22 +375,12 @@ def launch_webui(dark_theme: bool, username: str, password: str, ngrok_token: st
     if cors:
         args += f' --cors-allow-origins {cors}'
 
-    args += f' --listen --port {runport_port}'
-    close_port(runport_port)
+    args += f' --listen --port {runpod_port}'
     print('Launching Web UI...')
     try:
         pty.spawn(f'python webui.py {args}'.split())
     except KeyboardInterrupt:
         print('--Process terminated--')
-
-
-def close_port(port_number):
-    result = subprocess.run(['lsof', '-i', f':{port_number}'], capture_output=True, text=True)
-    lines = result.stdout.strip().split('\n')
-
-    if len(lines) > 1:
-        pid = int(lines[1].split()[1])
-        os.kill(pid, signal.SIGTERM)
 
 
 def initialization_forge():
@@ -451,23 +400,26 @@ def models_selection(models_url: str, subdir: str, civitai=''):
     versions_header = widgets.HTML('<h3 style="width: 250px;">Versions</h3>')
     homepages_header = widgets.HTML('<h3 style="width: 100px;">Homepages</h3>')
     headers = widgets.HBox([models_header, versions_header, homepages_header])
+    display(headers)
 
-    for model in get_resource(models_url):
+    for model in get_resources(models_url):
         options = ['Select version'] + [variant['version'] for variant in model['variants']]
         dropdown = widgets.Dropdown(options=options, value='Select version', layout=widgets.Layout(width='230px'))
         label = widgets.Label(model['name'], layout=widgets.Layout(width='200px'))
         homepage_links = ' | '.join([f'<a href="{site["url"]}" target="_blank">{site["name"]}</a>' for site in model['homepage']])
         homepage_label = widgets.HTML(
             f'<div class="jp-RenderedText" style="padding-left:20px; white-space:nowrap; display: inline-flex;"><pre>{homepage_links}</pre></div>')
-        items = widgets.HBox([label, dropdown, homepage_label])
-        dropdowns.append((model['name'], dropdown, model['variants'], items))
+        item = widgets.HBox([label, dropdown, homepage_label])
+        dropdowns.append((model['name'], dropdown, model['variants']))
+        display(item)
+        print('')
 
     download_button = widgets.Button(description='Download', button_style='success')
     output = widgets.Output()
 
     def on_press(button):
         selected_versions = []
-        for name, menu, variants, _ in dropdowns:
+        for name, menu, variants in dropdowns:
             selected_version = menu.value
             if selected_version != 'Select version':
                 for variant in variants:
@@ -485,65 +437,139 @@ def models_selection(models_url: str, subdir: str, civitai=''):
                 print('\n\n--Download interrupted--')
 
     download_button.on_click(on_press)
-    display(headers)
-    for _, _, _, items in dropdowns:
-        display(items)
-        print('')
-
     display(download_button, output)
 
 
-def extensions_selection(exts_url: str):
+# Download ControlNet
+def download_controlnet(controlnet: list, url: str, subdir: str):
+    controlnet_data = get_resources(url)
+    for model in controlnet:
+        if controlnet[model]:
+            print('\n' + model + '...')
+            for url in controlnet_data[model]:
+                downloader(url, f'{controlnet_models_path}/{subdir}')
+                print('')
+
+
+def resources_selection(builtin_res_url: str, resources_url: str, subdir: str, civitai=''):
     checkboxes = []
-    exts_header = widgets.HTML('<h3 style="width: 250px; text-align: center;">Extensions</h3>')
-    status_header = widgets.HTML('<h3 style="width: 120px; text-align: center;">Status</h3>')
-    homepages_header = widgets.HTML('<h3 style="width: 120px; text-align: center;">Homepages</h3>')
-    headers = widgets.HBox([exts_header, status_header, homepages_header])
+    resources = get_resources(resources_url)
 
-    for ext in get_resource(exts_url)['extensions']:
-        directory = f"{extensions_path}/{ext['url'].split('/')[-1]}"
-        if os.path.exists(directory):
-            installed_status = 'installed'
-            enabled = True
-        else:
-            installed_status = 'not installed'
-            if ext['enabled']:
-                enabled = True
-            else:
-                enabled = False
+    for resource_type, items in resources.items():
+        res_header = widgets.HTML(f'<h3 style="width: 300px; margin-bottom: 0;">{resource_type}</h3>')
+        homepages_header = widgets.HTML('<h3 style="width: 100px; margin-bottom: 0;">Homepages</h3>')
+        headers = widgets.HBox([res_header, homepages_header])
+        display(headers)
 
-        checkbox = widgets.Checkbox(value=enabled, description=ext['name'], indent=False, layout={'width': '250px'})
-        status = widgets.HTML(f'<div style="text-align: center; width: 120px;">{installed_status}</div>')
-        homepage = widgets.HTML(f'<div class="jp-RenderedText" style="width: 105px; text-align: center; white-space:nowrap; display: inline-grid;">'
-                                f'<pre><a href="{ext["url"]}" target="_blank">GitHub</a></pre></div>')
-        items = widgets.HBox([checkbox, status, homepage])
-        checkboxes.append((ext, checkbox, items))
+        for item in items:
+            checkbox = widgets.Checkbox(value=False, description=item['name'], indent=False, layout={'width': '300px'})
+            homepage_links = ' | '.join([f'<a href="{site["url"]}" target="_blank">{site["name"]}</a>' for site in item['homepage']])
+            homepage_label = widgets.HTML(
+                f'<div class="jp-RenderedText" style="padding-left: 0; white-space: nowrap; display: inline-flex;"><pre>{homepage_links}</pre></div>')
+            cb_item = widgets.HBox([checkbox, homepage_label])
+            checkboxes.append((item, resource_type, checkbox))
+            display(cb_item)
 
-    update_exts = widgets.Checkbox(value=False, description='Update all extensions', indent=False, layout={'margin': '2px 0 0 50px'})
-    download_button = widgets.Button(description='Install', button_style='success')
-    footer = widgets.HBox([download_button, update_exts])
+    download_button = widgets.Button(description='Download', button_style='success')
     output = widgets.Output()
 
     def on_press(button):
-        selected_exts = [(_ext['id'], _ext['name'], _ext['url']) for _ext, _checkbox, _ in checkboxes if _checkbox.value]
+        selected_res = {
+            'LoRA': [],
+            'Embeddings': [],
+            'Upscaler': [],
+            'VAE': []
+        }
+
+        for _res, _resource_type, _checkbox in checkboxes:
+            if _checkbox.value:
+                if _resource_type == 'lora':
+                    selected_res['LoRA'].append((_res['name'], _res['url']))
+                elif _resource_type == 'embeddings':
+                    selected_res['Embeddings'].append((_res['name'], _res['url']))
+                elif _resource_type == 'upscaler':
+                    selected_res['Upscaler'].append((_res['name'], _res['url']))
+                elif _resource_type == 'vae':
+                    selected_res['VAE'].append((_res['name'], _res['url']))
 
         with output:
             output.clear_output()
             try:
-                install_builtin_exts(update_exts.value)
-                print("\n⏳ Installing selected extensions...")
-                for _id, name, url in selected_exts:
-                    if _id == 'bmab':
-                        run_process('pip install -q basicsr')
-                    print(f'{name}...')
-                    silent_clone(url, extensions_path, update=update_exts.value)
+                download_builtin_resources(builtin_res_url, subdir)
+                for _type in selected_res:
+                    if _type == 'LoRA' and selected_res[_type]:
+                        download_selected_res(selected_res[_type], _type, f'{lora_path}/{subdir}', civitai)
+                    elif _type == 'Embeddings' and selected_res[_type]:
+                        print(f'\n⏳ Downloading selected {_type}...')
+                        for name, url in selected_res['Embeddings']:
+                            print(name + '...')
+                            silent_clone(url, f'{embeddings_path}/{subdir}', True)
+                    elif _type == 'Upscaler' and selected_res[_type]:
+                        download_selected_res(selected_res[_type], _type, upscaler_path, civitai)
+                    elif _type == 'VAE' and selected_res[_type]:
+                        download_selected_res(selected_res[_type], _type, f'{vae_path}/{subdir}', civitai)
                 completed_message()
             except KeyboardInterrupt:
-                print('\n\n--Install interrupted--')
+                print('\n\n--Download interrupted--')
 
     download_button.on_click(on_press)
-    display(headers)
-    for _, _, items in checkboxes:
-        display(items)
     print('')
-    display(footer, output)
+    display(download_button, output)
+
+
+def download_selected_res(res_list: list, _type: str, path: str, civitai=''):
+    print(f'\n⏳ Downloading selected {_type}...')
+    for name, urls in res_list:
+        print(name + '...')
+        for url in urls:
+            downloader(url, path, civitai_token=civitai)
+        print('')
+
+
+# Download built-in resources
+def download_builtin_resources(resources_url: str, subdir: str):
+    parentdir = ''
+    resources = get_resources(resources_url)
+    for resource_type, items in resources.items():
+        match resource_type:
+            case 'Embeddings':
+                parentdir = embeddings_path
+            case 'LoRA':
+                parentdir = lora_path
+            case 'Upscaler':
+                parentdir = upscaler_path
+            case 'VAE':
+                parentdir = vae_path
+
+        print(f'⏳ Downloading built-in {resource_type}...')
+        for item in items:
+            print(item['name'] + '...')
+            if resource_type == 'embeddings':
+                silent_clone(item['url'], f'{parentdir}/{subdir}', True)
+            elif resource_type == 'upscaler':
+                downloader(item['url'], parentdir)
+            else:
+                downloader(item['url'], f'{parentdir}/{subdir}')
+
+
+# Other resources
+def other_resources(resource_list: list, resource_path: str, civitai=''):
+    for resource in resource_list:
+        print(f'\n{resource}')
+        downloader(resource, resource_path, civitai_token=civitai)
+
+
+# Download other resources
+def download_other_resources(subdir: str, lora: list, embeddings: list, upscaler: list, vae: list, civitai=''):
+    if lora:
+        print('\n\n⏳ Downloading LoRA...')
+        other_resources(lora, f'{lora_path}/{subdir}', civitai)
+    if embeddings:
+        print('\n\n⏳ Downloading embeddings...')
+        other_resources(embeddings, f'{embeddings_path}/{subdir}', civitai)
+    if upscaler:
+        print('\n\n⏳ Downloading upscaler...')
+        other_resources(upscaler, upscaler_path, civitai)
+    if vae:
+        print('\n\n⏳ Downloading VAE...')
+        other_resources(vae, f'{vae_path}/{subdir}', civitai)
