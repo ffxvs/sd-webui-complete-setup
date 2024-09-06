@@ -302,7 +302,7 @@ def extensions_selection(_builtin_exts_url: str, _exts_url: str):
         display(item)
 
     def on_press(button):
-        selected_exts = [(_ext['id'], _ext['name'], _ext['url']) for _ext, _checkbox, _ in checkboxes if _checkbox.value]
+        selected_exts = [(_ext['id'], _ext['name'], _ext['url']) for _ext, _checkbox in checkboxes if _checkbox.value]
         with output:
             output.clear_output()
             try:
@@ -317,7 +317,7 @@ def extensions_selection(_builtin_exts_url: str, _exts_url: str):
             except KeyboardInterrupt:
                 print('\n\n--Install interrupted--')
 
-    update_exts = widgets.Checkbox(value=False, description='Update all extensions', indent=False, layout={'margin': '2px 0 0 50px'})
+    update_exts = widgets.Checkbox(value=False, description='Update installed extensions', indent=False, layout={'margin': '2px 0 0 50px'})
     download_button = widgets.Button(description='Install', button_style='success')
     footer = widgets.HBox([download_button, update_exts])
     download_button.on_click(on_press)
@@ -483,13 +483,13 @@ def resources_selection(builtin_res_url: str, resources_url: str, subdir: str, c
 
         for _res, _resource_type, _checkbox in checkboxes:
             if _checkbox.value:
-                if _resource_type == 'lora':
+                if _resource_type == 'LoRA':
                     selected_res['LoRA'].append((_res['name'], _res['url']))
-                elif _resource_type == 'embeddings':
+                elif _resource_type == 'Embeddings':
                     selected_res['Embeddings'].append((_res['name'], _res['url']))
-                elif _resource_type == 'upscaler':
+                elif _resource_type == 'Upscaler':
                     selected_res['Upscaler'].append((_res['name'], _res['url']))
-                elif _resource_type == 'vae':
+                elif _resource_type == 'VAE':
                     selected_res['VAE'].append((_res['name'], _res['url']))
 
         with output:
@@ -518,9 +518,9 @@ def resources_selection(builtin_res_url: str, resources_url: str, subdir: str, c
 
 
 def download_selected_res(res_list: list, _type: str, path: str, civitai=''):
-    print(f'\n⏳ Downloading selected {_type}...')
+    print(f'\n\n⏳ Downloading selected {_type}...')
     for name, urls in res_list:
-        print(name + '...')
+        print(f'\n* {name}...')
         for url in urls:
             downloader(url, path, civitai_token=civitai)
         print('')
@@ -541,12 +541,12 @@ def download_builtin_resources(resources_url: str, subdir: str):
             case 'VAE':
                 parentdir = vae_path
 
-        print(f'⏳ Downloading built-in {resource_type}...')
+        print(f'\n\n⏳ Downloading built-in {resource_type}...')
         for item in items:
-            print(item['name'] + '...')
-            if resource_type == 'embeddings':
+            print(f"\n* {item['name']}...")
+            if resource_type == 'Embeddings':
                 silent_clone(item['url'], f'{parentdir}/{subdir}', True)
-            elif resource_type == 'upscaler':
+            elif resource_type == 'Upscaler':
                 downloader(item['url'], parentdir)
             else:
                 downloader(item['url'], f'{parentdir}/{subdir}')
