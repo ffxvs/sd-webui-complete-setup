@@ -448,8 +448,8 @@ def launch_webui(webui: WebUI):
     args = '--disable-console-progressbars --disable-safe-unpickle --enable-insecure-extension-access --no-download-sd-model --no-hashing --api --xformers'
     blocks_path = '/usr/local/lib/python3.10/dist-packages/gradio/blocks.py'
     proxy_url = 'http://127.0.0.1'
-    os.chdir(webui_path)
     webui_port = 7860
+    os.chdir(webui_path)
 
     run_process(f'python launch.py {args} --exit')
 
@@ -461,7 +461,7 @@ def launch_webui(webui: WebUI):
         proxy_url = 'https://tensorboard-{os.environ.get("PAPERSPACE_FQDN")}'
     elif webui.platform == runpod:
         webui_port = runpod_port
-        proxy_url = 'https://{os.environ.get("RUNPOD_POD_ID")}-' + str(runpod_port) + '.proxy.runpod.net'
+        proxy_url = 'https://{os.environ.get("RUNPOD_POD_ID")}-' + str(runpod_port + 1) + '.proxy.runpod.net'
 
     pattern = re.compile(r'print\(\s*strings\.en\["RUNNING_LOCALLY_SEPARATED"]\.format\(\s*self\.protocol, self\.server_name, self\.server_port\s*\)\s*\)')
     replace = re.sub(pattern, f'print(strings.en["RUNNING_LOCALLY"].format(f\'{proxy_url}\'))', content)
