@@ -66,8 +66,8 @@
         ],
         "variants": [
             {
-                "version": "v6",
-                "url": "https://huggingface.co/bluepen5805/blue_pencil-XL/resolve/main/blue_pencil-XL-v6.0.0.safetensors"
+                "version": "v7",
+                "url": "https://huggingface.co/bluepen5805/blue_pencil-XL/resolve/main/blue_pencil-XL-v7.0.0.safetensors"
             },
             {
                 "version": "Lightning v5",

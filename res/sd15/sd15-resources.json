@@ -257,11 +257,11 @@
         },
         {
             "id": "novelAI",
-            "name": "NAI/NovelAI",
+            "name": "NovelAI (NAI)",
             "homepage": [
                 {
-                    "name": "CivitAI",
-                    "url": "https://civitai.com/models/147806"
+                    "name": "",
+                    "url": "#"
                 }
             ],
             "url": [

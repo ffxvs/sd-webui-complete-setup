@@ -5,7 +5,7 @@
         "homepage": [
             {
                 "name": "CivitAI",
-                "url": "https://civitai.com/models/161068?modelVersionId=690310"
+                "url": "https://civitai.com/models/277058"
             }
         ],
         "variants": [
@@ -109,7 +109,7 @@
             },
             {
                 "name": "HuggingFace",
-                "url": "https://huggingface.co/SG161222/RealVisXL_V4.0"
+                "url": "https://huggingface.co/collections/SG161222/realvisxl-sdxl-656daeb4adba74cd5ea2ef44"
             }
         ],
         "variants": [
