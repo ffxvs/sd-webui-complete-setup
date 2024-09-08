@@ -13,18 +13,25 @@ from IPython.display import display
 # #################### GLOBAL PATHS ####################
 
 root = '/notebooks'
-webui = root + os.environ.get('WEBUI_DIR', '')
-modules_path = webui + '/modules'
+webui_dir = os.environ.get('WEBUI_DIR', '')
+webui_path = root + webui_dir
 oncompleted_path = '/internal/on-completed.sh'
+outputs_path = webui_path + '/outputs'
+extensions_path = webui_path + '/extensions'
+modules_path = webui_path + '/modules'
 
-outputs_path = webui + '/outputs'
-extensions_path = webui + '/extensions'
-controlnet_models_path = webui + '/models/ControlNet'
-embeddings_path = webui + '/embeddings'
-models_path = webui + '/models/Stable-diffusion'
-lora_path = webui + '/models/Lora'
-upscaler_path = webui + '/models/ESRGAN'
-vae_path = webui + '/models/VAE'
+models_path = webui_path + '/models/Stable-diffusion'
+embeddings_path = webui_path + '/embeddings'
+lora_path = webui_path + '/models/Lora'
+upscaler_path = webui_path + '/models/ESRGAN'
+vae_path = webui_path + '/models/VAE'
+controlnet_models_path = webui_path + '/models/ControlNet'
+text_encoder_path = webui_path + '/models/text_encoder'
+
+if webui_dir == '/stable-diffusion-webui-forge':
+    preprocessor_path = webui_path + '/models/ControlNetPreprocessor'
+else:
+    preprocessor_path = extensions_path + '/sd-webui-controlnet/annotator/downloads'
 
 shared_storage = root + '/shared-storage'
 shared_models_path = shared_storage + '/models'
@@ -33,8 +40,16 @@ shared_lora_path = shared_storage + '/lora'
 shared_upscaler_path = shared_storage + '/esrgan'
 shared_vae_path = shared_storage + '/vae'
 shared_controlnet_models_path = shared_storage + '/controlNet'
+shared_text_encoder_path = shared_storage + '/text_encoder'
 shared_outputs_path = shared_storage + '/outputs'
 shared_config_path = shared_storage + '/config'
+
+temp_storage = '/temp-storage'
+temp_models_path = temp_storage + '/models'
+temp_lora_path = temp_storage + '/lora'
+temp_controlnet_models_path = temp_storage + '/controlNet'
+temp_preprocessor_path = temp_controlnet_models_path + '/preprocessor'
+temp_text_encoder_path = temp_storage + '/text_encoder'
 
 # Resource URLs
 main_repo_url = 'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/dev'
@@ -61,13 +76,19 @@ sdxl_woman_models_url = main_repo_url + '/res/sdxl/models/sdxl-woman-models.json
 sdxl_builtin_resources_url = main_repo_url + '/res/sdxl/sdxl-builtin-resources.json'
 sdxl_resources_url = main_repo_url + '/res/sdxl/sdxl-resources.json'
 
-
 # #################### VARIABLES ####################
 
 sd = 'sd'
 sdxl = 'sdxl'
+flux = 'flux'
+embeddings = 'Embeddings'
+lora = 'LoRA'
+upscaler = 'Upscaler'
+vae = 'VAE'
+text_encoder = 'TextEncoder'
 runpod = 'runpod'
 paperspace = 'paperspace'
+paperspace_port = 6006
 runpod_port = 3000
 boolean = [False, True]
 request_headers = {
@@ -126,6 +147,12 @@ def symlink(source: str, destination: str):
         run_process(f'ln -s {source} {destination}')
 
 
+# Remove symlink
+def unlink(target):
+    if os.path.exists(target) and os.path.islink(target):
+        run_process(f'unlink {target}')
+
+
 # Complete message
 def completed_message():
     completed = widgets.Button(description='Completed', button_style='success', icon='check')
@@ -158,6 +185,15 @@ def hide_samplers():
             json.dump(config, file, indent=4)
 
 
+def temp_storage_symlink(option, source, destination):
+    if option:
+        symlink(source, destination)
+    else:
+        unlink(destination)
+        run_process(f'rm -r -f {source}/*', use_shell=True)
+        run_process(f'mkdir -p {destination}')
+
+
 # Create shared storage
 def create_shared_storage():
     print('⏳ Creating shared storage directory...')
@@ -174,6 +210,7 @@ def create_shared_storage():
         f"{shared_vae_path}/sdxl",
         f"{shared_controlnet_models_path}/sd",
         f"{shared_controlnet_models_path}/sdxl",
+        shared_text_encoder_path,
         shared_upscaler_path,
         shared_outputs_path,
         shared_config_path
@@ -183,8 +220,53 @@ def create_shared_storage():
         os.makedirs(folder, exist_ok=True)
 
 
-# Create shared storage symlinks
-def storage_symlinks():
+class TempStorage:
+    def __init__(self,
+                 sd15_models,
+                 sd15_lora,
+                 sd15_controlnet,
+                 sdxl_models,
+                 sdxl_lora,
+                 sdxl_controlnet,
+                 flux_models,
+                 flux_lora,
+                 flux_controlnet,
+                 preprocessor,
+                 textencoder
+                 ):
+        self.sd15_models = sd15_models
+        self.sd15_lora = sd15_lora
+        self.sd15_controlnet = sd15_controlnet
+        self.sdxl_models = sdxl_models
+        self.sdxl_lora = sdxl_lora
+        self.sdxl_controlnet = sdxl_controlnet
+        self.flux_models = flux_models
+        self.flux_lora = flux_lora
+        self.flux_controlnet = flux_controlnet
+        self.preprocessor = preprocessor
+        self.text_encoder = textencoder
+
+
+temp = TempStorage(False, False, False, False, False, False, False, False, False, False, False)
+
+
+# Create symlinks from temporary storage to shared storage
+def temp_storage_symlinks(t: TempStorage):
+    temp_storage_symlink(t.sd15_models, f'{temp_models_path}/sd', f'{shared_models_path}/sd')
+    temp_storage_symlink(t.sd15_lora, f'{temp_lora_path}/sd', f'{shared_lora_path}/sd')
+    temp_storage_symlink(t.sd15_controlnet, f'{temp_controlnet_models_path}/sd', f'{shared_controlnet_models_path}/sd')
+    temp_storage_symlink(t.sdxl_models, f'{temp_models_path}/sdxl', f'{shared_models_path}/sdxl')
+    temp_storage_symlink(t.sdxl_lora, f'{temp_lora_path}/sdxl', f'{shared_lora_path}/sdxl')
+    temp_storage_symlink(t.sdxl_controlnet, f'{temp_controlnet_models_path}/sdxl', f'{shared_controlnet_models_path}/sdxl')
+    temp_storage_symlink(t.flux_models, f'{temp_models_path}/flux', f'{shared_models_path}/flux')
+    temp_storage_symlink(t.flux_lora, f'{temp_lora_path}/flux', f'{shared_lora_path}/flux')
+    temp_storage_symlink(t.flux_controlnet, f'{temp_controlnet_models_path}/flux', f'{shared_controlnet_models_path}/flux')
+    temp_storage_symlink(t.preprocessor, temp_preprocessor_path, preprocessor_path)
+    temp_storage_symlink(t.text_encoder, temp_text_encoder_path, text_encoder_path)
+
+
+# Create symlinks from shared storage to webui
+def shared_storage_symlinks():
     symlink(shared_models_path, models_path)
     symlink(shared_lora_path, lora_path)
     symlink(shared_embeddings_path, embeddings_path)
@@ -192,8 +274,8 @@ def storage_symlinks():
     symlink(shared_vae_path, vae_path)
     symlink(shared_controlnet_models_path, controlnet_models_path)
     symlink(shared_outputs_path, outputs_path)
-    symlink(f'{shared_config_path}/config.json', f'{webui}/config.json')
-    symlink(f'{shared_config_path}/ui-config.json', f'{webui}/ui-config.json')
+    symlink(f'{shared_config_path}/config.json', f'{webui_path}/config.json')
+    symlink(f'{shared_config_path}/ui-config.json', f'{webui_path}/ui-config.json')
 
 
 # Get resources list json
@@ -265,7 +347,7 @@ def install_forge():
     print('⏳ Installing/Updating Stable Diffusion Web UI Forge...')
     webui_version = 'main'
     silent_clone(f'-b {webui_version} https://github.com/lllyasviel/stable-diffusion-webui-forge', root, update=True)
-    os.chdir(webui)
+    os.chdir(webui_path)
 
     # Download configs
     if not os.path.exists(f'{shared_config_path}/config.json'):
@@ -273,7 +355,7 @@ def install_forge():
     if not os.path.exists(f'{shared_config_path}/ui-config.json'):
         downloader(f'{main_repo_url}/configs/ui-config.json', shared_config_path)
 
-    storage_symlinks()
+    shared_storage_symlinks()
 
 
 # Install selected extensions
@@ -345,39 +427,63 @@ def install_other_exts(extensions: list, update_exts=False):
             silent_clone(ext, extensions_path, update_exts)
 
 
+class WebUI:
+    def __init__(self, platform: str, dark_theme: bool, username: str, password: str, cors: str, ngrok_token='', ngrok_domain=''):
+        self.platform = platform
+        self.dark_theme = dark_theme
+        self.username = username
+        self.password = password
+        self.ngrok_token = ngrok_token
+        self.ngrok_domain = ngrok_domain
+        self.cors = cors
+
+
+webUI = WebUI('', True, '', '', '')
+
+
 # Launch Web UI
-def launch_webui(dark_theme: bool, username: str, password: str, ngrok_token: str, ngrok_domain: str, cors: str):
+def launch_webui(webui: WebUI):
     print('⏳ Preparing...')
     print('It will take a little longer...')
     args = '--disable-console-progressbars --disable-safe-unpickle --enable-insecure-extension-access --no-download-sd-model --no-hashing --api --xformers'
     blocks_path = '/usr/local/lib/python3.10/dist-packages/gradio/blocks.py'
-    os.chdir(webui)
+    proxy_url = 'http://127.0.0.1'
+    os.chdir(webui_path)
+    webui_port = 7860
 
     run_process(f'python launch.py {args} --exit')
-    run_process('pip install -q pillow==9.5.0')
 
     with open(blocks_path, 'r') as file:
         content = file.read()
 
+    if webui.platform == paperspace:
+        webui_port = paperspace_port
+        proxy_url = 'https://tensorboard-{os.environ.get("PAPERSPACE_FQDN")}'
+    elif webui.platform == runpod:
+        webui_port = runpod_port
+        proxy_url = 'https://{os.environ.get("RUNPOD_POD_ID")}-' + str(runpod_port) + '.proxy.runpod.net'
+
     pattern = re.compile(r'print\(\s*strings\.en\["RUNNING_LOCALLY_SEPARATED"]\.format\(\s*self\.protocol, self\.server_name, self\.server_port\s*\)\s*\)')
-    replace = re.sub(pattern, 'print(strings.en["RUNNING_LOCALLY"].format(f\'https://{os.environ.get("RUNPOD_POD_ID")}-3001.proxy.runpod.net\'))', content)
+    replace = re.sub(pattern, f'print(strings.en["RUNNING_LOCALLY"].format(f\'{proxy_url}\'))', content)
 
     with open(blocks_path, 'w') as file:
         file.write(replace)
 
-    if dark_theme:
+    if webui.dark_theme:
         args += ' --theme dark'
-    if username and password:
-        args += f' --gradio-auth {username}:{password}'
-    if ngrok_token:
-        args += f' --ngrok {ngrok_token}'
-        if ngrok_domain:
-            ngrok_options = '\'{"hostname":"' + ngrok_domain + '"}\''
+    if webui.username and webui.password:
+        args += f' --gradio-auth {webui.username}:{webui.password}'
+    if webui.ngrok_token:
+        run_process('pip install -q ngrok')
+        args += f' --ngrok {webui.ngrok_token}'
+        if webui.ngrok_domain:
+            ngrok_options = '{"domain":"' + webui.ngrok_domain + '"}'
             args += f' --ngrok-options {ngrok_options}'
-    if cors:
-        args += f' --cors-allow-origins {cors}'
+    if webui.cors:
+        args += f' --cors-allow-origins {webui.cors}'
 
-    args += f' --listen --port {runpod_port}'
+    args += f' --listen --port {webui_port}'
+    close_port(webui_port)
     print('Launching Web UI...')
     try:
         pty.spawn(f'python webui.py {args}'.split())
@@ -409,8 +515,8 @@ def models_selection(models_url: str, subdir: str, civitai=''):
         dropdown = widgets.Dropdown(options=options, value='Select version', layout=widgets.Layout(width='230px'))
         label = widgets.Label(model['name'], layout=widgets.Layout(width='200px'))
         homepage_links = ' | '.join([f'<a href="{site["url"]}" target="_blank">{site["name"]}</a>' for site in model['homepage']])
-        homepage_label = widgets.HTML(
-            f'<div class="jp-RenderedText" style="padding-left:20px; white-space:nowrap; display: inline-flex;"><pre>{homepage_links}</pre></div>')
+        homepage_label = widgets.HTML(f'<div class="jp-RenderedText" style="padding-left:20px; white-space:nowrap; display: inline-flex;">'
+                                      f'<pre>{homepage_links}</pre></div>')
         item = widgets.HBox([label, dropdown, homepage_label])
         dropdowns.append((model['name'], dropdown, model['variants']))
         display(item)
@@ -465,8 +571,8 @@ def resources_selection(builtin_res_url: str, resources_url: str, subdir: str, c
         for item in items:
             checkbox = widgets.Checkbox(value=False, description=item['name'], indent=False, layout={'width': '300px'})
             homepage_links = ' | '.join([f'<a href="{site["url"]}" target="_blank">{site["name"]}</a>' for site in item['homepage']])
-            homepage_label = widgets.HTML(
-                f'<div class="jp-RenderedText" style="padding-left: 0; white-space: nowrap; display: inline-flex;"><pre>{homepage_links}</pre></div>')
+            homepage_label = widgets.HTML(f'<div class="jp-RenderedText" style="padding-left: 0; white-space: nowrap; display: inline-flex;">'
+                                          f'<pre>{homepage_links}</pre></div>')
             cb_item = widgets.HBox([checkbox, homepage_label])
             checkboxes.append((item, resource_type, checkbox))
             display(cb_item)
@@ -476,39 +582,44 @@ def resources_selection(builtin_res_url: str, resources_url: str, subdir: str, c
 
     def on_press(button):
         selected_res = {
-            'LoRA': [],
-            'Embeddings': [],
-            'Upscaler': [],
-            'VAE': []
+            lora: [],
+            embeddings: [],
+            upscaler: [],
+            vae: [],
+            text_encoder: []
         }
 
         for _res, _resource_type, _checkbox in checkboxes:
             if _checkbox.value:
-                if _resource_type == 'LoRA':
-                    selected_res['LoRA'].append((_res['name'], _res['url']))
-                elif _resource_type == 'Embeddings':
-                    selected_res['Embeddings'].append((_res['name'], _res['url']))
-                elif _resource_type == 'Upscaler':
-                    selected_res['Upscaler'].append((_res['name'], _res['url']))
-                elif _resource_type == 'VAE':
-                    selected_res['VAE'].append((_res['name'], _res['url']))
+                if _resource_type == lora:
+                    selected_res[lora].append((_res['name'], _res['url']))
+                elif _resource_type == embeddings:
+                    selected_res[embeddings].append((_res['name'], _res['url']))
+                elif _resource_type == upscaler:
+                    selected_res[upscaler].append((_res['name'], _res['url']))
+                elif _resource_type == vae:
+                    selected_res[vae].append((_res['name'], _res['url']))
+                elif _resource_type == text_encoder:
+                    selected_res[text_encoder].append((_res['name'], _res['url']))
 
         with output:
             output.clear_output()
             try:
                 download_builtin_resources(builtin_res_url, subdir)
                 for _type in selected_res:
-                    if _type == 'LoRA' and selected_res[_type]:
-                        download_selected_res(selected_res[_type], _type, f'{lora_path}/{subdir}', civitai)
-                    elif _type == 'Embeddings' and selected_res[_type]:
+                    if _type == embeddings and selected_res[_type]:
                         print(f'\n⏳ Downloading selected {_type}...')
                         for name, url in selected_res['Embeddings']:
                             print(name + '...')
                             silent_clone(url, f'{embeddings_path}/{subdir}', True)
-                    elif _type == 'Upscaler' and selected_res[_type]:
+                    elif _type == lora and selected_res[_type]:
+                        download_selected_res(selected_res[_type], _type, f'{lora_path}/{subdir}', civitai)
+                    elif _type == upscaler and selected_res[_type]:
                         download_selected_res(selected_res[_type], _type, upscaler_path, civitai)
-                    elif _type == 'VAE' and selected_res[_type]:
+                    elif _type == vae and selected_res[_type]:
                         download_selected_res(selected_res[_type], _type, f'{vae_path}/{subdir}', civitai)
+                    elif _type == text_encoder and selected_res[_type]:
+                        download_selected_res(selected_res[_type], _type, text_encoder_path, civitai)
                 completed_message()
             except KeyboardInterrupt:
                 print('\n\n--Download interrupted--')
@@ -541,36 +652,53 @@ def download_builtin_resources(resources_url: str, subdir: str):
                 parentdir = upscaler_path
             case 'VAE':
                 parentdir = vae_path
+            case 'TextEncoder':
+                parentdir = text_encoder_path
 
         print(f'\n\n⏳ Downloading built-in {resource_type}...')
         for item in items:
             print(f"\n* {item['name']}...")
-            if resource_type == 'Embeddings':
+            if resource_type == embeddings:
                 silent_clone(item['url'], f'{parentdir}/{subdir}', True)
-            elif resource_type == 'Upscaler':
+            elif resource_type == upscaler or resource_type == text_encoder:
                 downloader(item['url'], parentdir)
             else:
                 downloader(item['url'], f'{parentdir}/{subdir}')
 
 
 # Other resources
-def other_resources(resource_list: list, resource_path: str, civitai=''):
+def download_other_res(resource_list: list, resource_path: str, civitai=''):
     for resource in resource_list:
-        print(f'\n{resource}')
+        print(f'\n* {resource}')
         downloader(resource, resource_path, civitai_token=civitai)
 
 
+class OtherRes:
+    def __init__(self, _lora: list, _embeddings: list, _upscaler: list, _vae: list, _textencoder: list):
+        self.lora = _lora
+        self.embeddings = _embeddings
+        self.upscaler = _upscaler
+        self.vae = _vae
+        self.text_encoder = _textencoder
+
+
+other = OtherRes([], [], [], [], [])
+
+
 # Download other resources
-def download_other_resources(subdir: str, lora: list, embeddings: list, upscaler: list, vae: list, civitai=''):
-    if lora:
+def other_resources(other_res: OtherRes, subdir: str, civitai=''):
+    if other_res.lora:
         print('\n\n⏳ Downloading LoRA...')
-        other_resources(lora, f'{lora_path}/{subdir}', civitai)
-    if embeddings:
+        download_other_res(other_res.lora, f'{lora_path}/{subdir}', civitai)
+    if other_res.embeddings:
         print('\n\n⏳ Downloading embeddings...')
-        other_resources(embeddings, f'{embeddings_path}/{subdir}', civitai)
-    if upscaler:
+        download_other_res(other_res.embeddings, f'{embeddings_path}/{subdir}', civitai)
+    if other_res.upscaler:
         print('\n\n⏳ Downloading upscaler...')
-        other_resources(upscaler, upscaler_path, civitai)
-    if vae:
+        download_other_res(other_res.upscaler, upscaler_path, civitai)
+    if other_res.vae:
         print('\n\n⏳ Downloading VAE...')
-        other_resources(vae, f'{vae_path}/{subdir}', civitai)
+        download_other_res(other_res.vae, f'{vae_path}/{subdir}', civitai)
+    if other_res.text_encoder:
+        print('\n\n⏳ Downloading Text Encoder...')
+        download_other_res(other_res.vae, text_encoder_path, civitai)
