@@ -131,7 +131,7 @@ def apply_envs2():
 def run_process(command: str, use_shell=False):
     if not use_shell:
         command = command.split()
-    return subprocess.run(command, shell=use_shell, capture_output=True, text=True, bufsize=1, stdout=None, stderr=None)
+    return subprocess.run(command, shell=use_shell, capture_output=True, text=True, bufsize=1)
 
 
 # Update ubuntu dependencies
