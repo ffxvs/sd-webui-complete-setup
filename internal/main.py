@@ -363,8 +363,10 @@ def install_forge():
 
     # Download configs
     if not os.path.exists(f'{shared_config_path}/config.json'):
+        print('Download config.json')
         downloader(f'{main_repo_url}/configs/config.json', shared_config_path)
     if not os.path.exists(f'{shared_config_path}/ui-config.json'):
+        print('Download ui-config.json')
         downloader(f'{main_repo_url}/configs/ui-config.json', shared_config_path)
 
     shared_storage_symlinks()
