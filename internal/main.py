@@ -76,6 +76,10 @@ sdxl_woman_models_url = main_repo_url + '/res/sdxl/models/sdxl-woman-models.json
 sdxl_builtin_resources_url = main_repo_url + '/res/sdxl/sdxl-builtin-resources.json'
 sdxl_resources_url = main_repo_url + '/res/sdxl/sdxl-resources.json'
 
+flux_general_models_url = main_repo_url + '/res/flux/models/flux-general-models.json'
+flux_resources_url = main_repo_url + '/res/flux/flux-resources.json'
+
+
 # #################### VARIABLES ####################
 
 sd = 'sd'
@@ -217,7 +221,7 @@ def create_shared_storage():
         f"{shared_controlnet_models_path}/sd",
         f"{shared_controlnet_models_path}/sdxl",
         f"{shared_controlnet_models_path}/flux",
-        shared_text_encoder_path,
+        f"{shared_text_encoder_path}/flux",
         shared_upscaler_path,
         shared_outputs_path,
         shared_config_path
@@ -238,8 +242,8 @@ class TempStorage:
                  flux_models,
                  flux_lora,
                  flux_controlnet,
-                 preprocessor,
-                 textencoder
+                 flux_text_encoder,
+                 cn_preprocessor
                  ):
         self.sd15_models = sd15_models
         self.sd15_lora = sd15_lora
@@ -250,8 +254,8 @@ class TempStorage:
         self.flux_models = flux_models
         self.flux_lora = flux_lora
         self.flux_controlnet = flux_controlnet
-        self.preprocessor = preprocessor
-        self.text_encoder = textencoder
+        self.flux_text_encoder = flux_text_encoder
+        self.cn_preprocessor = cn_preprocessor
 
 
 temp = TempStorage(False, False, False, False, False, False, False, False, False, False, False)
@@ -268,8 +272,8 @@ def temp_storage_symlinks(t: TempStorage):
     temp_storage_symlink(t.flux_models, f'{temp_models_path}/flux', f'{shared_models_path}/flux')
     temp_storage_symlink(t.flux_lora, f'{temp_lora_path}/flux', f'{shared_lora_path}/flux')
     temp_storage_symlink(t.flux_controlnet, f'{temp_controlnet_models_path}/flux', f'{shared_controlnet_models_path}/flux')
-    temp_storage_symlink(t.preprocessor, temp_preprocessor_path, preprocessor_path)
-    temp_storage_symlink(t.text_encoder, temp_text_encoder_path, shared_text_encoder_path)
+    temp_storage_symlink(t.flux_text_encoder, f'{temp_text_encoder_path}/flux', f'{shared_text_encoder_path}/flux')
+    temp_storage_symlink(t.cn_preprocessor, temp_preprocessor_path, preprocessor_path)
 
 
 # Create symlinks from shared storage to webui
@@ -614,7 +618,7 @@ def resources_selection(builtin_res_url: str, resources_url: str, subdir: str, c
         with output:
             output.clear_output()
             try:
-                download_builtin_resources(builtin_res_url, subdir)
+                if builtin_res_url: download_builtin_resources(builtin_res_url, subdir)
                 for _type in selected_res:
                     if _type == embeddings and selected_res[_type]:
                         print(f'\n⏳ Downloading selected {_type}...')
@@ -628,7 +632,7 @@ def resources_selection(builtin_res_url: str, resources_url: str, subdir: str, c
                     elif _type == vae and selected_res[_type]:
                         download_selected_res(selected_res[_type], _type, f'{vae_path}/{subdir}', civitai)
                     elif _type == text_encoder and selected_res[_type]:
-                        download_selected_res(selected_res[_type], _type, text_encoder_path, civitai)
+                        download_selected_res(selected_res[_type], _type, f'{text_encoder_path}/{subdir}', civitai)
                 completed_message()
             except KeyboardInterrupt:
                 print('\n\n--Download interrupted--')
@@ -669,7 +673,7 @@ def download_builtin_resources(resources_url: str, subdir: str):
             print(f"\n* {item['name']}...")
             if resource_type == embeddings:
                 silent_clone(item['url'], f'{parentdir}/{subdir}', True)
-            elif resource_type == upscaler or resource_type == text_encoder:
+            elif resource_type == upscaler:
                 downloader(item['url'], parentdir)
             else:
                 downloader(item['url'], f'{parentdir}/{subdir}')
@@ -710,4 +714,4 @@ def other_resources(other_res: OtherRes, subdir: str, civitai=''):
         download_other_res(other_res.vae, f'{vae_path}/{subdir}', civitai)
     if other_res.text_encoder:
         print('\n\n⏳ Downloading Text Encoder...')
-        download_other_res(other_res.vae, text_encoder_path, civitai)
+        download_other_res(other_res.vae, f'{text_encoder_path}/{subdir}', civitai)

@@ -1,0 +1,153 @@
+{
+    "VAE": [
+        {
+            "id": "ae",
+            "name": "ae.safetensors",
+            "homepage": [
+                {
+                    "name": "",
+                    "url": "#"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/ae.safetensors"
+            ]
+        }
+    ],
+    "TextEncoder": [
+        {
+            "id": "clip_l",
+            "name": "CLIP-L",
+            "homepage": [
+                {
+                    "name": "",
+                    "url": "#"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/lllyasviel/flux_text_encoders/resolve/main/clip_l.safetensors"
+            ]
+        },
+        {
+            "id": "t5xxl_fp16",
+            "name": "t5xxl-fp16",
+            "homepage": [
+                {
+                    "name": "",
+                    "url": "#"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/lllyasviel/flux_text_encoders/resolve/main/t5xxl_fp16.safetensors"
+            ]
+        },
+        {
+            "id": "t5xxl_fp8_e4m3fn",
+            "name": "t5xxl-fp8-e4m3fn",
+            "homepage": [
+                {
+                    "name": "",
+                    "url": "#"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/lllyasviel/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn.safetensors"
+            ]
+        }
+    ],
+    "Upscaler": [
+        {
+            "id": "bsrgan",
+            "name": "BSRGAN",
+            "homepage": [
+                {
+                    "name": "OpenModelDB",
+                    "url": "https://openmodeldb.info/models/4x-BSRGAN"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/BSRGAN_4x.pth"
+            ]
+        },
+        {
+            "id": "lsdirPlus",
+            "name": "LSDIRPlus",
+            "homepage": [
+                {
+                    "name": "OpenModelDB",
+                    "url": "https://openmodeldb.info/models/4x-LSDIRplus"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/LSDIRplus_4x.pth"
+            ]
+        },
+        {
+            "id": "nomos8ksc",
+            "name": "Nomos8kSC",
+            "homepage": [
+                {
+                    "name": "OpenModelDB",
+                    "url": "https://openmodeldb.info/models/4x-Nomos8kSC"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/Nomos8kSC_4x.pth"
+            ]
+        },
+        {
+            "id": "superscale",
+            "name": "NMKD Superscale",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/141491/4x-nmkd-superscale"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/NMKD_Superscale_4x.pth"
+            ]
+        },
+        {
+            "id": "remacri",
+            "name": "Remacri",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/147759/remacri"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/Remacri_4x.pth"
+            ]
+        },
+        {
+            "id": "ultraMix",
+            "name": "UltraMix",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/147806"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/UltraMix_Balanced_4x.pth",
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/UltraMix_Restore_4x.pth",
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/UltraMix_Smooth_4x.pth"
+            ]
+        },
+        {
+            "id": "valar",
+            "name": "Valar",
+            "homepage": [
+                {
+                    "name": "OpenModelDB",
+                    "url": "https://openmodeldb.info/models/4x-Valar"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/Valar_4x.pth"
+            ]
+        }
+    ]
+}
