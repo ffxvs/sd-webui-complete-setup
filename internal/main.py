@@ -124,10 +124,10 @@ def apply_envs2():
 
 
 # Run external program
-def run_process(command: str, hide_output=True, use_shell=False):
+def run_process(command: str, use_shell=False):
     if not use_shell:
         command = command.split()
-    subprocess.run(command, capture_output=hide_output, text=True, bufsize=1, shell=use_shell)
+    return subprocess.run(command, shell=use_shell, capture_output=True, text=True, bufsize=1, stdout=None, stderr=None)
 
 
 # Update ubuntu dependencies
@@ -161,28 +161,31 @@ def completed_message():
 
 
 def close_port(port_number):
-    result = subprocess.run(['lsof', '-i', f':{port_number}'], capture_output=True, text=True)
-    lines = result.stdout.strip().split('\n')
-
-    if len(lines) > 1:
-        pid = int(lines[1].split()[1])
+    result = run_process(f'lsof -i :{port_number}').stdout.strip().split('\n')
+    if len(result) > 1:
+        pid = int(result[1].split()[1])
         os.kill(pid, signal.SIGTERM)
 
 
 # Hide samplers
-def hide_samplers():
+def remove_old_config():
     config_file = f'{shared_config_path}/config.json'
     if os.path.exists(config_file):
+        ui_tab_order = ["txt2img", "Txt2img", "img2img", "Img2img", "Extras",
+                        "PNG Info", "Checkpoint Merger", "Train", "Cleaner",
+                        "Mini Paint", "Photopea", "Infinite image browsing"]
         with open(config_file, 'r') as file:
             config = json.load(file)
-        samplers_to_hide = ["DPM fast", "PLMS"]
-        samplers_to_show = ["DPM++ SDE", "DPM++ 2M", "LMS", "DPM2", "DPM++ 2M SDE", "DPM++ 2M SDE Heun"]
-        for sampler in samplers_to_hide:
-            if sampler not in config['hide_samplers']:
-                config['hide_samplers'].append(sampler)
-        config['hide_samplers'] = [sampler for sampler in config['hide_samplers'] if sampler not in samplers_to_show]
-        with open(config_file, 'w') as file:
-            json.dump(config, file, indent=4)
+        if sorted(config['ui_tab_order']) != sorted(ui_tab_order):
+            os.remove(config_file)
+
+
+def remove_old_forge():
+    forge_path = f'{root}/stable-diffusion-webui-forge'
+    if os.path.exists(forge_path):
+        last_commit = run_process(f'git -C {forge_path} log -1 --oneline').stdout.strip()
+        if last_commit.startswith('bfee03d'):
+            run_process(f'rm -r -f {forge_path}')
 
 
 def temp_storage_symlink(option, source, destination):
@@ -202,14 +205,18 @@ def create_shared_storage():
         shared_storage,
         f"{shared_models_path}/sd",
         f"{shared_models_path}/sdxl",
+        f"{shared_models_path}/flux",
         f"{shared_embeddings_path}/sd",
         f"{shared_embeddings_path}/sdxl",
         f"{shared_lora_path}/sd",
         f"{shared_lora_path}/sdxl",
+        f"{shared_lora_path}/flux",
         f"{shared_vae_path}/sd",
         f"{shared_vae_path}/sdxl",
+        f"{shared_vae_path}/flux",
         f"{shared_controlnet_models_path}/sd",
         f"{shared_controlnet_models_path}/sdxl",
+        f"{shared_controlnet_models_path}/flux",
         shared_text_encoder_path,
         shared_upscaler_path,
         shared_outputs_path,
@@ -262,7 +269,7 @@ def temp_storage_symlinks(t: TempStorage):
     temp_storage_symlink(t.flux_lora, f'{temp_lora_path}/flux', f'{shared_lora_path}/flux')
     temp_storage_symlink(t.flux_controlnet, f'{temp_controlnet_models_path}/flux', f'{shared_controlnet_models_path}/flux')
     temp_storage_symlink(t.preprocessor, temp_preprocessor_path, preprocessor_path)
-    temp_storage_symlink(t.text_encoder, temp_text_encoder_path, text_encoder_path)
+    temp_storage_symlink(t.text_encoder, temp_text_encoder_path, shared_text_encoder_path)
 
 
 # Create symlinks from shared storage to webui
@@ -274,6 +281,7 @@ def shared_storage_symlinks():
     symlink(shared_vae_path, vae_path)
     symlink(shared_controlnet_models_path, controlnet_models_path)
     symlink(shared_outputs_path, outputs_path)
+    symlink(shared_text_encoder_path, text_encoder_path)
     symlink(f'{shared_config_path}/config.json', f'{webui_path}/config.json')
     symlink(f'{shared_config_path}/ui-config.json', f'{webui_path}/ui-config.json')
 
@@ -497,7 +505,8 @@ def initialization_forge():
     update_deps()
     create_shared_storage()
     set_oncompleted_permission()
-    hide_samplers()
+    remove_old_config()
+    remove_old_forge()
     install_forge()
     completed_message()
 
