@@ -38,7 +38,7 @@
                 }
             ],
             "url": [
-                "https://civitai.com/api/download/models/471794?type=Model&format=SafeTensor"
+                "https://huggingface.co/ffxvs/lora-effects-xl/resolve/main/hands_xl_v4.safetensors"
             ]
         },
         {

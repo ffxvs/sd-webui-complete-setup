@@ -57,7 +57,7 @@
                 }
             ],
             "url": [
-                "https://huggingface.co/ffxvs/lora-effects/resolve/main/hands_v3_sd15.safetensors"
+                "https://huggingface.co/ffxvs/lora-effects/resolve/main/hands_sd15_v3.safetensors"
             ]
         },
         {
