@@ -1,7 +1,6 @@
 import json
 import os
 import pty
-import re
 import signal
 import subprocess
 from urllib.parse import urlparse
@@ -457,31 +456,30 @@ webUI = WebUI('', True, '', '', '')
 
 # Launch Web UI
 def launch_webui(webui: WebUI):
+    os.chdir(webui_path)
     print('⏳ Preparing...')
     print('It will take a little longer...')
     args = '--disable-console-progressbars --disable-safe-unpickle --enable-insecure-extension-access --no-download-sd-model --no-hashing --api --xformers'
-    blocks_path = '/usr/local/lib/python3.10/dist-packages/gradio/blocks.py'
     proxy_url = 'http://127.0.0.1'
     webui_port = 7860
-    os.chdir(webui_path)
-
+    replace_done = False
     run_process(f'python launch.py {args} --exit')
-
-    with open(blocks_path, 'r') as file:
-        content = file.read()
 
     if webui.platform == paperspace:
         webui_port = paperspace_port
-        proxy_url = 'https://tensorboard-{os.environ.get("PAPERSPACE_FQDN")}'
+        proxy_url = f'https://tensorboard-{os.environ.get("PAPERSPACE_FQDN")}'
     elif webui.platform == runpod:
         webui_port = runpod_port
-        proxy_url = 'https://{os.environ.get("RUNPOD_POD_ID")}-' + str(runpod_port + 1) + '.proxy.runpod.net'
+        proxy_url = f'https://{os.environ.get("RUNPOD_POD_ID")}-{str(runpod_port + 1)}.proxy.runpod.net'
 
-    pattern = re.compile(r'print\(\s*strings\.en\["RUNNING_LOCALLY_SEPARATED"]\.format\(\s*self\.protocol, self\.server_name, self\.server_port\s*\)\s*\)')
-    replace = re.sub(pattern, f'print(strings.en["RUNNING_LOCALLY"].format(f\'{proxy_url}\'))', content)
-
-    with open(blocks_path, 'w') as file:
-        file.write(replace)
+    def read(fd: int):
+        nonlocal replace_done
+        output = os.read(fd, 1024)
+        if not replace_done:
+            if output.decode().startswith('Running on local URL:'):
+                replace_done = True
+                return f'\nRunning on URL: {proxy_url}\n'.encode()
+        return output
 
     if webui.dark_theme:
         args += ' --theme dark'
@@ -500,7 +498,7 @@ def launch_webui(webui: WebUI):
     close_port(webui_port)
     print('Launching Web UI...')
     try:
-        pty.spawn(f'python webui.py {args}'.split())
+        pty.spawn(f'python webui.py {args}'.split(), read)
     except KeyboardInterrupt:
         print('\n--Process terminated--')
 

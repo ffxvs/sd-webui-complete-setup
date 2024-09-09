@@ -21,7 +21,7 @@
         "id": "miniPaint",
         "name": "Mini Paint",
         "url": "https://github.com/0Tick/a1111-mini-paint",
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "modelDownloader",
