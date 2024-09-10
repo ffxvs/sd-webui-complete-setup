@@ -44,6 +44,14 @@
             {
                 "version": "flux1-dev-Q4_1 (7GB)",
                 "url": "https://huggingface.co/lllyasviel/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q4_1.gguf"
+            },
+            {
+                "version": "flux1-dev-Q5_1 (8GB)",
+                "url": "https://huggingface.co/lllyasviel/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q5_1.gguf"
+            },
+            {
+                "version": "flux1-dev-Q6_K (9GB)",
+                "url": "https://huggingface.co/lllyasviel/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q6_K.gguf"
             }
         ]
     }

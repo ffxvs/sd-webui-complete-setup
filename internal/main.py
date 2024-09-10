@@ -478,7 +478,7 @@ def launch_webui(webui: WebUI):
         if not replace_done:
             if output.decode().startswith('Running on local URL:'):
                 replace_done = True
-                return f'\nRunning on URL: {proxy_url}\n'.encode()
+                return f'\nRunning on URL : {proxy_url}\n'.encode()
         return output
 
     if webui.dark_theme:
