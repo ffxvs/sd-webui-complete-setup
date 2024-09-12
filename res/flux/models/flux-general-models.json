@@ -52,6 +52,10 @@
             {
                 "version": "flux1-dev-Q6_K (9GB)",
                 "url": "https://huggingface.co/lllyasviel/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q6_K.gguf"
+            },
+            {
+                "version": "flux1-dev-Q8_0 (11.8GB)",
+                "url": "https://huggingface.co/lllyasviel/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q8_0.gguf"
             }
         ]
     }
