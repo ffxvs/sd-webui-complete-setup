@@ -5,7 +5,7 @@
             "url": "https://huggingface.co/ffxvs/lora-effects-xl/resolve/main/detail_tweaker_xl.safetensors"
         }
     ],
-    "Embeddings": [
+    "Embedding": [
         {
             "name": "Negative prompts pack XL",
             "url": "https://huggingface.co/ffxvs/negative-prompts-pack-xl"

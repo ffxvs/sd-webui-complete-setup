@@ -74,7 +74,7 @@
             ]
         }
     ],
-    "Embeddings": [
+    "Embedding": [
         {
             "id": "scgEmotion",
             "name": "SCG Emotions Pack",

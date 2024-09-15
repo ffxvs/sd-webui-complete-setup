@@ -13,7 +13,7 @@
             "url": "https://huggingface.co/ffxvs/lora-effects/resolve/main/epiNoiseoffset_v2.safetensors"
         }
     ],
-    "Embeddings": [
+    "Embedding": [
         {
             "name": "Negative prompts pack",
             "url": "https://huggingface.co/ffxvs/negative-prompts-pack"

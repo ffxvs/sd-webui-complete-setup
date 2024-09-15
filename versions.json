@@ -12,25 +12,25 @@
     "forge": [
         {
             "id": "paperspace",
-            "version": "2024.09.09"
+            "version": "2024.09.15"
         },
         {
             "id": "runpod",
-            "version": "2024.09.09"
+            "version": "2024.09.15"
         }
     ],
     "resources": [
         {
             "id": "sd15",
-            "version": "2024.09.08"
+            "version": "2024.09.15"
         },
         {
             "id": "sdxl",
-            "version": "2024.09.08"
+            "version": "2024.09.15"
         },
         {
             "id": "flux",
-            "version": "2024.09.09"
+            "version": "2024.09.15"
         }
     ],
     "containers": [

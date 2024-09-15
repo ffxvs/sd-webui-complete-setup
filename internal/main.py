@@ -50,7 +50,8 @@ temp_controlnet_models_path = temp_storage + '/controlNet'
 temp_preprocessor_path = temp_controlnet_models_path + '/preprocessor'
 temp_text_encoder_path = temp_storage + '/text_encoder'
 
-# Resource URLs
+# #################### RESOURCE URLs ####################
+
 main_repo_url = 'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/dev'
 builtin_exts_url = main_repo_url + '/res/extensions/builtin-extensions.json'
 builtin_exts_forge_url = main_repo_url + '/res/extensions/builtin-extensions-forge.json'
@@ -79,20 +80,102 @@ flux_general_models_url = main_repo_url + '/res/flux/models/flux-general-models.
 flux_resources_url = main_repo_url + '/res/flux/flux-resources.json'
 
 
+# #################### CLASSES ####################
+
+class BaseModel:
+    def __init__(self):
+        self.SD15 = 'sd'
+        self.SDXL = 'sdxl'
+        self.FLUX = 'flux'
+
+
+class ResourceType:
+    def __init__(self):
+        self.embedding = 'Embedding'
+        self.lora = 'LoRA'
+        self.upscaler = 'Upscaler'
+        self.vae = 'VAE'
+        self.text_encoder = 'TextEncoder'
+
+
+class Platform:
+    def __init__(self):
+        self.runpod = 'runpod'
+        self.paperspace = 'paperspace'
+
+
+class Port:
+    def __init__(self):
+        self.runpod = 3000
+        self.paperspace = 6006
+
+
+class UI:
+    def __init__(self):
+        self.auto1111 = 'auto1111'
+        self.forge = 'forge'
+
+
+class WebUI:
+    def __init__(self, _ui: str, _platform: str, dark_theme: bool, username: str, password: str, cors: str, ngrok_token='', ngrok_domain=''):
+        self.ui = _ui
+        self.platform = _platform
+        self.dark_theme = dark_theme
+        self.username = username
+        self.password = password
+        self.ngrok_token = ngrok_token
+        self.ngrok_domain = ngrok_domain
+        self.cors = cors
+
+
+class OtherRes:
+    def __init__(self, lora: list, embedding: list, upscaler: list, vae: list, text_encoder: list):
+        self.lora = lora
+        self.embedding = embedding
+        self.upscaler = upscaler
+        self.vae = vae
+        self.text_encoder = text_encoder
+
+
+class TempStorage:
+    def __init__(self,
+                 sd15_models,
+                 sd15_lora,
+                 sd15_controlnet,
+                 sdxl_models,
+                 sdxl_lora,
+                 sdxl_controlnet,
+                 flux_models,
+                 flux_lora,
+                 flux_controlnet,
+                 flux_text_encoder,
+                 cn_preprocessor
+                 ):
+        self.sd15_models = sd15_models
+        self.sd15_lora = sd15_lora
+        self.sd15_controlnet = sd15_controlnet
+        self.sdxl_models = sdxl_models
+        self.sdxl_lora = sdxl_lora
+        self.sdxl_controlnet = sdxl_controlnet
+        self.flux_models = flux_models
+        self.flux_lora = flux_lora
+        self.flux_controlnet = flux_controlnet
+        self.flux_text_encoder = flux_text_encoder
+        self.cn_preprocessor = cn_preprocessor
+
+
 # #################### VARIABLES ####################
 
-sd = 'sd'
-sdxl = 'sdxl'
-flux = 'flux'
-embeddings = 'Embeddings'
-lora = 'LoRA'
-upscaler = 'Upscaler'
-vae = 'VAE'
-text_encoder = 'TextEncoder'
-runpod = 'runpod'
-paperspace = 'paperspace'
-paperspace_port = 6006
-runpod_port = 3000
+base = BaseModel()
+res_type = ResourceType()
+platform = Platform()
+port = Port()
+ui = UI()
+
+other = OtherRes([], [], [], [], [])
+webUI = WebUI('', '', True, '', '', '')
+temp = TempStorage(False, False, False, False, False, False, False, False, False, False, False)
+
 boolean = [False, True]
 request_headers = {
     "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -191,7 +274,7 @@ def remove_old_forge():
             run_process(f'rm -r -f {forge_path}')
 
 
-def temp_storage_symlink(option, source, destination):
+def ts_symlink(option, source, destination):
     if option:
         symlink(source, destination)
     else:
@@ -230,49 +313,19 @@ def create_shared_storage():
         os.makedirs(folder, exist_ok=True)
 
 
-class TempStorage:
-    def __init__(self,
-                 sd15_models,
-                 sd15_lora,
-                 sd15_controlnet,
-                 sdxl_models,
-                 sdxl_lora,
-                 sdxl_controlnet,
-                 flux_models,
-                 flux_lora,
-                 flux_controlnet,
-                 flux_text_encoder,
-                 cn_preprocessor
-                 ):
-        self.sd15_models = sd15_models
-        self.sd15_lora = sd15_lora
-        self.sd15_controlnet = sd15_controlnet
-        self.sdxl_models = sdxl_models
-        self.sdxl_lora = sdxl_lora
-        self.sdxl_controlnet = sdxl_controlnet
-        self.flux_models = flux_models
-        self.flux_lora = flux_lora
-        self.flux_controlnet = flux_controlnet
-        self.flux_text_encoder = flux_text_encoder
-        self.cn_preprocessor = cn_preprocessor
-
-
-temp = TempStorage(False, False, False, False, False, False, False, False, False, False, False)
-
-
 # Create symlinks from temporary storage to shared storage
 def temp_storage_symlinks(t: TempStorage):
-    temp_storage_symlink(t.sd15_models, f'{temp_models_path}/sd', f'{shared_models_path}/sd')
-    temp_storage_symlink(t.sd15_lora, f'{temp_lora_path}/sd', f'{shared_lora_path}/sd')
-    temp_storage_symlink(t.sd15_controlnet, f'{temp_controlnet_models_path}/sd', f'{shared_controlnet_models_path}/sd')
-    temp_storage_symlink(t.sdxl_models, f'{temp_models_path}/sdxl', f'{shared_models_path}/sdxl')
-    temp_storage_symlink(t.sdxl_lora, f'{temp_lora_path}/sdxl', f'{shared_lora_path}/sdxl')
-    temp_storage_symlink(t.sdxl_controlnet, f'{temp_controlnet_models_path}/sdxl', f'{shared_controlnet_models_path}/sdxl')
-    temp_storage_symlink(t.flux_models, f'{temp_models_path}/flux', f'{shared_models_path}/flux')
-    temp_storage_symlink(t.flux_lora, f'{temp_lora_path}/flux', f'{shared_lora_path}/flux')
-    temp_storage_symlink(t.flux_controlnet, f'{temp_controlnet_models_path}/flux', f'{shared_controlnet_models_path}/flux')
-    temp_storage_symlink(t.flux_text_encoder, f'{temp_text_encoder_path}/flux', f'{shared_text_encoder_path}/flux')
-    temp_storage_symlink(t.cn_preprocessor, temp_preprocessor_path, preprocessor_path)
+    ts_symlink(t.sd15_models, f'{temp_models_path}/sd', f'{shared_models_path}/sd')
+    ts_symlink(t.sd15_lora, f'{temp_lora_path}/sd', f'{shared_lora_path}/sd')
+    ts_symlink(t.sd15_controlnet, f'{temp_controlnet_models_path}/sd', f'{shared_controlnet_models_path}/sd')
+    ts_symlink(t.sdxl_models, f'{temp_models_path}/sdxl', f'{shared_models_path}/sdxl')
+    ts_symlink(t.sdxl_lora, f'{temp_lora_path}/sdxl', f'{shared_lora_path}/sdxl')
+    ts_symlink(t.sdxl_controlnet, f'{temp_controlnet_models_path}/sdxl', f'{shared_controlnet_models_path}/sdxl')
+    ts_symlink(t.flux_models, f'{temp_models_path}/flux', f'{shared_models_path}/flux')
+    ts_symlink(t.flux_lora, f'{temp_lora_path}/flux', f'{shared_lora_path}/flux')
+    ts_symlink(t.flux_controlnet, f'{temp_controlnet_models_path}/flux', f'{shared_controlnet_models_path}/flux')
+    ts_symlink(t.flux_text_encoder, f'{temp_text_encoder_path}/flux', f'{shared_text_encoder_path}/flux')
+    ts_symlink(t.cn_preprocessor, temp_preprocessor_path, preprocessor_path)
 
 
 # Create symlinks from shared storage to webui
@@ -352,6 +405,27 @@ def silent_get(command: str):
     run_process(f'wget -nv {command}')
 
 
+def install_auto1111():
+    os.chdir(root)
+    print('⏳ Installing/Updating Stable Diffusion Web UI...')
+    webui_version = 'v1.10.1'
+    silent_clone(f'-b {webui_version} https://github.com/AUTOMATIC1111/stable-diffusion-webui', root)
+    os.chdir(webui_path)
+    run_process('git remote set-branches origin master')
+    run_process(f'git fetch origin tag {webui_version} -q --depth=5')
+    run_process(f'git checkout -q -f {webui_version}')
+
+    download_configs()
+    shared_storage_symlinks()
+
+    downloader(f'https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/{webui_version}/modules/extras.py', modules_path, True)
+    downloader(f'https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/{webui_version}/modules/sd_models.py', modules_path, True)
+
+    # From ThelastBen
+    run_process(f'sed -i \'s@shared.opts.data\["sd_model_checkpoint"] = checkpoint_info.title@shared.opts.data\["sd_model_checkpoint"] = checkpoint_info.title;model.half()@\' {modules_path}/sd_models.py', use_shell=True)
+    run_process(f"sed -i \"s@map_location='cpu'@map_location='cuda'@\" {modules_path}/extras.py", use_shell=True)
+
+
 # Install Web UI Forge
 def install_forge():
     os.chdir(root)
@@ -359,16 +433,17 @@ def install_forge():
     webui_version = 'main'
     silent_clone(f'-b {webui_version} https://github.com/lllyasviel/stable-diffusion-webui-forge', root, update=True)
     os.chdir(webui_path)
+    download_configs()
+    shared_storage_symlinks()
 
-    # Download configs
+
+def download_configs():
     if not os.path.exists(f'{shared_config_path}/config.json'):
         print('Download config.json')
         downloader(f'{main_repo_url}/configs/config.json', shared_config_path)
     if not os.path.exists(f'{shared_config_path}/ui-config.json'):
         print('Download ui-config.json')
         downloader(f'{main_repo_url}/configs/ui-config.json', shared_config_path)
-
-    shared_storage_symlinks()
 
 
 # Install selected extensions
@@ -440,20 +515,6 @@ def install_other_exts(extensions: list, update_exts=False):
             silent_clone(ext, extensions_path, update_exts)
 
 
-class WebUI:
-    def __init__(self, platform: str, dark_theme: bool, username: str, password: str, cors: str, ngrok_token='', ngrok_domain=''):
-        self.platform = platform
-        self.dark_theme = dark_theme
-        self.username = username
-        self.password = password
-        self.ngrok_token = ngrok_token
-        self.ngrok_domain = ngrok_domain
-        self.cors = cors
-
-
-webUI = WebUI('', True, '', '', '')
-
-
 # Launch Web UI
 def launch_webui(webui: WebUI):
     os.chdir(webui_path)
@@ -465,12 +526,15 @@ def launch_webui(webui: WebUI):
     replace_done = False
     run_process(f'python launch.py {args} --exit')
 
-    if webui.platform == paperspace:
-        webui_port = paperspace_port
+    if webui.ui == ui.auto1111:
+        run_process('pip install -q pillow==9.5.0')
+
+    if webui.platform == platform.paperspace:
+        webui_port = port.paperspace
         proxy_url = f'https://tensorboard-{os.environ.get("PAPERSPACE_FQDN")}'
-    elif webui.platform == runpod:
-        webui_port = runpod_port
-        proxy_url = f'https://{os.environ.get("RUNPOD_POD_ID")}-{str(runpod_port + 1)}.proxy.runpod.net'
+    elif webui.platform == platform.runpod:
+        webui_port = port.runpod
+        proxy_url = f'https://{os.environ.get("RUNPOD_POD_ID")}-{str(port.runpod + 1)}.proxy.runpod.net'
 
     def read(fd: int):
         nonlocal replace_done
@@ -503,19 +567,22 @@ def launch_webui(webui: WebUI):
         print('\n--Process terminated--')
 
 
-def initialization_forge():
+def initialization(_ui_: str):
     apply_envs1()
     apply_envs2()
     update_deps()
     create_shared_storage()
     set_oncompleted_permission()
     remove_old_config()
-    remove_old_forge()
-    install_forge()
+    if _ui_ == ui.forge:
+        remove_old_forge()
+        install_forge()
+    elif _ui_ == ui.auto1111:
+        install_auto1111()
     completed_message()
 
 
-def models_selection(models_url: str, subdir: str, civitai=''):
+def models_selection(models_url: str, base_model: str, civitai=''):
     dropdowns = []
     models_header = widgets.HTML('<h3 style="width: 200px;">Models Name</h3>')
     versions_header = widgets.HTML('<h3 style="width: 250px;">Versions</h3>')
@@ -552,7 +619,7 @@ def models_selection(models_url: str, subdir: str, civitai=''):
             try:
                 for name, version, url in selected_versions:
                     print(f'\n* {name} | {version}')
-                    downloader(url, f'{models_path}/{subdir}', civitai_token=civitai)
+                    downloader(url, f'{models_path}/{base_model}', civitai_token=civitai)
                 completed_message()
             except KeyboardInterrupt:
                 print('\n\n--Download interrupted--')
@@ -562,16 +629,46 @@ def models_selection(models_url: str, subdir: str, civitai=''):
 
 
 # Download ControlNet
-def download_controlnet(controlnet: list, url: str, subdir: str):
+def download_controlnet(controlnet: list, url: str, base_model: str):
     controlnet_data = get_resources(url)
     for model in controlnet:
         if controlnet[model]:
             print('\n* ' + model + '...')
             for url in controlnet_data[model]:
-                downloader(url, f'{controlnet_models_path}/{subdir}')
+                downloader(url, f'{controlnet_models_path}/{base_model}')
 
 
-def resources_selection(builtin_res_url: str, resources_url: str, subdir: str, civitai=''):
+def get_res_directory(_type: str, base_model: str):
+    directory = None
+    match _type:
+        case res_type.embedding:
+            directory = f'{embeddings_path}/{base_model}'
+        case res_type.lora:
+            directory = f'{lora_path}/{base_model}'
+        case res_type.upscaler:
+            directory = upscaler_path
+        case res_type.vae:
+            directory = f'{vae_path}/{base_model}'
+        case res_type.text_encoder:
+            directory = f'{text_encoder_path}/{base_model}'
+    return directory
+
+
+# Download built-in resources
+def download_builtin_resources(resources_url: str, base_model: str):
+    resources = get_resources(resources_url)
+    for resource_type, items in resources.items():
+        directory = get_res_directory(resource_type, base_model)
+        print(f'\n⏳ Downloading built-in {resource_type}...')
+        for item in items:
+            print(f"\n* {item['name']}...")
+            if resource_type == res_type.embedding:
+                silent_clone(item['url'], directory, True)
+            else:
+                downloader(item['url'], directory)
+
+
+def resources_selection(builtin_res_url: str | None, resources_url: str, base_model: str, civitai=''):
     checkboxes = []
     resources = get_resources(resources_url)
 
@@ -595,44 +692,32 @@ def resources_selection(builtin_res_url: str, resources_url: str, subdir: str, c
 
     def on_press(button):
         selected_res = {
-            lora: [],
-            embeddings: [],
-            upscaler: [],
-            vae: [],
-            text_encoder: []
+            res_type.lora: [],
+            res_type.embedding: [],
+            res_type.upscaler: [],
+            res_type.vae: [],
+            res_type.text_encoder: []
         }
 
-        for _res, _resource_type, _checkbox in checkboxes:
+        for _res, _type, _checkbox in checkboxes:
             if _checkbox.value:
-                if _resource_type == lora:
-                    selected_res[lora].append((_res['name'], _res['url']))
-                elif _resource_type == embeddings:
-                    selected_res[embeddings].append((_res['name'], _res['url']))
-                elif _resource_type == upscaler:
-                    selected_res[upscaler].append((_res['name'], _res['url']))
-                elif _resource_type == vae:
-                    selected_res[vae].append((_res['name'], _res['url']))
-                elif _resource_type == text_encoder:
-                    selected_res[text_encoder].append((_res['name'], _res['url']))
+                selected_res[_type].append((_res['name'], _res['url']))
 
         with output:
             output.clear_output()
             try:
-                if builtin_res_url: download_builtin_resources(builtin_res_url, subdir)
-                for _type in selected_res:
-                    if _type == embeddings and selected_res[_type]:
-                        print(f'\n⏳ Downloading selected {_type}...')
-                        for name, url in selected_res['Embeddings']:
-                            print(name + '...')
-                            silent_clone(url, f'{embeddings_path}/{subdir}', True)
-                    elif _type == lora and selected_res[_type]:
-                        download_selected_res(selected_res[_type], _type, f'{lora_path}/{subdir}', civitai)
-                    elif _type == upscaler and selected_res[_type]:
-                        download_selected_res(selected_res[_type], _type, upscaler_path, civitai)
-                    elif _type == vae and selected_res[_type]:
-                        download_selected_res(selected_res[_type], _type, f'{vae_path}/{subdir}', civitai)
-                    elif _type == text_encoder and selected_res[_type]:
-                        download_selected_res(selected_res[_type], _type, f'{text_encoder_path}/{subdir}', civitai)
+                if builtin_res_url: download_builtin_resources(builtin_res_url, base_model)
+                for _type_ in selected_res:
+                    if selected_res[_type_]:
+                        directory = get_res_directory(_type_, base_model)
+                        print(f'\n⏳ Downloading selected {_type_}...')
+                        for name, urls in selected_res[_type_]:
+                            print(f'\n* {name}...')
+                            if _type_ == res_type.embedding:
+                                silent_clone(urls, directory, True)
+                            else:
+                                for url in urls:
+                                    downloader(url, directory, civitai_token=civitai)
                 completed_message()
             except KeyboardInterrupt:
                 print('\n\n--Download interrupted--')
@@ -642,43 +727,6 @@ def resources_selection(builtin_res_url: str, resources_url: str, subdir: str, c
     display(download_button, output)
 
 
-def download_selected_res(res_list: list, _type: str, path: str, civitai=''):
-    print(f'\n\n⏳ Downloading selected {_type}...')
-    for name, urls in res_list:
-        print(f'\n* {name}...')
-        for url in urls:
-            downloader(url, path, civitai_token=civitai)
-        print('')
-
-
-# Download built-in resources
-def download_builtin_resources(resources_url: str, subdir: str):
-    parentdir = ''
-    resources = get_resources(resources_url)
-    for resource_type, items in resources.items():
-        match resource_type:
-            case 'Embeddings':
-                parentdir = embeddings_path
-            case 'LoRA':
-                parentdir = lora_path
-            case 'Upscaler':
-                parentdir = upscaler_path
-            case 'VAE':
-                parentdir = vae_path
-            case 'TextEncoder':
-                parentdir = text_encoder_path
-
-        print(f'\n\n⏳ Downloading built-in {resource_type}...')
-        for item in items:
-            print(f"\n* {item['name']}...")
-            if resource_type == embeddings:
-                silent_clone(item['url'], f'{parentdir}/{subdir}', True)
-            elif resource_type == upscaler:
-                downloader(item['url'], parentdir)
-            else:
-                downloader(item['url'], f'{parentdir}/{subdir}')
-
-
 # Other resources
 def download_other_res(resource_list: list, resource_path: str, civitai=''):
     for resource in resource_list:
@@ -686,32 +734,20 @@ def download_other_res(resource_list: list, resource_path: str, civitai=''):
         downloader(resource, resource_path, civitai_token=civitai)
 
 
-class OtherRes:
-    def __init__(self, _lora: list, _embeddings: list, _upscaler: list, _vae: list, _textencoder: list):
-        self.lora = _lora
-        self.embeddings = _embeddings
-        self.upscaler = _upscaler
-        self.vae = _vae
-        self.text_encoder = _textencoder
-
-
-other = OtherRes([], [], [], [], [])
-
-
 # Download other resources
-def other_resources(other_res: OtherRes, subdir: str, civitai=''):
+def other_resources(other_res: OtherRes, base_model: str, civitai=''):
     if other_res.lora:
         print('\n\n⏳ Downloading LoRA...')
-        download_other_res(other_res.lora, f'{lora_path}/{subdir}', civitai)
-    if other_res.embeddings:
-        print('\n\n⏳ Downloading embeddings...')
-        download_other_res(other_res.embeddings, f'{embeddings_path}/{subdir}', civitai)
+        download_other_res(other_res.lora, f'{lora_path}/{base_model}', civitai)
+    if other_res.embedding:
+        print('\n\n⏳ Downloading embedding...')
+        download_other_res(other_res.embedding, f'{embeddings_path}/{base_model}', civitai)
     if other_res.upscaler:
         print('\n\n⏳ Downloading upscaler...')
         download_other_res(other_res.upscaler, upscaler_path, civitai)
     if other_res.vae:
         print('\n\n⏳ Downloading VAE...')
-        download_other_res(other_res.vae, f'{vae_path}/{subdir}', civitai)
+        download_other_res(other_res.vae, f'{vae_path}/{base_model}', civitai)
     if other_res.text_encoder:
         print('\n\n⏳ Downloading Text Encoder...')
-        download_other_res(other_res.vae, f'{text_encoder_path}/{subdir}', civitai)
+        download_other_res(other_res.text_encoder, f'{text_encoder_path}/{base_model}', civitai)
