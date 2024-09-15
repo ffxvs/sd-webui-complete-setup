@@ -2,11 +2,11 @@
     "auto1111": [
         {
             "id": "paperspace",
-            "version": ""
+            "version": "2024.09.15"
         },
         {
             "id": "runpod",
-            "version": ""
+            "version": "2024.09.15"
         }
     ],
     "forge": [
@@ -36,7 +36,7 @@
     "containers": [
         {
             "id": "auto1111",
-            "version": ""
+            "version": "2024.09.15"
         },
         {
             "id": "forge",
