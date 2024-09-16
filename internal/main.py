@@ -137,33 +137,6 @@ class OtherRes:
         self.text_encoder = text_encoder
 
 
-class TempStorage:
-    def __init__(self,
-                 sd15_models,
-                 sd15_lora,
-                 sd15_controlnet,
-                 sdxl_models,
-                 sdxl_lora,
-                 sdxl_controlnet,
-                 flux_models,
-                 flux_lora,
-                 flux_controlnet,
-                 flux_text_encoder,
-                 cn_preprocessor
-                 ):
-        self.sd15_models = sd15_models
-        self.sd15_lora = sd15_lora
-        self.sd15_controlnet = sd15_controlnet
-        self.sdxl_models = sdxl_models
-        self.sdxl_lora = sdxl_lora
-        self.sdxl_controlnet = sdxl_controlnet
-        self.flux_models = flux_models
-        self.flux_lora = flux_lora
-        self.flux_controlnet = flux_controlnet
-        self.flux_text_encoder = flux_text_encoder
-        self.cn_preprocessor = cn_preprocessor
-
-
 # #################### VARIABLES ####################
 
 base = BaseModel()
@@ -174,7 +147,6 @@ ui = UI()
 
 other = OtherRes([], [], [], [], [])
 webUI = WebUI('', '', True, '', '', '')
-temp = TempStorage(False, False, False, False, False, False, False, False, False, False, False)
 
 boolean = [False, True]
 request_headers = {
@@ -234,7 +206,7 @@ def symlink(source: str, destination: str):
 
 
 # Remove symlink
-def unlink(target):
+def unlink(target: str):
     if os.path.exists(target) and os.path.islink(target):
         run_process(f'unlink {target}')
 
@@ -246,7 +218,7 @@ def completed_message():
     display(completed)
 
 
-def close_port(port_number):
+def close_port(port_number: int):
     result = run_process(f'lsof -i :{port_number}').stdout.strip().split('\n')
     if len(result) > 1:
         pid = int(result[1].split()[1])
@@ -274,7 +246,7 @@ def remove_old_forge():
             run_process(f'rm -r -f {forge_path}')
 
 
-def ts_symlink(option, source, destination):
+def temp_storage_symlink(option, source, destination):
     if option:
         symlink(source, destination)
     else:
@@ -314,18 +286,53 @@ def create_shared_storage():
 
 
 # Create symlinks from temporary storage to shared storage
-def temp_storage_symlinks(t: TempStorage):
-    ts_symlink(t.sd15_models, f'{temp_models_path}/sd', f'{shared_models_path}/sd')
-    ts_symlink(t.sd15_lora, f'{temp_lora_path}/sd', f'{shared_lora_path}/sd')
-    ts_symlink(t.sd15_controlnet, f'{temp_controlnet_models_path}/sd', f'{shared_controlnet_models_path}/sd')
-    ts_symlink(t.sdxl_models, f'{temp_models_path}/sdxl', f'{shared_models_path}/sdxl')
-    ts_symlink(t.sdxl_lora, f'{temp_lora_path}/sdxl', f'{shared_lora_path}/sdxl')
-    ts_symlink(t.sdxl_controlnet, f'{temp_controlnet_models_path}/sdxl', f'{shared_controlnet_models_path}/sdxl')
-    ts_symlink(t.flux_models, f'{temp_models_path}/flux', f'{shared_models_path}/flux')
-    ts_symlink(t.flux_lora, f'{temp_lora_path}/flux', f'{shared_lora_path}/flux')
-    ts_symlink(t.flux_controlnet, f'{temp_controlnet_models_path}/flux', f'{shared_controlnet_models_path}/flux')
-    ts_symlink(t.flux_text_encoder, f'{temp_text_encoder_path}/flux', f'{shared_text_encoder_path}/flux')
-    ts_symlink(t.cn_preprocessor, temp_preprocessor_path, preprocessor_path)
+def temp_storage_settings():
+    checkboxes = []
+    ts_list = [
+        ('SD v1.5 Models', f'{temp_models_path}/sd', f'{shared_models_path}/sd'),
+        ('SD v1.5 LoRA', f'{temp_lora_path}/sd', f'{shared_lora_path}/sd'),
+        ('SD v1.5 ControlNet', f'{temp_controlnet_models_path}/sd', f'{shared_controlnet_models_path}/sd'),
+        ('SDXL Models', f'{temp_models_path}/sdxl', f'{shared_models_path}/sdxl'),
+        ('SDXL LoRA', f'{temp_lora_path}/sdxl', f'{shared_lora_path}/sdxl'),
+        ('SDXL ControlNet', f'{temp_controlnet_models_path}/sdxl', f'{shared_controlnet_models_path}/sdxl'),
+        ('FLUX Models', f'{temp_models_path}/flux', f'{shared_models_path}/flux'),
+        ('FLUX LoRA', f'{temp_lora_path}/flux', f'{shared_lora_path}/flux'),
+        ('FLUX ControlNet', f'{temp_controlnet_models_path}/flux', f'{shared_controlnet_models_path}/flux'),
+        ('FLUX Text Encoder', f'{temp_text_encoder_path}/flux', f'{shared_text_encoder_path}/flux'),
+        ('ControlNet Preprocessor', temp_preprocessor_path, preprocessor_path)
+    ]
+
+    ts_header = widgets.HTML('<h3 style="width: 250px;">Options</h3>')
+    status_header = widgets.HTML('<h3 style="width: 100px; text-align: center;">Status</h3>')
+    headers = widgets.HBox([ts_header, status_header])
+    output = widgets.Output()
+    display(headers)
+
+    def set_status(state): return '<div style="text-align: center; width: 100px;{0}</div>'.format(' color: lawngreen;">ON' if state else '">OFF')
+
+    for opt, source, destination in ts_list:
+        is_link = os.path.islink(destination)
+        checkbox = widgets.Checkbox(value=is_link, description=opt, indent=False, layout={'width': '250px'})
+        status = widgets.HTML(set_status(is_link))
+        item = widgets.HBox([checkbox, status])
+        checkboxes.append((checkbox, status, source, destination))
+        display(item)
+
+    def on_press(button):
+        with output:
+            output.clear_output()
+            for cb, sts, src, des in checkboxes:
+                temp_storage_symlink(cb.value, src, des)
+                sts.value = set_status(os.path.islink(des))
+            shared_storage_symlinks()
+
+    apply_button = widgets.Button(description='Apply', button_style='success')
+    apply_button.on_click(on_press)
+    print('')
+    display(apply_button)
+    print('\n* Selected   : ON')
+    print('* Not Selected : OFF\n')
+    display(output)
 
 
 # Create symlinks from shared storage to webui
@@ -456,35 +463,39 @@ def extensions_selection(_builtin_exts_url: str, _exts_url: str):
     output = widgets.Output()
     display(headers)
 
+    def set_status(state): return f'<div style="text-align: center; width: 120px;">{state}</div>'
+
     for ext in get_resources(_exts_url):
         directory = f"{extensions_path}/{ext['url'].split('/')[-1]}"
         if os.path.exists(directory):
-            installed_status = 'installed'
+            install_status = 'installed'
             enabled = True
         else:
-            installed_status = 'not installed'
+            install_status = 'not installed'
             enabled = True if ext['enabled'] else False
 
         checkbox = widgets.Checkbox(value=enabled, description=ext['name'], indent=False, layout={'width': '250px'})
-        status = widgets.HTML(f'<div style="text-align: center; width: 120px;">{installed_status}</div>')
+        status = widgets.HTML(set_status(install_status))
         homepage = widgets.HTML(f'<div class="jp-RenderedText" style="width: 105px; text-align: center; white-space:nowrap; display: inline-grid;">'
                                 f'<pre><a href="{ext["url"]}" target="_blank">GitHub</a></pre></div>')
         item = widgets.HBox([checkbox, status, homepage])
-        checkboxes.append((ext, checkbox))
+        checkboxes.append((ext, checkbox, status))
         display(item)
 
     def on_press(button):
-        selected_exts = [(_ext['id'], _ext['name'], _ext['url']) for _ext, _checkbox in checkboxes if _checkbox.value]
+        selected_exts = [(_ext['id'], _ext['name'], _ext['url'], _status) for _ext, _checkbox, _status in checkboxes if _checkbox.value]
         with output:
             output.clear_output()
             try:
                 install_builtin_exts(_builtin_exts_url, update_exts.value)
                 print("\n⏳ Installing selected extensions...")
-                for _id, name, url in selected_exts:
+                for _id, name, url, sts in selected_exts:
                     if _id == 'bmab':
                         run_process('pip install -q basicsr')
                     print(f'{name}...')
                     silent_clone(url, extensions_path, update=update_exts.value)
+                    ext_dir = f"{extensions_path}/{url.split('/')[-1]}"
+                    if os.path.exists(ext_dir): sts.value = set_status('installed')
                 completed_message()
             except KeyboardInterrupt:
                 print('\n\n--Install interrupted--')
@@ -520,7 +531,7 @@ def launch_webui(webui: WebUI):
     os.chdir(webui_path)
     print('⏳ Preparing...')
     print('It will take a little longer...')
-    args = '--disable-console-progressbars --disable-safe-unpickle --enable-insecure-extension-access --no-download-sd-model --no-hashing --api --xformers'
+    args = '--text-encoder-dir /temp-storage/text_encoder --disable-console-progressbars --disable-safe-unpickle --enable-insecure-extension-access --no-download-sd-model --no-hashing --api --xformers'
     proxy_url = 'http://127.0.0.1'
     webui_port = 7860
     replace_done = False
