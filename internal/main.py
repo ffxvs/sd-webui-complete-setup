@@ -52,7 +52,8 @@ temp_text_encoder_path = temp_storage + '/text_encoder'
 
 # #################### RESOURCE URLs ####################
 
-main_repo_url = 'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/dev'
+branch = 'dev'
+main_repo_url = f'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/{branch}'
 builtin_exts_url = main_repo_url + '/res/extensions/builtin-extensions.json'
 builtin_exts_forge_url = main_repo_url + '/res/extensions/builtin-extensions-forge.json'
 extensions_url = main_repo_url + '/res/extensions/extensions.json'
