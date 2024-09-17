@@ -386,7 +386,7 @@ def downloader(url: str, path: str, overwrite=False, civitai_token=''):
         for line in sp.stdout:
             if line.startswith('[#'):
                 text = 'Download progress {}'.format(line.strip('\n'))
-                print('\r' + ' ' * 80 + '\r' + text, end='\r', flush=True)
+                print('\r' + ' ' * 100 + '\r' + text, end='\r', flush=True)
                 prev_line = text
             elif line.startswith('[COMPLETED]'):
                 if prev_line != '': print('')
