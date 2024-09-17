@@ -532,7 +532,7 @@ def launch_webui(webui: WebUI):
     os.chdir(webui_path)
     print('⏳ Preparing...')
     print('It will take a little longer...')
-    args = '--text-encoder-dir /temp-storage/text_encoder --disable-console-progressbars --disable-safe-unpickle --enable-insecure-extension-access --no-download-sd-model --no-hashing --api --xformers'
+    args = '--disable-console-progressbars --disable-safe-unpickle --enable-insecure-extension-access --no-download-sd-model --no-hashing --api --xformers'
     proxy_url = 'http://127.0.0.1'
     webui_port = 7860
     replace_done = False
@@ -540,6 +540,9 @@ def launch_webui(webui: WebUI):
 
     if webui.ui == ui.auto1111:
         run_process('pip install -q pillow==9.5.0')
+
+    if webui.ui == ui.forge:
+        args += '--text-encoder-dir /temp-storage/text_encoder'
 
     if webui.platform == platform.paperspace:
         webui_port = port.paperspace
