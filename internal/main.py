@@ -257,8 +257,10 @@ def temp_storage_symlink(option, source, destination):
 
 
 # Create shared storage
-def create_shared_storage():
+def create_shared_storage(_platform: str):
     print('⏳ Creating shared storage directory...')
+    if _platform == platform.paperspace:
+        symlink('/storage', shared_storage)
     os.chdir(root)
     shared_storage_folders = [
         shared_storage,
@@ -582,11 +584,11 @@ def launch_webui(webui: WebUI):
         print('\n--Process terminated--')
 
 
-def initialization(_ui_: str):
+def initialization(_ui_: str, _platform_: str):
     apply_envs1()
     apply_envs2()
     update_deps()
-    create_shared_storage()
+    create_shared_storage(_platform_)
     set_oncompleted_permission()
     remove_old_config()
     if _ui_ == ui.forge:
