@@ -542,7 +542,7 @@ def launch_webui(webui: WebUI):
         run_process('pip install -q pillow==9.5.0')
 
     if webui.ui == ui.forge:
-        args += '--text-encoder-dir /temp-storage/text_encoder'
+        args += ' --text-encoder-dir /temp-storage/text_encoder'
 
     if webui.platform == platform.paperspace:
         webui_port = port.paperspace
