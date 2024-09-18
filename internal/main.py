@@ -11,8 +11,13 @@ from IPython.display import display
 
 # #################### GLOBAL PATHS ####################
 
+
+branch_id = os.environ.get('BRANCH_ID')
+webui_id = os.environ.get('WEBUI_ID')
+webui_dir = os.environ.get('WEBUI_DIR')
+platform_id = os.environ.get('PLATFORM_ID')
+
 root = '/notebooks'
-webui_dir = os.environ.get('WEBUI_DIR', '')
 webui_path = root + webui_dir
 oncompleted_path = '/internal/on-completed.sh'
 outputs_path = webui_path + '/outputs'
@@ -26,11 +31,6 @@ upscaler_path = webui_path + '/models/ESRGAN'
 vae_path = webui_path + '/models/VAE'
 controlnet_models_path = webui_path + '/models/ControlNet'
 text_encoder_path = webui_path + '/models/text_encoder'
-
-if webui_dir == '/stable-diffusion-webui-forge':
-    preprocessor_path = webui_path + '/models/ControlNetPreprocessor'
-else:
-    preprocessor_path = extensions_path + '/sd-webui-controlnet/annotator/downloads'
 
 shared_storage = root + '/shared-storage'
 shared_models_path = shared_storage + '/models'
@@ -52,8 +52,7 @@ temp_text_encoder_path = temp_storage + '/text_encoder'
 
 # #################### RESOURCE URLs ####################
 
-branch = 'dev'
-main_repo_url = f'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/{branch}'
+main_repo_url = f'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/{branch_id}'
 builtin_exts_url = main_repo_url + '/res/extensions/builtin-extensions.json'
 builtin_exts_forge_url = main_repo_url + '/res/extensions/builtin-extensions-forge.json'
 extensions_url = main_repo_url + '/res/extensions/extensions.json'
@@ -101,8 +100,8 @@ class ResourceType:
 
 class Platform:
     def __init__(self):
-        self.runpod = 'runpod'
-        self.paperspace = 'paperspace'
+        self.runpod = 'RUNPOD'
+        self.paperspace = 'PAPERSPACE'
 
 
 class Port:
@@ -113,14 +112,12 @@ class Port:
 
 class UI:
     def __init__(self):
-        self.auto1111 = 'auto1111'
-        self.forge = 'forge'
+        self.auto1111 = 'AUTO1111'
+        self.forge = 'FORGE'
 
 
 class WebUI:
-    def __init__(self, _ui: str, _platform: str, dark_theme: bool, username: str, password: str, cors: str, ngrok_token='', ngrok_domain=''):
-        self.ui = _ui
-        self.platform = _platform
+    def __init__(self, dark_theme: bool, username: str, password: str, cors: str, ngrok_token='', ngrok_domain=''):
         self.dark_theme = dark_theme
         self.username = username
         self.password = password
@@ -147,7 +144,7 @@ port = Port()
 ui = UI()
 
 other = OtherRes([], [], [], [], [])
-webUI = WebUI('', '', True, '', '', '')
+webUI = WebUI(True, '', '', '')
 
 boolean = [False, True]
 request_headers = {
@@ -155,6 +152,11 @@ request_headers = {
     "Pragma": "no-cache",
     "Expires": "0"
 }
+
+if webui_id == ui.forge:
+    preprocessor_path = webui_path + '/models/ControlNetPreprocessor'
+else:
+    preprocessor_path = extensions_path + '/sd-webui-controlnet/annotator/downloads'
 
 
 # #################### FUNCTIONS ####################
@@ -257,9 +259,9 @@ def temp_storage_symlink(option, source, destination):
 
 
 # Create shared storage
-def create_shared_storage(_platform: str):
+def create_shared_storage():
     print('⏳ Creating shared storage directory...')
-    if _platform == platform.paperspace:
+    if platform_id == platform.paperspace:
         symlink('/storage', shared_storage)
     os.chdir(root)
     shared_storage_folders = [
@@ -540,16 +542,16 @@ def launch_webui(webui: WebUI):
     replace_done = False
     run_process(f'python launch.py {args} --exit')
 
-    if webui.ui == ui.auto1111:
+    if webui_id == ui.auto1111:
         run_process('pip install -q pillow==9.5.0')
 
-    if webui.ui == ui.forge:
+    if webui_id == ui.forge:
         args += ' --text-encoder-dir /temp-storage/text_encoder'
 
-    if webui.platform == platform.paperspace:
+    if platform_id == platform.paperspace:
         webui_port = port.paperspace
         proxy_url = f'https://tensorboard-{os.environ.get("PAPERSPACE_FQDN")}'
-    elif webui.platform == platform.runpod:
+    elif platform_id == platform.runpod:
         webui_port = port.runpod
         proxy_url = f'https://{os.environ.get("RUNPOD_POD_ID")}-{str(port.runpod + 1)}.proxy.runpod.net'
 
@@ -584,17 +586,17 @@ def launch_webui(webui: WebUI):
         print('\n--Process terminated--')
 
 
-def initialization(_ui_: str, _platform_: str):
+def initialization():
     apply_envs1()
     apply_envs2()
     update_deps()
-    create_shared_storage(_platform_)
+    create_shared_storage()
     set_oncompleted_permission()
     remove_old_config()
-    if _ui_ == ui.forge:
+    if webui_id == ui.forge:
         remove_old_forge()
         install_forge()
-    elif _ui_ == ui.auto1111:
+    elif webui_id == ui.auto1111:
         install_auto1111()
     completed_message()
 
