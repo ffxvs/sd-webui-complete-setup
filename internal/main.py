@@ -8,14 +8,15 @@ from urllib.parse import urlparse
 import ipywidgets as widgets
 import requests
 from IPython.display import display
+from dotenv import load_dotenv
 
 # #################### GLOBAL PATHS ####################
 
 
-branch_id = os.environ.get('BRANCH_ID')
-webui_id = os.environ.get('WEBUI_ID')
-webui_dir = os.environ.get('WEBUI_DIR')
-platform_id = os.environ.get('PLATFORM_ID')
+branch_id = os.environ['BRANCH_ID']
+webui_id = os.environ['WEBUI_ID']
+webui_dir = os.environ['WEBUI_DIR']
+platform_id = os.environ['PLATFORM_ID']
 
 root = '/notebooks'
 webui_path = root + webui_dir
@@ -42,6 +43,7 @@ shared_controlnet_models_path = shared_storage + '/controlNet'
 shared_text_encoder_path = shared_storage + '/text_encoder'
 shared_outputs_path = shared_storage + '/outputs'
 shared_config_path = shared_storage + '/config'
+env_path = shared_storage + '/.env'
 
 temp_storage = '/temp-storage'
 temp_models_path = temp_storage + '/models'
@@ -182,6 +184,15 @@ def apply_envs2():
     os.environ['GRADIO_ANALYTICS_ENABLED'] = 'False'
     os.environ['SAFETENSORS_FAST_GPU'] = '1'
     os.environ['NUMEXPR_MAX_THREADS'] = '16'
+
+
+def base_model():
+    return os.environ['BASE_MODEL']
+
+
+def civitai_token():
+    load_dotenv(env_path)
+    return os.environ.get('CIVITAI_TOKEN', 'None')
 
 
 # Run external program
@@ -354,6 +365,29 @@ def shared_storage_symlinks():
     symlink(f'{shared_config_path}/ui-config.json', f'{webui_path}/ui-config.json')
 
 
+def save_api_key():
+    civitai_label = widgets.Label('Current CivitAI API Key : ')
+    current_civitai_token = widgets.Label(value=civitai_token())
+    civitai_info = widgets.HBox([civitai_label, current_civitai_token])
+    civitai_input = widgets.Text(placeholder='Paste your API key here', layout=widgets.Layout(width='300px'))
+    save_button = widgets.Button(description='Save', button_style='success')
+    output = widgets.Output()
+
+    def on_press(button):
+        token = str(civitai_input.value).strip()
+        if len(token) > 10:
+            with open(env_path, 'w') as f:
+                f.write(f'CIVITAI_TOKEN={token}\n')
+            current_civitai_token.value = civitai_token()
+
+    display(civitai_info)
+    print('')
+    display(civitai_input)
+    print('')
+    save_button.on_click(on_press)
+    display(save_button, output)
+
+
 # Get resources list json
 def get_resources(url: str):
     session = requests.Session()
@@ -366,12 +400,12 @@ def get_resources(url: str):
 
 
 # Download files using aria2c
-def downloader(url: str, path: str, overwrite=False, civitai_token=''):
-    if url.startswith('https://civitai.com/api/download/') and civitai_token:
+def downloader(url: str, path: str, overwrite=False):
+    if url.startswith('https://civitai.com/api/download/') and civitai_token() != 'None':
         if '?' in url:
-            url += f'&token={civitai_token}'
+            url += f'&token={civitai_token()}'
         else:
-            url += f'?token={civitai_token}'
+            url += f'?token={civitai_token()}'
 
     prev_line = ''
     parsed_url = urlparse(url)
@@ -601,7 +635,7 @@ def initialization():
     completed_message()
 
 
-def models_selection(models_url: str, base_model: str, civitai=''):
+def models_selection(models_url: str):
     dropdowns = []
     models_header = widgets.HTML('<h3 style="width: 200px;">Models Name</h3>')
     versions_header = widgets.HTML('<h3 style="width: 250px;">Versions</h3>')
@@ -638,7 +672,7 @@ def models_selection(models_url: str, base_model: str, civitai=''):
             try:
                 for name, version, url in selected_versions:
                     print(f'\n* {name} | {version}')
-                    downloader(url, f'{models_path}/{base_model}', civitai_token=civitai)
+                    downloader(url, f'{models_path}/{base_model()}')
                 completed_message()
             except KeyboardInterrupt:
                 print('\n\n--Download interrupted--')
@@ -648,36 +682,36 @@ def models_selection(models_url: str, base_model: str, civitai=''):
 
 
 # Download ControlNet
-def download_controlnet(controlnet: list, url: str, base_model: str):
+def download_controlnet(controlnet: list, url: str):
     controlnet_data = get_resources(url)
     for model in controlnet:
         if controlnet[model]:
             print('\n* ' + model + '...')
             for url in controlnet_data[model]:
-                downloader(url, f'{controlnet_models_path}/{base_model}')
+                downloader(url, f'{controlnet_models_path}/{base_model()}')
 
 
-def get_res_directory(_type: str, base_model: str):
+def get_res_directory(_type: str):
     directory = None
     match _type:
         case res_type.embedding:
-            directory = f'{embeddings_path}/{base_model}'
+            directory = f'{embeddings_path}/{base_model()}'
         case res_type.lora:
-            directory = f'{lora_path}/{base_model}'
+            directory = f'{lora_path}/{base_model()}'
         case res_type.upscaler:
             directory = upscaler_path
         case res_type.vae:
-            directory = f'{vae_path}/{base_model}'
+            directory = f'{vae_path}/{base_model()}'
         case res_type.text_encoder:
-            directory = f'{text_encoder_path}/{base_model}'
+            directory = f'{text_encoder_path}/{base_model()}'
     return directory
 
 
 # Download built-in resources
-def download_builtin_resources(resources_url: str, base_model: str):
+def download_builtin_resources(resources_url: str):
     resources = get_resources(resources_url)
     for resource_type, items in resources.items():
-        directory = get_res_directory(resource_type, base_model)
+        directory = get_res_directory(resource_type)
         print(f'\n⏳ Downloading built-in {resource_type}...')
         for item in items:
             print(f"\n* {item['name']}...")
@@ -687,7 +721,7 @@ def download_builtin_resources(resources_url: str, base_model: str):
                 downloader(item['url'], directory)
 
 
-def resources_selection(builtin_res_url: str | None, resources_url: str, base_model: str, civitai=''):
+def resources_selection(builtin_res_url: str | None, resources_url: str):
     checkboxes = []
     resources = get_resources(resources_url)
 
@@ -725,10 +759,10 @@ def resources_selection(builtin_res_url: str | None, resources_url: str, base_mo
         with output:
             output.clear_output()
             try:
-                if builtin_res_url: download_builtin_resources(builtin_res_url, base_model)
+                if builtin_res_url: download_builtin_resources(builtin_res_url)
                 for _type_ in selected_res:
                     if selected_res[_type_]:
-                        directory = get_res_directory(_type_, base_model)
+                        directory = get_res_directory(_type_)
                         print(f'\n⏳ Downloading selected {_type_}...')
                         for name, urls in selected_res[_type_]:
                             print(f'\n* {name}...')
@@ -736,7 +770,7 @@ def resources_selection(builtin_res_url: str | None, resources_url: str, base_mo
                                 silent_clone(urls, directory, True)
                             else:
                                 for url in urls:
-                                    downloader(url, directory, civitai_token=civitai)
+                                    downloader(url, directory)
                 completed_message()
             except KeyboardInterrupt:
                 print('\n\n--Download interrupted--')
@@ -747,26 +781,26 @@ def resources_selection(builtin_res_url: str | None, resources_url: str, base_mo
 
 
 # Other resources
-def download_other_res(resource_list: list, resource_path: str, civitai=''):
+def download_other_res(resource_list: list, resource_path: str):
     for resource in resource_list:
         print(f'\n* {resource}')
-        downloader(resource, resource_path, civitai_token=civitai)
+        downloader(resource, resource_path)
 
 
 # Download other resources
-def other_resources(other_res: OtherRes, base_model: str, civitai=''):
+def other_resources(other_res: OtherRes):
     if other_res.lora:
         print('\n\n⏳ Downloading LoRA...')
-        download_other_res(other_res.lora, f'{lora_path}/{base_model}', civitai)
+        download_other_res(other_res.lora, f'{lora_path}/{base_model()}')
     if other_res.embedding:
         print('\n\n⏳ Downloading embedding...')
-        download_other_res(other_res.embedding, f'{embeddings_path}/{base_model}', civitai)
+        download_other_res(other_res.embedding, f'{embeddings_path}/{base_model()}')
     if other_res.upscaler:
         print('\n\n⏳ Downloading upscaler...')
-        download_other_res(other_res.upscaler, upscaler_path, civitai)
+        download_other_res(other_res.upscaler, upscaler_path)
     if other_res.vae:
         print('\n\n⏳ Downloading VAE...')
-        download_other_res(other_res.vae, f'{vae_path}/{base_model}', civitai)
+        download_other_res(other_res.vae, f'{vae_path}/{base_model()}')
     if other_res.text_encoder:
         print('\n\n⏳ Downloading Text Encoder...')
-        download_other_res(other_res.text_encoder, f'{text_encoder_path}/{base_model}', civitai)
+        download_other_res(other_res.text_encoder, f'{text_encoder_path}/{base_model()}')
