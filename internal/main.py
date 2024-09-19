@@ -541,6 +541,10 @@ def extensions_selection(_builtin_exts_url: str, _exts_url: str):
                 for _id, name, url, sts in selected_exts:
                     if _id == 'bmab':
                         run_process('pip install -q basicsr')
+                        basicsr = 'stdbuf -oL pip install https://huggingface.co/deauxpas/colabrepo/resolve/main/basicsr-1.4.2-py3-none-any.whl'.split()
+                        with subprocess.Popen(basicsr, stdout=subprocess.PIPE, text=True, bufsize=1) as sp:
+                            for line in sp.stdout:
+                                print(line)
                     print(f'{name}...')
                     silent_clone(url, extensions_path, update=update_exts.value)
                     ext_dir = f"{extensions_path}/{url.split('/')[-1]}"
@@ -580,11 +584,16 @@ def launch_webui(webui: WebUI):
     os.chdir(webui_path)
     print('⏳ Preparing...')
     print('It will take a little longer...')
-    args = '--disable-console-progressbars --disable-safe-unpickle --enable-insecure-extension-access --no-download-sd-model --no-hashing --api --xformers'
+    args = '--log-startup --disable-console-progressbars --disable-safe-unpickle --enable-insecure-extension-access --no-download-sd-model --no-hashing --api --xformers'
     proxy_url = 'http://127.0.0.1'
     webui_port = 7860
     replace_done = False
-    run_process(f'python launch.py {args} --exit')
+    # run_process(f'python launch.py {args} --exit')
+
+    preparation = 'stdbuf -oL python launch.py {args} --exit'.split()
+    with subprocess.Popen(preparation, stdout=subprocess.PIPE, text=True, bufsize=1) as sp:
+        for line in sp.stdout:
+            print(line)
 
     if webui_id == ui.auto1111:
         run_process('pip install -q pillow==9.5.0')
