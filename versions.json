@@ -22,15 +22,15 @@
     "resources": [
         {
             "id": "sd15",
-            "version": "2024.09.15"
+            "version": "2024.09.19"
         },
         {
             "id": "sdxl",
-            "version": "2024.09.15"
+            "version": "2024.09.19"
         },
         {
             "id": "flux",
-            "version": "2024.09.15"
+            "version": "2024.09.19"
         }
     ],
     "containers": [

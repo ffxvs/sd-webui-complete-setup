@@ -28,7 +28,8 @@ modules_path = webui_path + '/modules'
 models_path = webui_path + '/models/Stable-diffusion'
 embeddings_path = webui_path + '/embeddings'
 lora_path = webui_path + '/models/Lora'
-upscaler_path = webui_path + '/models/ESRGAN'
+esrgan_path = webui_path + '/models/ESRGAN'
+dat_path = webui_path + 'models/DAT'
 vae_path = webui_path + '/models/VAE'
 controlnet_models_path = webui_path + '/models/ControlNet'
 text_encoder_path = webui_path + '/models/text_encoder'
@@ -37,7 +38,8 @@ shared_storage = root + '/shared-storage'
 shared_models_path = shared_storage + '/models'
 shared_embeddings_path = shared_storage + '/embeddings'
 shared_lora_path = shared_storage + '/lora'
-shared_upscaler_path = shared_storage + '/esrgan'
+shared_esrgan_path = shared_storage + '/upscaler/esrgan'
+shared_dat_path = shared_storage + 'upscaler/dat'
 shared_vae_path = shared_storage + '/vae'
 shared_controlnet_models_path = shared_storage + '/controlNet'
 shared_text_encoder_path = shared_storage + '/text_encoder'
@@ -129,10 +131,11 @@ class WebUI:
 
 
 class OtherRes:
-    def __init__(self, lora: list, embedding: list, upscaler: list, vae: list, text_encoder: list):
+    def __init__(self, lora: list, embedding: list, esrgan: list, dat: list, vae: list, text_encoder: list):
         self.lora = lora
         self.embedding = embedding
-        self.upscaler = upscaler
+        self.esrgan = esrgan
+        self.dat = dat
         self.vae = vae
         self.text_encoder = text_encoder
 
@@ -145,7 +148,7 @@ platform = Platform()
 port = Port()
 ui = UI()
 
-other = OtherRes([], [], [], [], [])
+other = OtherRes([], [], [], [], [], [])
 webUI = WebUI(True, '', '', '')
 
 boolean = [False, True]
@@ -239,7 +242,12 @@ def close_port(port_number: int):
         os.kill(pid, signal.SIGTERM)
 
 
-# Hide samplers
+def remove_old_upscaler_dir():
+    old_upscaler_path = f'{shared_storage}/esrgan'
+    if os.path.exists(old_upscaler_path):
+        run_process(f'rm -r -f {old_upscaler_path}')
+
+
 def remove_old_config():
     config_file = f'{shared_config_path}/config.json'
     if os.path.exists(config_file):
@@ -292,7 +300,8 @@ def create_shared_storage():
         f"{shared_controlnet_models_path}/sdxl",
         f"{shared_controlnet_models_path}/flux",
         f"{shared_text_encoder_path}/flux",
-        shared_upscaler_path,
+        shared_esrgan_path,
+        shared_dat_path,
         shared_outputs_path,
         shared_config_path
     ]
@@ -356,7 +365,8 @@ def shared_storage_symlinks():
     symlink(shared_models_path, models_path)
     symlink(shared_lora_path, lora_path)
     symlink(shared_embeddings_path, embeddings_path)
-    symlink(shared_upscaler_path, upscaler_path)
+    symlink(shared_esrgan_path, esrgan_path)
+    symlink(shared_dat_path, dat_path)
     symlink(shared_vae_path, vae_path)
     symlink(shared_controlnet_models_path, controlnet_models_path)
     symlink(shared_outputs_path, outputs_path)
@@ -626,6 +636,7 @@ def initialization():
     update_deps()
     create_shared_storage()
     set_oncompleted_permission()
+    remove_old_upscaler_dir()
     remove_old_config()
     if webui_id == ui.forge:
         remove_old_forge()
@@ -699,7 +710,7 @@ def get_res_directory(_type: str):
         case res_type.lora:
             directory = f'{lora_path}/{base_model()}'
         case res_type.upscaler:
-            directory = upscaler_path
+            directory = esrgan_path
         case res_type.vae:
             directory = f'{vae_path}/{base_model()}'
         case res_type.text_encoder:
@@ -795,9 +806,12 @@ def other_resources(other_res: OtherRes):
     if other_res.embedding:
         print('\n\n⏳ Downloading embedding...')
         download_other_res(other_res.embedding, f'{embeddings_path}/{base_model()}')
-    if other_res.upscaler:
-        print('\n\n⏳ Downloading upscaler...')
-        download_other_res(other_res.upscaler, upscaler_path)
+    if other_res.esrgan:
+        print('\n\n⏳ Downloading ESRGAN-based Upscaler...')
+        download_other_res(other_res.dat, esrgan_path)
+    if other_res.dat:
+        print('\n\n⏳ Downloading DAT-based Upscaler...')
+        download_other_res(other_res.dat, dat_path)
     if other_res.vae:
         print('\n\n⏳ Downloading VAE...')
         download_other_res(other_res.vae, f'{vae_path}/{base_model()}')
