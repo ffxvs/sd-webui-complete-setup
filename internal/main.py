@@ -249,6 +249,10 @@ def remove_old_dirs():
     old_upscaler_path = f'{shared_storage}/esrgan'
     if os.path.exists(old_upscaler_path):
         shutil.rmtree(old_upscaler_path, ignore_errors=True)
+    if os.path.islink(controlnet_preprocessor_path):
+        link_path = os.readlink(controlnet_preprocessor_path)
+        if link_path != shared_controlnet_preprocessor_path:
+            unlink(controlnet_preprocessor_path)
 
 
 def remove_old_config():
@@ -476,9 +480,7 @@ def install_auto1111():
     run_process(f'git fetch origin tag {webui_version} -q --depth=5')
     run_process(f'git checkout -q -f {webui_version}')
 
-    download_configs()
-    shared_storage_symlinks()
-
+    # Make sure controlNet is installed before creating controlNet preprocessor symlink from shared storage
     clone_repo('https://github.com/Mikubill/sd-webui-controlnet', extensions_path)
     downloader(f'https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/{webui_version}/modules/extras.py', modules_path, True)
     downloader(f'https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/{webui_version}/modules/sd_models.py', modules_path, True)
@@ -495,8 +497,6 @@ def install_forge():
     webui_version = 'main'
     clone_repo(f'-b {webui_version} https://github.com/lllyasviel/stable-diffusion-webui-forge', root, update=True)
     os.chdir(webui_path)
-    download_configs()
-    shared_storage_symlinks()
 
 
 def download_configs():
@@ -649,6 +649,8 @@ def initialization():
         install_forge()
     elif webui_id == ui.auto1111:
         install_auto1111()
+    download_configs()
+    shared_storage_symlinks()
     completed_message()
 
 
