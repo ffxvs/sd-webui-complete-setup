@@ -1,6 +1,7 @@
 import json
 import os
 import pty
+import shutil
 import signal
 import subprocess
 from urllib.parse import urlparse
@@ -218,14 +219,14 @@ def set_oncompleted_permission():
 # Create symlink
 def symlink(source: str, destination: str):
     if os.path.exists(source) and not os.path.islink(destination):
-        run_process(f'rm -r -f {destination}')
-        run_process(f'ln -s {source} {destination}')
+        shutil.rmtree(destination, ignore_errors=True)
+        os.symlink(source, destination)
 
 
 # Remove symlink
 def unlink(target: str):
-    if os.path.exists(target) and os.path.islink(target):
-        run_process(f'unlink {target}')
+    if os.path.islink(target):
+        os.unlink(target)
 
 
 # Complete message
@@ -242,10 +243,11 @@ def close_port(port_number: int):
         os.kill(pid, signal.SIGTERM)
 
 
-def remove_old_upscaler_dir():
+def remove_old_dirs():
+    unlink(f'{models_path}/ControlNetPreprocessor')
     old_upscaler_path = f'{shared_storage}/esrgan'
     if os.path.exists(old_upscaler_path):
-        run_process(f'rm -r -f {old_upscaler_path}')
+        shutil.rmtree(old_upscaler_path, ignore_errors=True)
 
 
 def remove_old_config():
@@ -265,16 +267,16 @@ def remove_old_forge():
     if os.path.exists(forge_path):
         last_commit = run_process(f'git -C {forge_path} log -1 --oneline').stdout.strip()
         if last_commit.startswith('bfee03d'):
-            run_process(f'rm -r -f {forge_path}')
+            shutil.rmtree(forge_path, ignore_errors=True)
 
 
-def temp_storage_symlink(option, source, destination):
+def temp_storage_symlink(option: bool, source: str, destination: str):
     if option:
         symlink(source, destination)
     else:
         unlink(destination)
         run_process(f'rm -r -f {source}/*', use_shell=True)
-        run_process(f'mkdir -p {destination}')
+        os.makedirs(destination)
 
 
 # Create shared storage
@@ -442,7 +444,7 @@ def downloader(url: str, path: str, overwrite=False):
 
 
 # Git clone repo
-def silent_clone(command: str, path: str, update=False, overwrite=False):
+def clone_repo(command: str, path: str, update=False, overwrite=False):
     directory = f'{path}/{command.split("/")[-1]}'
     git_clone = f'git clone -q --depth 20 {command} {directory}'
     if os.path.exists(directory):
@@ -450,14 +452,14 @@ def silent_clone(command: str, path: str, update=False, overwrite=False):
             os.chdir(f'{directory}')
             run_process('git pull -q')
         elif overwrite:
-            run_process(f'rm -r {directory}')
+            shutil.rmtree(directory, ignore_errors=True)
             run_process(git_clone)
     else:
         run_process(git_clone)
 
 
 # Download files using WGet
-def silent_get(command: str):
+def wget(command: str):
     run_process(f'wget -nv {command}')
 
 
@@ -465,7 +467,7 @@ def install_auto1111():
     os.chdir(root)
     print('⏳ Installing/Updating Stable Diffusion Web UI...')
     webui_version = 'v1.10.1'
-    silent_clone(f'-b {webui_version} https://github.com/AUTOMATIC1111/stable-diffusion-webui', root)
+    clone_repo(f'-b {webui_version} https://github.com/AUTOMATIC1111/stable-diffusion-webui', root)
     os.chdir(webui_path)
     run_process('git remote set-branches origin master')
     run_process(f'git fetch origin tag {webui_version} -q --depth=5')
@@ -487,7 +489,7 @@ def install_forge():
     os.chdir(root)
     print('⏳ Installing/Updating Stable Diffusion Web UI Forge...')
     webui_version = 'main'
-    silent_clone(f'-b {webui_version} https://github.com/lllyasviel/stable-diffusion-webui-forge', root, update=True)
+    clone_repo(f'-b {webui_version} https://github.com/lllyasviel/stable-diffusion-webui-forge', root, update=True)
     os.chdir(webui_path)
     download_configs()
     shared_storage_symlinks()
@@ -542,7 +544,7 @@ def extensions_selection(_builtin_exts_url: str, _exts_url: str):
                     if _id == 'bmab':
                         run_process('pip install -q https://huggingface.co/deauxpas/colabrepo/resolve/main/basicsr-1.4.2-py3-none-any.whl')
                     print(f'{name}...')
-                    silent_clone(url, extensions_path, update=update_exts.value)
+                    clone_repo(url, extensions_path, update=update_exts.value)
                     ext_dir = f"{extensions_path}/{url.split('/')[-1]}"
                     if os.path.exists(ext_dir): sts.value = set_status('installed')
                 completed_message()
@@ -562,7 +564,7 @@ def install_builtin_exts(exts_url: str, update=False):
     print("\n⏳ Installing built-in extensions...")
     for ext in get_resources(exts_url):
         print(ext['name'] + '...')
-        silent_clone(ext['url'], extensions_path, update)
+        clone_repo(ext['url'], extensions_path, update)
 
 
 # Install other extensions
@@ -572,7 +574,7 @@ def install_other_exts(extensions: list, update_exts=False):
         for ext in extensions:
             name = ext.split('/')[-1]
             print(name + '...')
-            silent_clone(ext, extensions_path, update_exts)
+            clone_repo(ext, extensions_path, update_exts)
 
 
 # Launch Web UI
@@ -636,7 +638,7 @@ def initialization():
     update_deps()
     create_shared_storage()
     set_oncompleted_permission()
-    remove_old_upscaler_dir()
+    remove_old_dirs()
     remove_old_config()
     if webui_id == ui.forge:
         remove_old_forge()
@@ -727,7 +729,7 @@ def download_builtin_resources(resources_url: str):
         for item in items:
             print(f"\n* {item['name']}...")
             if resource_type == res_type.embedding:
-                silent_clone(item['url'], directory, True)
+                clone_repo(item['url'], directory, True)
             else:
                 downloader(item['url'], directory)
 
@@ -778,7 +780,7 @@ def resources_selection(builtin_res_url: str | None, resources_url: str):
                         for name, urls in selected_res[_type_]:
                             print(f'\n* {name}...')
                             if _type_ == res_type.embedding:
-                                silent_clone(urls, directory, True)
+                                clone_repo(urls, directory, True)
                             else:
                                 for url in urls:
                                     downloader(url, directory)
