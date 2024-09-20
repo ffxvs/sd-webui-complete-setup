@@ -628,11 +628,12 @@ def launch_webui(webui: WebUI):
         args += f' --cors-allow-origins {webui.cors}'
 
     args += f' --listen --port {webui_port}'
-    close_port(webui_port)
     print('Launching Web UI...')
     try:
+        close_port(webui_port)
         pty.spawn(f'python webui.py {args}'.split(), read)
     except KeyboardInterrupt:
+        close_port(webui_port)
         print('\n--Process terminated--')
 
 
