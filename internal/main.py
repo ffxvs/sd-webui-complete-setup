@@ -43,6 +43,7 @@ shared_esrgan_path = shared_storage + '/upscaler/esrgan'
 shared_dat_path = shared_storage + '/upscaler/dat'
 shared_vae_path = shared_storage + '/vae'
 shared_controlnet_models_path = shared_storage + '/controlNet'
+shared_controlnet_preprocessor_path = shared_controlnet_models_path + '/preprocessor'
 shared_text_encoder_path = shared_storage + '/text_encoder'
 shared_outputs_path = shared_storage + '/outputs'
 shared_config_path = shared_storage + '/config'
@@ -52,7 +53,7 @@ temp_storage = '/temp-storage'
 temp_models_path = temp_storage + '/models'
 temp_lora_path = temp_storage + '/lora'
 temp_controlnet_models_path = temp_storage + '/controlNet'
-temp_preprocessor_path = temp_controlnet_models_path + '/preprocessor'
+temp_controlnet_preprocessor_path = temp_controlnet_models_path + '/preprocessor'
 temp_text_encoder_path = temp_storage + '/text_encoder'
 
 # #################### RESOURCE URLs ####################
@@ -160,9 +161,9 @@ request_headers = {
 }
 
 if webui_id == ui.forge:
-    preprocessor_path = webui_path + '/models/ControlNetPreprocessor'
+    controlnet_preprocessor_path = webui_path + '/models/ControlNetPreprocessor'
 else:
-    preprocessor_path = extensions_path + '/sd-webui-controlnet/annotator/downloads'
+    controlnet_preprocessor_path = extensions_path + '/sd-webui-controlnet/annotator/downloads'
 
 
 # #################### FUNCTIONS ####################
@@ -302,6 +303,7 @@ def create_shared_storage():
         f"{shared_controlnet_models_path}/sdxl",
         f"{shared_controlnet_models_path}/flux",
         f"{shared_text_encoder_path}/flux",
+        shared_controlnet_preprocessor_path,
         shared_esrgan_path,
         shared_dat_path,
         shared_outputs_path,
@@ -326,7 +328,7 @@ def temp_storage_settings():
         ('FLUX LoRA', f'{temp_lora_path}/flux', f'{shared_lora_path}/flux'),
         ('FLUX ControlNet', f'{temp_controlnet_models_path}/flux', f'{shared_controlnet_models_path}/flux'),
         ('FLUX Text Encoder', f'{temp_text_encoder_path}/flux', f'{shared_text_encoder_path}/flux'),
-        ('ControlNet Preprocessor', temp_preprocessor_path, preprocessor_path)
+        ('ControlNet Preprocessor', temp_controlnet_preprocessor_path, shared_controlnet_preprocessor_path)
     ]
 
     ts_header = widgets.HTML('<h3 style="width: 250px;">Options</h3>')
@@ -371,6 +373,7 @@ def shared_storage_symlinks():
     symlink(shared_dat_path, dat_path)
     symlink(shared_vae_path, vae_path)
     symlink(shared_controlnet_models_path, controlnet_models_path)
+    symlink(shared_controlnet_preprocessor_path, controlnet_preprocessor_path)
     symlink(shared_outputs_path, outputs_path)
     symlink(shared_text_encoder_path, text_encoder_path)
     symlink(f'{shared_config_path}/config.json', f'{webui_path}/config.json')
@@ -476,6 +479,7 @@ def install_auto1111():
     download_configs()
     shared_storage_symlinks()
 
+    clone_repo('https://github.com/Mikubill/sd-webui-controlnet', extensions_path)
     downloader(f'https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/{webui_version}/modules/extras.py', modules_path, True)
     downloader(f'https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/{webui_version}/modules/sd_models.py', modules_path, True)
 
