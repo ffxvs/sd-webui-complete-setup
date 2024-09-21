@@ -1,0 +1,272 @@
+{
+    "LoRA": [
+        {
+            "id": "bgDetails",
+            "name": "Intricate Background & Background Blur",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/105732"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/lora-effects/resolve/main/background_details.safetensors"
+            ]
+        },
+        {
+            "id": "dopSlider",
+            "name": "Depth of Field Slider",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/135380"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/lora-effects/resolve/main/depth_of_field_slider.safetensors"
+            ]
+        },
+        {
+            "id": "dollLikeness",
+            "name": "Doll Likeness Series",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/user/Kbrloras"
+                },
+                {
+                    "name": "HuggingFace",
+                    "url": "https://huggingface.co/Kanbara/doll-likeness-series"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/Kanbara/doll-likeness-series/resolve/main/japaneseDollLikeness_v15.safetensors",
+                "https://huggingface.co/Kanbara/doll-likeness-series/resolve/main/koreanDollLikeness_v20.safetensors",
+                "https://huggingface.co/Kanbara/doll-likeness-series/resolve/main/taiwanDollLikeness_v20.safetensors",
+                "https://huggingface.co/Kanbara/doll-likeness-series/resolve/main/ThaiDollLikeness_v10.safetensors",
+                "https://huggingface.co/Kanbara/doll-likeness-series/resolve/main/chinaDollLikeness_v10.safetensors"
+            ]
+        },
+        {
+            "id": "handsLora",
+            "name": "Hands SD v1.5",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/200255?modelVersionId=486156"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/lora-effects/resolve/main/hands_sd15_v3.safetensors"
+            ]
+        },
+        {
+            "id": "lowra",
+            "name": "LowRA",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/221845"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/lora-effects/resolve/main/lowRA.safetensors"
+            ]
+        }
+    ],
+    "Embedding": [
+        {
+            "id": "scgEmotion",
+            "name": "SCG Emotions Pack",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/8860"
+                }
+            ],
+            "url": "https://huggingface.co/ffxvs/scg-emotion-pack"
+        },
+        {
+            "id": "scgToolkit",
+            "name": "SCG Embedding Toolkit",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/8551"
+                }
+            ],
+            "url": "https://huggingface.co/ffxvs/scg-toolkit"
+        },
+        {
+            "id": "ageSlider",
+            "name": "Zovya Age Slider",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/65214"
+                }
+            ],
+            "url": "https://huggingface.co/ffxvs/zovya-age-slider"
+        },
+        {
+            "id": "genderSlider",
+            "name": "Zovya Gender Slider",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/89709"
+                }
+            ],
+            "url": "https://huggingface.co/ffxvs/zovya-gender-slider"
+        }
+    ],
+    "Upscaler": [
+        {
+            "id": "bsrgan",
+            "name": "BSRGAN",
+            "homepage": [
+                {
+                    "name": "OpenModelDB",
+                    "url": "https://openmodeldb.info/models/4x-BSRGAN"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/BSRGAN_4x.pth"
+            ]
+        },
+        {
+            "id": "lsdirPlus",
+            "name": "LSDIRPlus",
+            "homepage": [
+                {
+                    "name": "OpenModelDB",
+                    "url": "https://openmodeldb.info/models/4x-LSDIRplus"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/LSDIRplus_4x.pth"
+            ]
+        },
+        {
+            "id": "nomos8ksc",
+            "name": "Nomos8kSC",
+            "homepage": [
+                {
+                    "name": "OpenModelDB",
+                    "url": "https://openmodeldb.info/models/4x-Nomos8kSC"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/Nomos8kSC_4x.pth"
+            ]
+        },
+        {
+            "id": "superscale",
+            "name": "NMKD Superscale",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/141491/4x-nmkd-superscale"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/NMKD_Superscale_4x.pth"
+            ]
+        },
+        {
+            "id": "remacri",
+            "name": "Remacri",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/147759/remacri"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/Remacri_4x.pth"
+            ]
+        },
+        {
+            "id": "ultraMix",
+            "name": "UltraMix",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/147806"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/UltraMix_Balanced_4x.pth",
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/UltraMix_Restore_4x.pth",
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/UltraMix_Smooth_4x.pth"
+            ]
+        },
+        {
+            "id": "valar",
+            "name": "Valar",
+            "homepage": [
+                {
+                    "name": "OpenModelDB",
+                    "url": "https://openmodeldb.info/models/4x-Valar"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/Valar_4x.pth"
+            ]
+        }
+    ],
+    "VAE": [
+        {
+            "id": "blessed2",
+            "name": "Blessed2",
+            "homepage": [
+                {
+                    "name": "HuggingFace",
+                    "url": "https://huggingface.co/NoCrypt/blessed_vae"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/vae-collection/resolve/main/blessed2.vae.pt"
+            ]
+        },
+        {
+            "id": "clearVAE",
+            "name": "ClearVAE",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/22354"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/vae-collection/resolve/main/clearVAE.safetensors"
+            ]
+        },
+        {
+            "id": "kl_f8_anime2",
+            "name": "kl-f8-anime2",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/23906"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/vae-collection/resolve/main/kl-f8-anime2.ckpt"
+            ]
+        },
+        {
+            "id": "novelAI",
+            "name": "NovelAI (NAI)",
+            "homepage": [
+                {
+                    "name": "",
+                    "url": "#"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/vae-collection/resolve/main/novelAI.vae.pt"
+            ]
+        }
+    ]
+}

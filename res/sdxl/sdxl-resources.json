@@ -1,0 +1,166 @@
+{
+    "LoRA": [
+        {
+            "id": "detailEyes",
+            "name": "DetailedEyes XL",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/120723"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/lora-effects-xl/resolve/main/detailedEyes_v3.safetensors"
+            ]
+        },
+        {
+            "id": "lcmTurbo",
+            "name": "LCM&TurboMix",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/216190"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/lora-effects-xl/resolve/main/LCMTurboMix_DPM_SDE_Karras.safetensors",
+                "https://huggingface.co/ffxvs/lora-effects-xl/resolve/main/LCMTurboMix_Euler_A_fix.safetensors",
+                "https://huggingface.co/ffxvs/lora-effects-xl/resolve/main/LCMTurboMix_LCM_Sampler.safetensors"
+            ]
+        },
+        {
+            "id": "handsXL",
+            "name": "Hands XL",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/200255?modelVersionId=471794"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/lora-effects-xl/resolve/main/hands_xl_v4.safetensors"
+            ]
+        },
+        {
+            "id": "moreArt",
+            "name": "XL More Art Full",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/124347"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/lora-effects-xl/resolve/main/xl_more_art-full_v1.safetensors"
+            ]
+        },
+        {
+            "id": "soap",
+            "name": "SOAP (Shot On A Phone)",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/131818"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/lora-effects-xl/resolve/main/soap_xl.safetensors"
+            ]
+        }
+    ],
+    "Upscaler": [
+        {
+            "id": "bsrgan",
+            "name": "BSRGAN",
+            "homepage": [
+                {
+                    "name": "OpenModelDB",
+                    "url": "https://openmodeldb.info/models/4x-BSRGAN"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/BSRGAN_4x.pth"
+            ]
+        },
+        {
+            "id": "lsdirPlus",
+            "name": "LSDIRPlus",
+            "homepage": [
+                {
+                    "name": "OpenModelDB",
+                    "url": "https://openmodeldb.info/models/4x-LSDIRplus"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/LSDIRplus_4x.pth"
+            ]
+        },
+        {
+            "id": "nomos8ksc",
+            "name": "Nomos8kSC",
+            "homepage": [
+                {
+                    "name": "OpenModelDB",
+                    "url": "https://openmodeldb.info/models/4x-Nomos8kSC"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/Nomos8kSC_4x.pth"
+            ]
+        },
+        {
+            "id": "superscale",
+            "name": "NMKD Superscale",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/141491/4x-nmkd-superscale"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/NMKD_Superscale_4x.pth"
+            ]
+        },
+        {
+            "id": "remacri",
+            "name": "Remacri",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/147759/remacri"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/Remacri_4x.pth"
+            ]
+        },
+        {
+            "id": "ultraMix",
+            "name": "UltraMix",
+            "homepage": [
+                {
+                    "name": "CivitAI",
+                    "url": "https://civitai.com/models/147806"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/UltraMix_Balanced_4x.pth",
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/UltraMix_Restore_4x.pth",
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/UltraMix_Smooth_4x.pth"
+            ]
+        },
+        {
+            "id": "valar",
+            "name": "Valar",
+            "homepage": [
+                {
+                    "name": "OpenModelDB",
+                    "url": "https://openmodeldb.info/models/4x-Valar"
+                }
+            ],
+            "url": [
+                "https://huggingface.co/ffxvs/upscaler/resolve/main/Valar_4x.pth"
+            ]
+        }
+    ]
+}

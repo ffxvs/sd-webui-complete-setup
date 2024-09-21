@@ -1,19 +1,19 @@
-# Stable Diffusion Webui Complete Setup  
-Jupyter notebook for Stable Diffusion Web UI and Stable Diffusion Web UI Forge.
+# Stable Diffusion WebUI Complete Setup  
+Jupyter notebook for Stable Diffusion WebUI and Stable Diffusion WebUI Forge.
 
-![Notebook_preview](https://github.com/ffxvs/sd-webui-complete-setup/assets/156585597/52855d70-7c6b-42af-aa15-9ea67c99a5e5)
+![banner](https://github.com/user-attachments/assets/250bf979-d02f-4021-8ea3-4b31bf415514)
 
 ## Features  
-* SD Web UI and SD Web UI Forge
+* Automatic updates.
+* SD WebUI Auto1111 and SD WebUI Forge
 * Support for Paperspace and Runpod
-* Using small Docker containers under 5GB
-* Notebook for installing Web UI, downloading SD v1.5 and SDXL models.
-* Checking the latest version of the notebook.
+* Using small Docker containers under 6GB
+* Notebook for installing WebUI, downloading SD v1.5, SDXL and FLUX models.
 * Storing resources such as models, loRA, embeddings, outputs in shared storage.
 * List of some popular extensions.
 * List of several popular models in 4 categories, namely Anime/Cartoon/3D, General Purpose, Realistic, Woman.
-* List of some useful resources for loRA, embedding, upscaler, and VAE.
-* Install extensions, loRA, embedding, upscaler, VAE from URLs.
+* List of some useful resources for loRA, embedding, upscaler, VAE and text encoder.
+* Install extensions, loRA, embedding, upscaler, VAE and text encoder from URLs.
 
 ## How to use  
 ### Paperspace  
@@ -23,33 +23,36 @@ Jupyter notebook for Stable Diffusion Web UI and Stable Diffusion Web UI Forge.
 4. Choose one of the free GPUs with at least 16GB VRAM (except Free-P5000).
 5. Set the Auto-shutdown timeout to 6 hours.
 6. Click **View Advanced Options.**
-7. Fill in the Container's name and command field as follows and leave other field blank. Just click copy button on the right.
+7. Fill in the Container's name and command field as follows and leave other field blank. Just click copy button on the right.  
+   **Note : Paperspace caches the old container in their server, so when there is a new version of the container, you have to create new installation again.**
    * Container's name
      * SD Web UI
        ```
-       ffxvs/sd-webui-containers:auto1111-latest
+       ffxvs/sd-webui-containers:auto1111-2024.09.
        ```
      * SD Web UI Forge
        ```
-       ffxvs/sd-webui-containers:forge-latest
+       ffxvs/sd-webui-containers:forge-2024.09.
        ```
    * Container's command
      ```
      bash /paperspace-start.sh
      ```
+   
 8. Start notebook and wait until the machine is running.
 9. Duplicate your tab to keep the console open. Then click the **"Open in Jupyterlab"** button (the orange circle icon) in the left sidebar.
 10. There will be 3 ipynb notebook files.
-   * `sd_webui_paperspace.ipynb` or `sd_webui_forge_paperspace.ipynb` for installing Web UI.
-   * `sd15_resource_lists.ipynb` for downloading SD v1.5 models.
-   * `sdxl_resource_lists.ipynb` for downloading SDXL models.
+    * `sd_webui_paperspace.ipynb` or `sd_webui_forge_paperspace.ipynb` for installing Web UI.
+    * `sd15_resource_lists.ipynb` for downloading SD v1.5 models.
+    * `sdxl_resource_lists.ipynb` for downloading SDXL models.
+    * `flux_resource_lists.ipynb` for downloading FLUX models.
 11. Read [Paperspace Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Paperspace-Guide) and [Resource Lists Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Resource-Lists-Guide) to use the notebooks.
 
 <br>
 
 ### Runpod  
 1. [Sign up](https://runpod.io?ref=synjcfeg) and add some credit to your [balance](https://www.runpod.io/console/user/billing).
-2. Open one of these template to create a Pod : [SD Web UI](https://runpod.io/console/gpu-cloud?template=38adx50leu&ref=synjcfeg) / [SD Web UI Forge](https://runpod.io/console/gpu-cloud?template=kwef1wl832&ref=synjcfeg)
+2. Open one of these template to create a Pod : [SD WebUI Auto1111](https://runpod.io/console/deploy?template=38adx50leu&ref=synjcfeg) / [SD WebUI Forge](https://runpod.io/console/deploy?template=kwef1wl832&ref=synjcfeg)
 3. Make sure the template is : 
    * SD Web UI : `ffxvs/sd-webui-containers:auto1111-latest`
    * SD Web UI Forge : `ffxvs/sd-webui-containers:forge-latest`
@@ -61,20 +64,10 @@ Jupyter notebook for Stable Diffusion Web UI and Stable Diffusion Web UI Forge.
    * `sd_webui_runpod.ipynb` or `sd_webui_forge_runpod.ipynb` for installing Web UI.
    * `sd15_resource_lists.ipynb` for downloading SD v1.5 models.
    * `sdxl_resource_lists.ipynb` for downloading SDXL models.
+   * `flux_resource_lists.ipynb` for downloading FLUX models.
 9. Read [Runpod Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Runpod-Guide) and [Resource Lists Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Resource-Lists-Guide) to use the notebooks.
 10. You can click **Connect to HTTP Service [Port 3001]** after installing and launching the Web UI.
 11. Stop the Pod if you don't use it anymore. Terminate the pod to delete the Pod and its content. Don't forget to download images you generated.
-
-<br>
-
-### Download Notebooks manually
-In case you can't download the latest notebooks from **Check for Updates** cell, you can download them manually from the links below :
-- SD Web UI for Paperspace : [sd_webui_paperspace.ipynb](https://ffxvs.github.io/sd-webui-complete-setup/sd-webui/sd_webui_paperspace.ipynb)
-- SD Web UI for RunPod : [sd_webui_runpod.ipynb](https://ffxvs.github.io/sd-webui-complete-setup/sd-webui/sd_webui_runpod.ipynb) 
-- SD Web UI Forge for Paperspace : [sd_webui_forge_paperspace.ipynb](https://ffxvs.github.io/sd-webui-complete-setup/sd-webui-forge/sd_webui_forge_paperspace.ipynb)
-- SD Web UI Forge for RunPod : [sd_webui_forge_runpod.ipynb](https://ffxvs.github.io/sd-webui-complete-setup/sd-webui-forge/sd_webui_forge_runpod.ipynb)
-- SD v1.5 resource lists : [sd15_resource_lists.ipynb](https://ffxvs.github.io/sd-webui-complete-setup/resource-lists/sd15_resource_lists.ipynb)
-- SDXL resource lists : [sdxl_resource_lists.ipynb](https://ffxvs.github.io/sd-webui-complete-setup/resource-lists/sdxl_resource_lists.ipynb)
 
 <br>
 

@@ -1,0 +1,32 @@
+[
+    {
+        "id": "aspectRatio",
+        "name": "Aspect Ratio Helper",
+        "url": "https://github.com/thomasasfk/sd-webui-aspect-ratio-helper"
+    },
+    {
+        "id": "deleteButton",
+        "name": "SD Delete Button",
+        "url": "https://github.com/reforget-id/sd_delete_button"
+    },
+    {
+        "id": "i2iHiresFix",
+        "name": "img2img Hires Fix",
+        "url": "https://github.com/Amadeus-AI/img2img-hires-fix"
+    },
+    {
+        "id": "infiniteImg",
+        "name": "Infinite Image Browsing",
+        "url": "https://github.com/zanllp/sd-webui-infinite-image-browsing"
+    },
+    {
+        "id": "state",
+        "name": "State",
+        "url": "https://github.com/ilian6806/stable-diffusion-webui-state"
+    },
+    {
+        "id": "usdu",
+        "name": "Ultimate SD Upscale",
+        "url": "https://github.com/Coyote-A/ultimate-upscale-for-automatic1111"
+    }
+]

@@ -1,70 +1,98 @@
-{
-    "models": [
-        {
-            "id": "bra",
-            "name": "BRA (Beautiful Realistic Asians)",
-            "variants": [
-                {
-                    "version": "v7",
-                    "url": "https://huggingface.co/apikachu/beautifulRealistic_v7/resolve/main/beautifulRealistic_v7.safetensors"
-                }
-            ]
-        },
-        {
-            "id": "bem",
-            "name": "BracingEvoMix",
-            "variants": [
-                {
-                    "version": "v2",
-                    "url": "https://huggingface.co/sazyou-roukaku/BracingEvoMix/resolve/main/BracingEvoMix_v2.safetensors"
-                }
-            ]
-        },
-        {
-            "id": "chilledRemix",
-            "name": "Chilled Remix",
-            "variants": [
-                {
-                    "version": "v2",
-                    "url": "https://huggingface.co/sazyou-roukaku/chilled_remix/resolve/main/chilled_remix_v2.safetensors"
-                },
-                {
-                    "version": "Reversemix v2",
-                    "url": "https://huggingface.co/sazyou-roukaku/chilled_remix/resolve/main/chilled_reversemix_v2.safetensors"
-                }
-            ]
-        },
-        {
-            "id": "henmixReal",
-            "name": "Henmix Real",
-            "variants": [
-                {
-                    "version": "v6b",
-                    "url": "https://huggingface.co/Jeang122/HenmixRealv6b/resolve/main/henmixReal_v6b.safetensors"
-                },
-                {
-                    "version": "v6a",
-                    "url": "https://civitai.com/api/download/models/315518?type=Model&format=SafeTensor&size=pruned&fp=fp16"
-                },
-                {
-                    "version": "v4",
-                    "url": "https://huggingface.co/BBlou/henmix/resolve/main/henmixReal_v40.safetensors"
-                }
-            ]
-        },
-        {
-            "id": "majicMixReal",
-            "name": "majicMIX Realistic",
-            "variants": [
-                {
-                    "version": "v7",
-                    "url": "https://huggingface.co/marcy1111/majicmixRealistic_v7/resolve/main/majicmixRealistic_v7.safetensors"
-                },
-                {
-                    "version": "v7-inpainting",
-                    "url": "https://civitai.com/api/download/models/176425?type=Model&format=SafeTensor&size=pruned&fp=fp16"
-                }
-            ]
-        }
-    ]
-}
+[
+    {
+        "id": "bra",
+        "name": "BRA (Beautiful Realistic Asians)",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/25494"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v7",
+                "url": "https://huggingface.co/apikachu/beautifulRealistic_v7/resolve/main/beautifulRealistic_v7.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "bem",
+        "name": "BracingEvoMix",
+        "homepage": [
+            {
+                "name": "HuggingFace",
+                "url": "https://huggingface.co/sazyou-roukaku/BracingEvoMix"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v2",
+                "url": "https://huggingface.co/sazyou-roukaku/BracingEvoMix/resolve/main/BracingEvoMix_v2.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "chilledRemix",
+        "name": "Chilled Remix",
+        "homepage": [
+            {
+                "name": "HuggingFace",
+                "url": "https://huggingface.co/sazyou-roukaku/chilled_remix"
+            }
+        ],
+        "variants": [
+            {
+                "version": "Remix v2",
+                "url": "https://huggingface.co/sazyou-roukaku/chilled_remix/resolve/main/chilled_remix_v2.safetensors"
+            },
+            {
+                "version": "ReverseMix v2",
+                "url": "https://huggingface.co/sazyou-roukaku/chilled_remix/resolve/main/chilled_reversemix_v2.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "henmixReal",
+        "name": "Henmix Real",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/20282"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v6b",
+                "url": "https://huggingface.co/Jeang122/HenmixRealv6b/resolve/main/henmixReal_v6b.safetensors"
+            },
+            {
+                "version": "v6a",
+                "url": "https://civitai.com/api/download/models/315518?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+            },
+            {
+                "version": "v4",
+                "url": "https://huggingface.co/BBlou/henmix/resolve/main/henmixReal_v40.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "majicMixReal",
+        "name": "majicMIX Realistic",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/43331"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v7",
+                "url": "https://huggingface.co/marcy1111/majicmixRealistic_v7/resolve/main/majicmixRealistic_v7.safetensors"
+            },
+            {
+                "version": "v7 - Inpainting",
+                "url": "https://civitai.com/api/download/models/176425?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+            }
+        ]
+    }
+]

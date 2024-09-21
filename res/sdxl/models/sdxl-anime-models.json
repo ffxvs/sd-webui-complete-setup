@@ -1,104 +1,214 @@
-{
-    "models": [
-        {
-            "id": "anything",
-            "name": "Anything XL",
-            "variants": [
-                {
-                    "version": "XL",
-                    "url": "https://huggingface.co/nyanntama/AnythingXL/resolve/main/AnythingXL_xl.safetensors"
-                }
-            ]
-        },
-        {
-            "id": "animagine",
-            "name": "Animagine XL",
-            "variants": [
-                {
-                    "version": "v3.1",
-                    "url": "https://huggingface.co/cagliostrolab/animagine-xl-3.1/resolve/main/animagine-xl-3.1.safetensors"
-                }
-            ]
-        },
-        {
-            "id": "bluePencil",
-            "name": "Blue Pencil XL",
-            "variants": [
-                {
-                    "version": "v6",
-                    "url": "https://huggingface.co/bluepen5805/blue_pencil-XL/resolve/main/blue_pencil-XL-v6.0.0.safetensors"
-                },
-                {
-                    "version": "Lightning v5",
-                    "url": "https://huggingface.co/bluepen5805/blue_pencil-XL/resolve/main/blue_pencil-XL-v5.0.0-lightning.safetensors"
-                }
-            ]
-        },
-        {
-            "id": "counterfeit",
-            "name": "CounterfeitXL",
-            "variants": [
-                {
-                    "version": "v2.5",
-                    "url": "https://huggingface.co/gsdf/CounterfeitXL-V2.0/resolve/main/CounterfeitXL-V2.5.safetensors"
-                }
-            ]
-        },
-        {
-            "id": "dynaVision",
-            "name": "DynaVision XL",
-            "variants": [
-                {
-                    "version": "v0.6.1.0_vae",
-                    "url": "https://civitai.com/api/download/models/297740?type=Model&format=SafeTensor&size=pruned&fp=fp16"
-                }
-            ]
-        },
-        {
-            "id": "ponyDiffusion",
-            "name": "Pony Diffusion XL",
-            "variants": [
-                {
-                    "version": "v6",
-                    "url": "https://huggingface.co/Dragonstalker/Pony_Diffusion_v6/resolve/main/ponyDiffusionV6XL.safetensors"
-                },
-                {
-                    "version": "Turbo DPO v6",
-                    "url": "https://huggingface.co/Bakanayatsu/ponyDiffusion-V6-XL-Turbo-DPO/resolve/main/ponyDiffusionV6XL_v6TurboDPOMerge.safetensors"
-                }
-            ]
-        },
-        {
-            "id": "sdxlNiji",
-            "name": "SDXL Niji",
-            "variants": [
-                {
-                    "version": "SE",
-                    "url": "https://huggingface.co/rafationgson/niji-sdxl/resolve/main/sdxlNijiSpecial_sdxlNijiSE.safetensors"
-                }
-            ]
-        },
-        {
-            "id": "unstableDiff",
-            "name": "SDXL Unstable Diffusers",
-            "variants": [
-                {
-                    "version": "NihilMania",
-                    "url": "https://civitai.com/api/download/models/395107?type=Model&format=SafeTensor&size=pruned&fp=fp16"
-                },
-                {
-                    "version": "v11",
-                    "url": "https://huggingface.co/frankjoshua/sdxlUnstableDiffusers_v11/resolve/main/sdxlUnstableDiffusers_v11.safetensors"
-                },
-                {
-                    "version": "v11+RunDiffusion",
-                    "url": "https://huggingface.co/Yamer-AI/SDXL_Unstable_Diffusers/resolve/main/Unstable%20Diffusers%20V11%20%2B%20RunDiffusion.safetensors"
-                },
-                {
-                    "version": "Turbo v10",
-                    "url": "https://civitai.com/api/download/models/247214?type=Model&format=SafeTensor&size=full&fp=fp16"
-                }
-            ]
-        }
-    ]
-}
+[
+    {
+        "id": "anything",
+        "name": "Anything XL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/9409?modelVersionId=384264"
+            }
+        ],
+        "variants": [
+            {
+                "version": "XL",
+                "url": "https://huggingface.co/nyanntama/AnythingXL/resolve/main/AnythingXL_xl.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "animagine",
+        "name": "Animagine XL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/260267"
+            },
+            {
+                "name": "HuggingFace",
+                "url": "https://huggingface.co/cagliostrolab/animagine-xl-3.1"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v3.1",
+                "url": "https://huggingface.co/cagliostrolab/animagine-xl-3.1/resolve/main/animagine-xl-3.1.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "autismMix",
+        "name": "AutismMix SDXL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/288584"
+            }
+        ],
+        "variants": [
+            {
+                "version": "Pony",
+                "url": "https://huggingface.co/Flaxmore/AutismMix_pony/resolve/main/autismmixSDXL_autismmixPony.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "bluePencil",
+        "name": "Blue Pencil XL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/119012"
+            },
+            {
+                "name": "HuggingFace",
+                "url": "https://huggingface.co/bluepen5805/blue_pencil-XL"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v7",
+                "url": "https://huggingface.co/bluepen5805/blue_pencil-XL/resolve/main/blue_pencil-XL-v7.0.0.safetensors"
+            },
+            {
+                "version": "Lightning v5",
+                "url": "https://huggingface.co/bluepen5805/blue_pencil-XL/resolve/main/blue_pencil-XL-v5.0.0-lightning.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "cheyenne",
+        "name": "CHEYENNE",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/198051"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v1.6",
+                "url": "https://huggingface.co/Kalashnikov/cheyenne/resolve/main/CHEYENNE_v16.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "dynaVision",
+        "name": "DynaVision XL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/122606"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v0.6.1.0 (VAE)",
+                "url": "https://civitai.com/api/download/models/297740?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+            }
+        ]
+    },
+    {
+        "id": "ponyDiffusion",
+        "name": "Pony Diffusion XL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/257749"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v6",
+                "url": "https://huggingface.co/Dragonstalker/Pony_Diffusion_v6/resolve/main/ponyDiffusionV6XL.safetensors"
+            },
+            {
+                "version": "Turbo DPO v6",
+                "url": "https://huggingface.co/Bakanayatsu/ponyDiffusion-V6-XL-Turbo-DPO/resolve/main/ponyDiffusionV6XL_v6TurboDPOMerge.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "sdxlNiji",
+        "name": "SDXL Niji",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/120765"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v7",
+                "url": "https://civitai.com/api/download/models/662395?type=Model&format=SafeTensor&size=full&fp=bf16"
+            },
+            {
+                "version": "SE",
+                "url": "https://huggingface.co/rafationgson/niji-sdxl/resolve/main/sdxlNijiSpecial_sdxlNijiSE.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "tponynai3",
+        "name": "T-ponynai3",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/317902"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v6",
+                "url": "https://huggingface.co/xshini/T-ponynai3/resolve/main/tPonynai3_v6.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "unstableDiff",
+        "name": "SDXL Unstable Diffusers",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/84040"
+            },
+            {
+                "name": "HuggingFace",
+                "url": "https://huggingface.co/Yamer-AI/SDXL_Unstable_Diffusers"
+            }
+        ],
+        "variants": [
+            {
+                "version": "NihilMania",
+                "url": "https://civitai.com/api/download/models/395107?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+            },
+            {
+                "version": "v11",
+                "url": "https://huggingface.co/frankjoshua/sdxlUnstableDiffusers_v11/resolve/main/sdxlUnstableDiffusers_v11.safetensors"
+            },
+            {
+                "version": "v11+RunDiffusion",
+                "url": "https://huggingface.co/Yamer-AI/SDXL_Unstable_Diffusers/resolve/main/Unstable%20Diffusers%20V11%20%2B%20RunDiffusion.safetensors"
+            },
+            {
+                "version": "Turbo v10",
+                "url": "https://civitai.com/api/download/models/247214?type=Model&format=SafeTensor&size=full&fp=fp16"
+            }
+        ]
+    },
+    {
+        "id": "waiAni",
+        "name": "WAI-ANI-NSFW-PONYXL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/404154"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v7",
+                "url": "https://civitai.com/api/download/models/700352?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+            }
+        ]
+    }
+]

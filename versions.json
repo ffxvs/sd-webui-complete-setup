@@ -1,0 +1,46 @@
+{
+    "auto1111": [
+        {
+            "id": "paperspace",
+            "version": "2024.09.18"
+        },
+        {
+            "id": "runpod",
+            "version": "2024.09.18"
+        }
+    ],
+    "forge": [
+        {
+            "id": "paperspace",
+            "version": "2024.09.18"
+        },
+        {
+            "id": "runpod",
+            "version": "2024.09.18"
+        }
+    ],
+    "resources": [
+        {
+            "id": "sd15",
+            "version": "2024.09.19"
+        },
+        {
+            "id": "sdxl",
+            "version": "2024.09.19"
+        },
+        {
+            "id": "flux",
+            "version": "2024.09.19"
+        }
+    ],
+    "containers": [
+        {
+            "id": "auto1111",
+            "version": "2024.09.18"
+        },
+        {
+            "id": "forge",
+            "version": "2024.09.18"
+        }
+    ]
+}

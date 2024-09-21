@@ -1,82 +1,126 @@
-{
-    "models": [
-        {
-            "id": "deliberate",
-            "name": "Deliberate",
-            "variants": [
-                {
-                    "version": "v5",
-                    "url": "https://huggingface.co/XpucT/Deliberate/resolve/main/Deliberate_v5.safetensors"
-                },
-                {
-                    "version": "v5-inpainting",
-                    "url": "https://huggingface.co/XpucT/Deliberate/resolve/main/Deliberate_v5-inpainting.safetensors"
-                }
-            ]
-        },
-        {
-            "id": "dreamShaper",
-            "name": "DreamShaper",
-            "variants": [
-                {
-                    "version": "v8",
-                    "url": "https://huggingface.co/Lykon/DreamShaper/resolve/main/DreamShaper_8_pruned.safetensors"
-                },
-                {
-                    "version": "v8-inpainting",
-                    "url": "https://huggingface.co/Lykon/DreamShaper/resolve/main/DreamShaper_8_INPAINTING.inpainting.safetensors"
-                }
-            ]
-        },
-        {
-            "id": "experience",
-            "name": "Experience",
-            "variants": [
-                {
-                    "version": "v10",
-                    "url": "https://huggingface.co/Schisim/Experience/resolve/main/Experience_v10-FP16.safetensors"
-                },
-                {
-                    "version": "Realistic Exp v3",
-                    "url": "https://huggingface.co/Schisim/Experience/resolve/main/Realistic_Experience_v3-FP16.safetensors"
-                }
-            ]
-        },
-        {
-            "id": "ned",
-            "name": "NeverEnding Dream (NED)",
-            "variants": [
-                {
-                    "version": "v1.22_vae",
-                    "url": "https://huggingface.co/Lykon/NeverEnding-Dream/resolve/main/NeverEndingDream_1.22_BakedVae_fp16.safetensors"
-                },
-                {
-                    "version": "v1.22-inpainting",
-                    "url": "https://huggingface.co/fp16-guy/NeverEnding-Dream_fp16_cleaned/resolve/main/neverendingDreamNED_v122BakedVae_inp_fp16.safetensors"
-                }
-            ]
-        },
-        {
-            "id": "protogen",
-            "name": "Protogen",
-            "variants": [
-                {
-                    "version": "x2.2 (Anime)",
-                    "url": "https://huggingface.co/darkstorm2150/Protogen_v2.2_Official_Release/resolve/main/Protogen_V2.2-pruned-fp16.safetensors"
-                },
-                {
-                    "version": "x3.4 (Photorealism)",
-                    "url": "https://huggingface.co/darkstorm2150/Protogen_x3.4_Official_Release/resolve/main/ProtoGen_X3.4-pruned-fp16.safetensors"
-                },
-                {
-                    "version": "x5.3 (Photorealism)",
-                    "url": "https://huggingface.co/darkstorm2150/Protogen_x5.3_Official_Release/resolve/main/ProtoGen_X5.3-pruned-fp16.safetensors"
-                },
-                {
-                    "version": "x5.8 (Sci-fi + Anime)",
-                    "url": "https://huggingface.co/darkstorm2150/Protogen_x5.8_Official_Release/resolve/main/ProtoGen_X5.8-pruned-fp16.safetensors"
-                }
-            ]
-        }
-    ]
-}
+[
+    {
+        "id": "deliberate",
+        "name": "Deliberate",
+        "homepage": [
+            {
+                "name": "HuggingFace",
+                "url": "https://huggingface.co/XpucT/Deliberate"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v6",
+                "url": "https://huggingface.co/XpucT/Deliberate/resolve/main/Deliberate_v6.safetensors"
+            },
+            {
+                "version": "v6 - Inpainting",
+                "url": "https://huggingface.co/XpucT/Deliberate/resolve/main/Deliberate_v6-inpainting.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "dreamShaper",
+        "name": "DreamShaper",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/4384"
+            },
+            {
+                "name": "HuggingFace",
+                "url": "https://huggingface.co/Lykon/DreamShaper"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v8",
+                "url": "https://huggingface.co/Lykon/DreamShaper/resolve/main/DreamShaper_8_pruned.safetensors"
+            },
+            {
+                "version": "v8 - Inpainting",
+                "url": "https://huggingface.co/Lykon/DreamShaper/resolve/main/DreamShaper_8_INPAINTING.inpainting.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "experience",
+        "name": "Experience",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/5952"
+            },
+            {
+                "name": "HuggingFace",
+                "url": "https://huggingface.co/nDimensional/Experience"
+            }
+        ],
+        "variants": [
+            {
+                "version": "Experience v10",
+                "url": "https://huggingface.co/Schisim/Experience/resolve/main/Experience_v10-FP16.safetensors"
+            },
+            {
+                "version": "Realistic Experience v3",
+                "url": "https://huggingface.co/Schisim/Experience/resolve/main/Realistic_Experience_v3-FP16.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "ned",
+        "name": "NeverEnding Dream (NED)",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/10028"
+            },
+            {
+                "name": "HuggingFace",
+                "url": "https://huggingface.co/Lykon/NeverEnding-Dream"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v1.22 (VAE)",
+                "url": "https://huggingface.co/Lykon/NeverEnding-Dream/resolve/main/NeverEndingDream_1.22_BakedVae_fp16.safetensors"
+            },
+            {
+                "version": "v1.22 - Inpainting",
+                "url": "https://huggingface.co/fp16-guy/NeverEnding-Dream_fp16_cleaned/resolve/main/neverendingDreamNED_v122BakedVae_inp_fp16.safetensors"
+            }
+        ]
+    },
+    {
+        "id": "protogen",
+        "name": "Protogen",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/user/darkstorm2150"
+            },
+            {
+                "name": "HuggingFace",
+                "url": "https://huggingface.co/darkstorm2150"
+            }
+        ],
+        "variants": [
+            {
+                "version": "x2.2 (Anime)",
+                "url": "https://huggingface.co/darkstorm2150/Protogen_v2.2_Official_Release/resolve/main/Protogen_V2.2-pruned-fp16.safetensors"
+            },
+            {
+                "version": "x3.4 (Photorealism)",
+                "url": "https://huggingface.co/darkstorm2150/Protogen_x3.4_Official_Release/resolve/main/ProtoGen_X3.4-pruned-fp16.safetensors"
+            },
+            {
+                "version": "x5.3 (Photorealism)",
+                "url": "https://huggingface.co/darkstorm2150/Protogen_x5.3_Official_Release/resolve/main/ProtoGen_X5.3-pruned-fp16.safetensors"
+            },
+            {
+                "version": "x5.8 (Sci-fi + Anime)",
+                "url": "https://huggingface.co/darkstorm2150/Protogen_x5.8_Official_Release/resolve/main/ProtoGen_X5.8-pruned-fp16.safetensors"
+            }
+        ]
+    }
+]
