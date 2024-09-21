@@ -281,7 +281,7 @@ def temp_storage_symlink(option: bool, source: str, destination: str):
     else:
         unlink(destination)
         run_process(f'rm -r -f {source}/*', use_shell=True)
-        os.makedirs(destination)
+        os.makedirs(destination, exist_ok=True)
 
 
 # Create shared storage
