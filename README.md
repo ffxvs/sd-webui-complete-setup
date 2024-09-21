@@ -28,11 +28,11 @@ Jupyter notebook for Stable Diffusion WebUI and Stable Diffusion WebUI Forge.
    * Container's name
      * SD Web UI
        ```
-       ffxvs/sd-webui-containers:auto1111-2024.09.
+       ffxvs/sd-webui-containers:auto1111-2024.09.21
        ```
      * SD Web UI Forge
        ```
-       ffxvs/sd-webui-containers:forge-2024.09.
+       ffxvs/sd-webui-containers:forge-2024.09.21
        ```
    * Container's command
      ```

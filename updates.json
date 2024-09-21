@@ -2,43 +2,43 @@
     "paperspace": [
         {
             "id": "auto1111",
-            "version": "2024.09.09",
+            "version": "2024.09.21",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui/sd_webui_paperspace.ipynb",
-            "changelog": "• IMPORTANT ANNOUNCEMENT - https://github.com/ffxvs/sd-webui-complete-setup/discussions/11"
+            "changelog": "• Major Updates 2024.09.21 Announcement - https://github.com/ffxvs/sd-webui-complete-setup/discussions/15"
         },
         {
             "id": "forge",
-            "version": "2024.09.09",
+            "version": "2024.09.21",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui-forge/sd_webui_forge_paperspace.ipynb",
-            "changelog": "• IMPORTANT ANNOUNCEMENT - https://github.com/ffxvs/sd-webui-complete-setup/discussions/11"
+            "changelog": "• Major Updates 2024.09.21 Announcement - https://github.com/ffxvs/sd-webui-complete-setup/discussions/15"
         }
     ],
     "runpod": [
         {
             "id": "auto1111",
-            "version": "2024.09.09",
+            "version": "2024.09.21",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui/sd_webui_runpod.ipynb",
-            "changelog": "• IMPORTANT ANNOUNCEMENT - https://github.com/ffxvs/sd-webui-complete-setup/discussions/11"
+            "changelog": "• Major Updates 2024.09.21 Announcement - https://github.com/ffxvs/sd-webui-complete-setup/discussions/15"
         },
         {
             "id": "forge",
-            "version": "2024.09.09",
+            "version": "2024.09.21",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui-forge/sd_webui_forge_runpod.ipynb",
-            "changelog": "• IMPORTANT ANNOUNCEMENT - https://github.com/ffxvs/sd-webui-complete-setup/discussions/11"
+            "changelog": "• Major Updates 2024.09.21 Announcement - https://github.com/ffxvs/sd-webui-complete-setup/discussions/15"
         }
     ],
     "resources": [
         {
             "id": "sd15",
-            "version": "2024.05.31",
+            "version": "2024.09.21",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/resource-lists/sd15_resource_lists.ipynb",
-            "changelog": "• Update ReV Animated to v2 Pruned\n• Add Realistic Vision Hyper v5.1_vae and Inpainting\n• Add Henmix Real v6a and v6b"
+            "changelog": "• Major Updates 2024.09.21 Announcement - https://github.com/ffxvs/sd-webui-complete-setup/discussions/15"
         },
         {
             "id": "sdxl",
-            "version": "2024.05.31",
+            "version": "2024.09.21",
             "url": "https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/resource-lists/sdxl_resource_lists.ipynb",
-            "changelog": "• Add Pony Diffusion XL\n• Update Copax Timeless: v12, Lightning v11, Turbo v2\n• Update Juggernaut: X, Hyper X\n• Add ZavyChromaXL\n• Update NewRealityXL: v4, Lightning v1\n• Update ArienMixXL to v4.5\n• Update LEOSAM's HelloWorld to v6"
+            "changelog": "• Major Updates 2024.09.21 Announcement - https://github.com/ffxvs/sd-webui-complete-setup/discussions/15"
         }
     ]
 }

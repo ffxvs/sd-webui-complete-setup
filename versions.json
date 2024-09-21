@@ -2,45 +2,45 @@
     "auto1111": [
         {
             "id": "paperspace",
-            "version": "2024.09.18"
+            "version": "2024.09.21"
         },
         {
             "id": "runpod",
-            "version": "2024.09.18"
+            "version": "2024.09.21"
         }
     ],
     "forge": [
         {
             "id": "paperspace",
-            "version": "2024.09.18"
+            "version": "2024.09.21"
         },
         {
             "id": "runpod",
-            "version": "2024.09.18"
+            "version": "2024.09.21"
         }
     ],
     "resources": [
         {
             "id": "sd15",
-            "version": "2024.09.19"
+            "version": "2024.09.21"
         },
         {
             "id": "sdxl",
-            "version": "2024.09.19"
+            "version": "2024.09.21"
         },
         {
             "id": "flux",
-            "version": "2024.09.19"
+            "version": "2024.09.21"
         }
     ],
     "containers": [
         {
             "id": "auto1111",
-            "version": "2024.09.18"
+            "version": "2024.09.21"
         },
         {
             "id": "forge",
-            "version": "2024.09.18"
+            "version": "2024.09.21"
         }
     ]
 }
