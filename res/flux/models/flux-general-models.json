@@ -14,11 +14,11 @@
         ],
         "variants": [
             {
-                "version": "flux1-dev-bnb-nf4-v2 (11GB)",
+                "version": "bnb-nf4-v2 (11GB)",
                 "url": "https://huggingface.co/lllyasviel/flux1-dev-bnb-nf4/resolve/main/flux1-dev-bnb-nf4-v2.safetensors"
             },
             {
-                "version": "flux1-dev-fp8 (16GB)",
+                "version": "fp8 (16GB)",
                 "url": "https://huggingface.co/lllyasviel/flux1_dev/resolve/main/flux1-dev-fp8.safetensors"
             }
         ]
@@ -38,23 +38,35 @@
         ],
         "variants": [
             {
-                "version": "flux1-dev-Q4_0 (6GB)",
+                "version": "Q3_K_S (5GB)",
+                "url": "https://huggingface.co/lllyasviel/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q3_K_S.gguf"
+            },
+            {
+                "version": "Q4_0 (6GB)",
                 "url": "https://huggingface.co/lllyasviel/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q4_0.gguf"
             },
             {
-                "version": "flux1-dev-Q4_1 (7GB)",
+                "version": "Q4_1 (7GB)",
                 "url": "https://huggingface.co/lllyasviel/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q4_1.gguf"
             },
             {
-                "version": "flux1-dev-Q5_1 (8GB)",
+                "version": "Q4_K_S (6GB)",
+                "url": "https://huggingface.co/lllyasviel/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q4_K_S.gguf"
+            },
+            {
+                "version": "Q5_1 (8GB)",
                 "url": "https://huggingface.co/lllyasviel/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q5_1.gguf"
             },
             {
-                "version": "flux1-dev-Q6_K (9GB)",
+                "version": "Q5_K_S (8GB)",
+                "url": "https://huggingface.co/lllyasviel/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q5_K_S.gguf"
+            },
+            {
+                "version": "Q6_K (9GB)",
                 "url": "https://huggingface.co/lllyasviel/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q6_K.gguf"
             },
             {
-                "version": "flux1-dev-Q8_0 (11.8GB)",
+                "version": "Q8_0 (11.8GB)",
                 "url": "https://huggingface.co/lllyasviel/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q8_0.gguf"
             }
         ]
