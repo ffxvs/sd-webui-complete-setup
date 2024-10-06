@@ -111,8 +111,8 @@
     "show_progressbar": true,
     "live_previews_enable": true,
     "show_progress_grid": true,
-    "show_progress_every_n_steps": 10,
-    "show_progress_type": "Approx NN",
+    "show_progress_every_n_steps": 4,
+    "show_progress_type": "TAESD",
     "live_preview_content": "Prompt",
     "live_preview_refresh_period": 1000,
     "hide_samplers": [
@@ -313,7 +313,7 @@
     "hires_fix_show_sampler": true,
     "hires_fix_show_prompts": false,
     "add_version_to_infotext": true,
-    "live_previews_image_format": "png",
+    "live_previews_image_format": "jpeg",
     "canvas_hotkey_zoom": "Shift",
     "canvas_hotkey_adjust": "Ctrl",
     "canvas_hotkey_move": "F",
@@ -573,5 +573,8 @@
     "styles_ui": "select-list",
     "enable_styleselector_by_default": false,
     "controlnet_clip_detector_on_cpu": true,
-    "interrupt_after_current": false
+    "interrupt_after_current": false,
+    "sd_t2i_height": 768,
+    "xl_t2i_width": 768,
+    "flux_t2i_width": 768
 }
