@@ -4,6 +4,7 @@ import pty
 import shutil
 import signal
 import subprocess
+from pathlib import Path
 from urllib.parse import urlparse
 
 import ipywidgets as widgets
@@ -20,41 +21,41 @@ webui_dir = os.environ['WEBUI_DIR']
 platform_id = os.environ['PLATFORM_ID']
 
 root = '/notebooks'
-webui_path = root + webui_dir
+webui_path = Path(root + webui_dir)
 oncompleted_path = '/internal/on-completed.sh'
-outputs_path = webui_path + '/outputs'
-extensions_path = webui_path + '/extensions'
-modules_path = webui_path + '/modules'
+outputs_path = webui_path / 'outputs'
+extensions_path = webui_path / 'extensions'
+modules_path = webui_path / 'modules'
 
-models_path = webui_path + '/models/Stable-diffusion'
-embeddings_path = webui_path + '/embeddings'
-lora_path = webui_path + '/models/Lora'
-esrgan_path = webui_path + '/models/ESRGAN'
-dat_path = webui_path + '/models/DAT'
-vae_path = webui_path + '/models/VAE'
-controlnet_models_path = webui_path + '/models/ControlNet'
-text_encoder_path = webui_path + '/models/text_encoder'
+models_path = webui_path / 'models/Stable-diffusion'
+embeddings_path = webui_path / 'embeddings'
+lora_path = webui_path / 'models/Lora'
+esrgan_path = webui_path / 'models/ESRGAN'
+dat_path = webui_path / 'models/DAT'
+vae_path = webui_path / 'models/VAE'
+controlnet_models_path = webui_path / 'models/ControlNet'
+text_encoder_path = webui_path / 'models/text_encoder'
 
-shared_storage = root + '/shared-storage'
-shared_models_path = shared_storage + '/models'
-shared_embeddings_path = shared_storage + '/embeddings'
-shared_lora_path = shared_storage + '/lora'
-shared_esrgan_path = shared_storage + '/upscaler/esrgan'
-shared_dat_path = shared_storage + '/upscaler/dat'
-shared_vae_path = shared_storage + '/vae'
-shared_controlnet_models_path = shared_storage + '/controlNet'
-shared_controlnet_preprocessor_path = shared_controlnet_models_path + '/preprocessor'
-shared_text_encoder_path = shared_storage + '/text_encoder'
-shared_outputs_path = shared_storage + '/outputs'
-shared_config_path = shared_storage + '/config'
-env_path = shared_storage + '/.env'
+shared_storage = Path(root + 'shared-storage')
+shared_models_path = shared_storage / 'models'
+shared_embeddings_path = shared_storage / 'embeddings'
+shared_lora_path = shared_storage / 'lora'
+shared_esrgan_path = shared_storage / 'upscaler/esrgan'
+shared_dat_path = shared_storage / 'upscaler/dat'
+shared_vae_path = shared_storage / 'vae'
+shared_controlnet_models_path = shared_storage / 'controlNet'
+shared_controlnet_preprocessor_path = shared_controlnet_models_path / 'preprocessor'
+shared_text_encoder_path = shared_storage / 'text_encoder'
+shared_outputs_path = shared_storage / 'outputs'
+shared_config_path = shared_storage / 'config'
+env_path = shared_storage / '.env'
 
-temp_storage = '/temp-storage'
-temp_models_path = temp_storage + '/models'
-temp_lora_path = temp_storage + '/lora'
-temp_controlnet_models_path = temp_storage + '/controlNet'
-temp_controlnet_preprocessor_path = temp_controlnet_models_path + '/preprocessor'
-temp_text_encoder_path = temp_storage + '/text_encoder'
+temp_storage = Path('/temp-storage')
+temp_models_path = temp_storage / 'models'
+temp_lora_path = temp_storage / 'lora'
+temp_controlnet_models_path = temp_storage / 'controlNet'
+temp_controlnet_preprocessor_path = temp_controlnet_models_path / 'preprocessor'
+temp_text_encoder_path = temp_storage / 'text_encoder'
 
 # #################### RESOURCE URLs ####################
 
@@ -161,9 +162,9 @@ request_headers = {
 }
 
 if webui_id == ui.forge:
-    controlnet_preprocessor_path = webui_path + '/models/ControlNetPreprocessor'
+    controlnet_preprocessor_path = webui_path / 'models/ControlNetPreprocessor'
 else:
-    controlnet_preprocessor_path = extensions_path + '/sd-webui-controlnet/annotator/downloads'
+    controlnet_preprocessor_path = extensions_path / 'sd-webui-controlnet/annotator/downloads'
 
 
 # #################### FUNCTIONS ####################
@@ -218,14 +219,14 @@ def set_oncompleted_permission():
 
 
 # Create symlink
-def symlink(source: str, destination: str):
+def symlink(source: str | Path, destination: str | Path):
     if os.path.exists(source) and not os.path.islink(destination):
         shutil.rmtree(destination, ignore_errors=True)
         os.symlink(source, destination)
 
 
 # Remove symlink
-def unlink(target: str):
+def unlink(target: str | Path):
     if os.path.islink(target):
         os.unlink(target)
 
@@ -245,8 +246,8 @@ def close_port(port_number: int):
 
 
 def remove_old_dirs():
-    unlink(f'{models_path}/ControlNetPreprocessor')
-    old_upscaler_path = f'{shared_storage}/esrgan'
+    unlink(models_path / 'ControlNetPreprocessor')
+    old_upscaler_path = shared_storage / 'esrgan'
     if os.path.exists(old_upscaler_path):
         shutil.rmtree(old_upscaler_path, ignore_errors=True)
     if os.path.islink(controlnet_preprocessor_path):
@@ -256,7 +257,7 @@ def remove_old_dirs():
 
 
 def remove_old_config():
-    config_file = f'{shared_config_path}/config.json'
+    config_file = shared_config_path / 'config.json'
     if os.path.exists(config_file):
         ui_tab_order = ["txt2img", "Txt2img", "img2img", "Img2img", "Extras",
                         "PNG Info", "Checkpoint Merger", "Train", "Cleaner",
@@ -324,16 +325,16 @@ def create_shared_storage():
 def temp_storage_settings():
     checkboxes = []
     ts_list = [
-        ('SD v1.5 Models', f'{temp_models_path}/sd', f'{shared_models_path}/sd'),
-        ('SD v1.5 LoRA', f'{temp_lora_path}/sd', f'{shared_lora_path}/sd'),
-        ('SD v1.5 ControlNet', f'{temp_controlnet_models_path}/sd', f'{shared_controlnet_models_path}/sd'),
-        ('SDXL Models', f'{temp_models_path}/sdxl', f'{shared_models_path}/sdxl'),
-        ('SDXL LoRA', f'{temp_lora_path}/sdxl', f'{shared_lora_path}/sdxl'),
-        ('SDXL ControlNet', f'{temp_controlnet_models_path}/sdxl', f'{shared_controlnet_models_path}/sdxl'),
-        ('FLUX Models', f'{temp_models_path}/flux', f'{shared_models_path}/flux'),
-        ('FLUX LoRA', f'{temp_lora_path}/flux', f'{shared_lora_path}/flux'),
-        ('FLUX ControlNet', f'{temp_controlnet_models_path}/flux', f'{shared_controlnet_models_path}/flux'),
-        ('FLUX Text Encoder', f'{temp_text_encoder_path}/flux', f'{shared_text_encoder_path}/flux'),
+        ('SD v1.5 Models', temp_models_path / 'sd', shared_models_path / 'sd'),
+        ('SD v1.5 LoRA', temp_lora_path / 'sd', shared_lora_path / 'sd'),
+        ('SD v1.5 ControlNet', temp_controlnet_models_path / 'sd', shared_controlnet_models_path / 'sd'),
+        ('SDXL Models', temp_models_path / 'sdxl', shared_models_path / 'sdxl'),
+        ('SDXL LoRA', temp_lora_path / 'sdxl', shared_lora_path / 'sdxl'),
+        ('SDXL ControlNet', temp_controlnet_models_path / 'sdxl', shared_controlnet_models_path / 'sdxl'),
+        ('FLUX Models', temp_models_path / 'flux', shared_models_path / 'flux'),
+        ('FLUX LoRA', temp_lora_path / 'flux', shared_lora_path / 'flux'),
+        ('FLUX ControlNet', temp_controlnet_models_path / 'flux', shared_controlnet_models_path / 'flux'),
+        ('FLUX Text Encoder', temp_text_encoder_path / 'flux', shared_text_encoder_path / 'flux'),
         ('ControlNet Preprocessor', temp_controlnet_preprocessor_path, shared_controlnet_preprocessor_path)
     ]
 
@@ -382,8 +383,8 @@ def shared_storage_symlinks():
     symlink(shared_controlnet_preprocessor_path, controlnet_preprocessor_path)
     symlink(shared_outputs_path, outputs_path)
     symlink(shared_text_encoder_path, text_encoder_path)
-    symlink(f'{shared_config_path}/config.json', f'{webui_path}/config.json')
-    symlink(f'{shared_config_path}/ui-config.json', f'{webui_path}/ui-config.json')
+    symlink(shared_config_path / 'config.json', webui_path / 'config.json')
+    symlink(shared_config_path / 'ui-config.json', webui_path / 'ui-config.json')
 
 
 def save_api_key():
@@ -421,7 +422,7 @@ def get_resources(url: str):
 
 
 # Download files using aria2c
-def downloader(url: str, path: str, overwrite=False):
+def downloader(url: str, path: str | Path, overwrite=False):
     if url.startswith('https://civitai.com/api/download/') and civitai_token() != 'None':
         if '?' in url:
             url += f'&token={civitai_token()}'
@@ -453,7 +454,7 @@ def downloader(url: str, path: str, overwrite=False):
 
 
 # Git clone repo
-def clone_repo(command: str, path: str, update=False, overwrite=False):
+def clone_repo(command: str, path: str | Path, update=False, overwrite=False):
     directory = f'{path}/{command.split("/")[-1]}'
     git_clone = f'git clone -q --depth 20 {command} {directory}'
     if os.path.exists(directory):
@@ -502,10 +503,10 @@ def install_forge():
 
 
 def download_configs():
-    if not os.path.exists(f'{shared_config_path}/config.json'):
+    if not os.path.exists(shared_config_path / 'config.json'):
         print('Download config.json')
         downloader(f'{main_repo_url}/configs/config.json', shared_config_path)
-    if not os.path.exists(f'{shared_config_path}/ui-config.json'):
+    if not os.path.exists(shared_config_path / 'ui-config.json'):
         print('Download ui-config.json')
         downloader(f'{main_repo_url}/configs/ui-config.json', shared_config_path)
 
@@ -694,7 +695,7 @@ def models_selection(models_url: str):
             try:
                 for name, version, url in selected_versions:
                     print(f'\n* {name} | {version}')
-                    downloader(url, f'{models_path}/{base_model()}')
+                    downloader(url, models_path / base_model())
                 completed_message()
             except KeyboardInterrupt:
                 print('\n\n--Download interrupted--')
@@ -710,22 +711,22 @@ def download_controlnet(controlnet: list, url: str):
         if controlnet[model]:
             print('\n* ' + model + '...')
             for url in controlnet_data[model]:
-                downloader(url, f'{controlnet_models_path}/{base_model()}')
+                downloader(url, controlnet_models_path / base_model())
 
 
 def get_res_directory(_type: str):
     directory = None
     match _type:
         case res_type.embedding:
-            directory = f'{embeddings_path}/{base_model()}'
+            directory = embeddings_path / base_model()
         case res_type.lora:
-            directory = f'{lora_path}/{base_model()}'
+            directory = lora_path / base_model()
         case res_type.upscaler:
             directory = esrgan_path
         case res_type.vae:
-            directory = f'{vae_path}/{base_model()}'
+            directory = vae_path / base_model()
         case res_type.text_encoder:
-            directory = f'{text_encoder_path}/{base_model()}'
+            directory = text_encoder_path / base_model()
     return directory
 
 
@@ -803,20 +804,23 @@ def resources_selection(builtin_res_url: str | None, resources_url: str):
 
 
 # Other resources
-def download_other_res(resource_list: list, resource_path: str):
-    for resource in resource_list:
-        print(f'\n* {resource}')
-        downloader(resource, resource_path)
+def download_other_res(resource_list: list, resource_path: str | Path):
+    try:
+        for resource in resource_list:
+            print(f'\n* {resource}')
+            downloader(resource, resource_path)
+    except KeyboardInterrupt:
+        print('\n\n--Download interrupted--')
 
 
 # Download other resources
 def other_resources(other_res: OtherRes):
     if other_res.lora:
         print('\n\n⏳ Downloading LoRA...')
-        download_other_res(other_res.lora, f'{lora_path}/{base_model()}')
+        download_other_res(other_res.lora, lora_path / base_model())
     if other_res.embedding:
         print('\n\n⏳ Downloading embedding...')
-        download_other_res(other_res.embedding, f'{embeddings_path}/{base_model()}')
+        download_other_res(other_res.embedding, embeddings_path / base_model())
     if other_res.esrgan:
         print('\n\n⏳ Downloading ESRGAN-based Upscaler...')
         download_other_res(other_res.dat, esrgan_path)
@@ -825,7 +829,7 @@ def other_resources(other_res: OtherRes):
         download_other_res(other_res.dat, dat_path)
     if other_res.vae:
         print('\n\n⏳ Downloading VAE...')
-        download_other_res(other_res.vae, f'{vae_path}/{base_model()}')
+        download_other_res(other_res.vae, vae_path / base_model())
     if other_res.text_encoder:
         print('\n\n⏳ Downloading Text Encoder...')
-        download_other_res(other_res.text_encoder, f'{text_encoder_path}/{base_model()}')
+        download_other_res(other_res.text_encoder, text_encoder_path / base_model())
