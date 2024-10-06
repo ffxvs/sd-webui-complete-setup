@@ -170,7 +170,6 @@ else:
 
 # Apply environment variables 1
 def apply_envs1():
-    os.environ['LD_PRELOAD'] = '/lib/x86_64-linux-gnu/libtcmalloc.so.4'
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
     os.environ['PYTHONWARNINGS'] = 'ignore'
     os.environ['PIP_ROOT_USER_ACTION'] = 'ignore'
@@ -178,6 +177,7 @@ def apply_envs1():
 
 # Apply environment variables 2
 def apply_envs2():
+    os.environ['LD_PRELOAD'] = '/lib/x86_64-linux-gnu/libtcmalloc.so.4'
     os.environ['PIP_DISABLE_PIP_VERSION_CHECK'] = '1'
     os.environ['FORCE_CUDA'] = '1'
     os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'garbage_collection_threshold:0.9,max_split_size_mb:512'
@@ -631,7 +631,7 @@ def launch_webui(webui: WebUI):
     print('Launching Web UI...')
     try:
         close_port(webui_port)
-        pty.spawn(f'python webui.py {args}'.split(), read)
+        pty.spawn(f'python {webui_path}/webui.py {args}'.split(), read)
     except KeyboardInterrupt:
         close_port(webui_port)
         print('\n--Process terminated--')
