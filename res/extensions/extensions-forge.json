@@ -12,6 +12,12 @@
         "enabled": false
     },
     {
+        "id": "detailDaemon",
+        "name": "Detail Daemon",
+        "url": "https://github.com/muerrilla/sd-webui-detail-daemon",
+        "enabled": false
+    },
+    {
         "id": "depthLib",
         "name": "Depth Map Library",
         "url": "https://github.com/wywywywy/sd-webui-depth-lib",
