@@ -263,7 +263,9 @@ def remove_old_config():
                         "Mini Paint", "Photopea", "Infinite image browsing"]
         with open(config_file, 'r') as file:
             config = json.load(file)
-        if sorted(config['ui_tab_order']) != sorted(ui_tab_order):
+        if (sorted(config['ui_tab_order']) != sorted(ui_tab_order) or
+                config['show_progress_type'] != 'TAESD' or
+                config['show_progress_every_n_steps'] != 4):
             os.remove(config_file)
 
 
