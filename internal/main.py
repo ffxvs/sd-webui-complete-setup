@@ -5,6 +5,8 @@ import shlex
 import shutil
 import signal
 import subprocess
+import time
+from functools import partial
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -446,6 +448,22 @@ def webui_settings():
         (envs.DARK_THEME, 'Enable Dark Theme', dark_theme())
     ]
 
+    save_button = widgets.Button(description='Save', button_style='success')
+    output = widgets.Output()
+
+    def callback(button, tf: widgets.Text):
+        with output:
+            output.clear_output()
+            time.sleep(0.5)
+            value = str(tf.value).strip()
+            if len(value) > 0:
+                if key == envs.CUSTOM_CONFIG_URL:
+                    print('\nDownload config.json')
+                    downloader(value, shared_config_path, overwrite=True)
+                elif key == envs.CUSTOM_UI_CONFIG_URL:
+                    print('\nDownload ui-config.json')
+                    downloader(value, shared_config_path, overwrite=True)
+
     for key, input_label, placeholder, input_value, use_btn in input_list:
         label = widgets.Label(input_label, layout=widgets.Layout(width='200px'))
         textfield = widgets.Text(placeholder=placeholder, value=input_value, layout=widgets.Layout(width='400px'))
@@ -453,19 +471,8 @@ def webui_settings():
         row = [label, textfield]
 
         if use_btn:
-            def callback(button):
-                value = str(textfield.value).strip()
-                if len(value) > 0:
-                    match key:
-                        case envs.CUSTOM_CONFIG_URL:
-                            print('Download config.json')
-                            downloader(value, shared_config_path / 'config.json', overwrite=True)
-                        case envs.CUSTOM_UI_CONFIG_URL:
-                            print('Download ui-config.json')
-                            downloader(value, shared_config_path / 'ui-config.json', overwrite=True)
-
             dl_btn = widgets.Button(description='Download', button_style='success', layout=widgets.Layout(width='100px', margin='2px 0 0 25px'))
-            dl_btn.on_click(callback)
+            dl_btn.on_click(partial(callback, tf=textfield))
             row.append(dl_btn)
 
         print('')
@@ -477,23 +484,23 @@ def webui_settings():
         print('')
         display(checkbox)
 
-    save_button = widgets.Button(description='Save', button_style='success')
-    output = widgets.Output()
-
-    def on_press(button):
-        env_path.touch(mode=0o666, exist_ok=True)
-        output.clear_output()
-        for env_key, option in settings:
-            value = str(option.value).strip()
-            if len(value) > 0:
-                dotenv.set_key(env_path, env_key, value)
-            else:
-                if get_env(env_key) is not None:
-                    os.environ.pop(env_key)
-                    dotenv.unset_key(env_path, env_key)
+    def on_save(button):
+        with output:
+            env_path.touch(mode=0o666, exist_ok=True)
+            output.clear_output()
+            for env_key, option in settings:
+                value = str(option.value).strip()
+                if len(value) > 0:
+                    dotenv.set_key(env_path, env_key, value)
+                else:
+                    if get_env(env_key) is not None:
+                        os.environ.pop(env_key)
+                        dotenv.unset_key(env_path, env_key)
+            time.sleep(0.5)
+            print('\nSaved ✔')
 
     print('')
-    save_button.on_click(on_press)
+    save_button.on_click(on_save)
     display(save_button, output)
 
 
@@ -590,7 +597,7 @@ def install_forge():
 
 def download_configs():
     config_url = custom_config_url() if custom_config_url() else f'{main_repo_url}/configs/config.json'
-    ui_config_url = custom_config_url() if custom_ui_config_url() else f'{main_repo_url}/configs/ui-config.json'
+    ui_config_url = custom_ui_config_url() if custom_ui_config_url() else f'{main_repo_url}/configs/ui-config.json'
 
     if not os.path.exists(shared_config_path / 'config.json'):
         print('Download config.json')
@@ -714,17 +721,17 @@ def launch_webui(webui: WebUI):
         run_process('pip install -q ngrok')
         args += f' --ngrok {ngrok_token()}'
         if ngrok_domain():
-            ngrok_options = '{"domain":"' + ngrok_domain() + '"}'
+            ngrok_options = '{\\"domain\\":\\"' + ngrok_domain() + '\\"}'
             args += f' --ngrok-options {ngrok_options}'
     if webui.cors:
         args += f' --cors-allow-origins {webui.cors}'
 
     args += f' --listen --port {webui_port}'
-    print('Launching Web UI...')
+    print('Launching WebUI...')
     try:
         close_port(webui_port)
         os.chdir(webui_path)
-        pty.spawn(f'python webui.py {shlex.split(args)}', read)
+        pty.spawn(shlex.split(f'python webui.py {args}'), read)
     except KeyboardInterrupt:
         close_port(webui_port)
         print('\n--Process terminated--')
