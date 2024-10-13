@@ -37,7 +37,7 @@ vae_path = webui_path / 'models/VAE'
 controlnet_models_path = webui_path / 'models/ControlNet'
 text_encoder_path = webui_path / 'models/text_encoder'
 
-shared_storage = Path(root + 'shared-storage')
+shared_storage = Path(root + '/shared-storage')
 shared_models_path = shared_storage / 'models'
 shared_embeddings_path = shared_storage / 'embeddings'
 shared_lora_path = shared_storage / 'lora'
