@@ -1,16 +1,17 @@
 import json
 import os
 import pty
+import shlex
 import shutil
 import signal
 import subprocess
 from pathlib import Path
 from urllib.parse import urlparse
 
+import dotenv
 import ipywidgets as widgets
 import requests
 from IPython.display import display
-from dotenv import load_dotenv
 
 # #################### GLOBAL PATHS ####################
 
@@ -123,13 +124,22 @@ class UI:
         self.forge = 'FORGE'
 
 
+class Envs:
+    def __init__(self):
+        self.CIVITAI_TOKEN = 'CIVITAI_TOKEN'
+        self.HUGGINGFACE_TOKEN = 'HUGGINGFACE_TOKEN'
+        self.NGROK_TOKEN = 'NGROK_TOKEN'
+        self.NGROK_DOMAIN = 'NGROK_DOMAIN'
+        self.CUSTOM_CONFIG_URL = 'CUSTOM_CONFIG_URL'
+        self.CUSTOM_UI_CONFIG_URL = 'CUSTOM_UI_CONFIG_URL'
+        self.AUTOUPDATE_FORGE = 'AUTOUPDATE_FORGE'
+        self.DARK_THEME = 'DARK_THEME'
+
+
 class WebUI:
-    def __init__(self, dark_theme: bool, username: str, password: str, cors: str, ngrok_token='', ngrok_domain=''):
-        self.dark_theme = dark_theme
+    def __init__(self, username: str, password: str, cors: str):
         self.username = username
         self.password = password
-        self.ngrok_token = ngrok_token
-        self.ngrok_domain = ngrok_domain
         self.cors = cors
 
 
@@ -152,7 +162,8 @@ port = Port()
 ui = UI()
 
 other = OtherRes([], [], [], [], [], [])
-webUI = WebUI(True, '', '', '')
+webUI = WebUI('', '', '')
+envs = Envs()
 
 boolean = [False, True]
 request_headers = {
@@ -196,15 +207,47 @@ def base_model():
     return os.environ['BASE_MODEL']
 
 
+def get_env(key: str, default=None) -> str | None:
+    dotenv.load_dotenv(env_path, override=True)
+    return os.environ.get(key, default)
+
+
 def civitai_token():
-    load_dotenv(env_path)
-    return os.environ.get('CIVITAI_TOKEN', 'None')
+    return get_env(envs.CIVITAI_TOKEN)
+
+
+def huggingface_token():
+    return get_env(envs.HUGGINGFACE_TOKEN)
+
+
+def ngrok_token():
+    return get_env(envs.NGROK_TOKEN)
+
+
+def ngrok_domain():
+    return get_env(envs.NGROK_DOMAIN)
+
+
+def custom_config_url():
+    return get_env(envs.CUSTOM_CONFIG_URL)
+
+
+def custom_ui_config_url():
+    return get_env(envs.CUSTOM_UI_CONFIG_URL)
+
+
+def autoupdate_forge() -> bool:
+    return get_env(envs.AUTOUPDATE_FORGE, True).lower() == 'true'
+
+
+def dark_theme() -> bool:
+    return get_env(envs.DARK_THEME, True).lower() == 'true'
 
 
 # Run external program
 def run_process(command: str, use_shell=False):
     if not use_shell:
-        command = command.split()
+        command = shlex.split(command)
     return subprocess.run(command, shell=use_shell, capture_output=True, text=True, bufsize=1)
 
 
@@ -258,7 +301,7 @@ def remove_old_dirs():
 
 def remove_old_config():
     config_file = shared_config_path / 'config.json'
-    if os.path.exists(config_file):
+    if os.path.exists(config_file) and autoupdate_forge():
         ui_tab_order = ["txt2img", "Txt2img", "img2img", "Img2img", "Extras",
                         "PNG Info", "Checkpoint Merger", "Train", "Cleaner",
                         "Mini Paint", "Photopea", "Infinite image browsing"]
@@ -283,7 +326,7 @@ def temp_storage_symlink(option: bool, source: str, destination: str):
         symlink(source, destination)
     else:
         unlink(destination)
-        run_process(f'rm -r -f {source}/*', use_shell=True)
+        run_process(f'rm -r -f {source}/*')
         os.makedirs(destination, exist_ok=True)
 
 
@@ -387,24 +430,68 @@ def shared_storage_symlinks():
     symlink(shared_config_path / 'ui-config.json', webui_path / 'ui-config.json')
 
 
-def save_api_key():
-    civitai_label = widgets.Label('Current CivitAI API Key : ')
-    current_civitai_token = widgets.Label(value=civitai_token())
-    civitai_info = widgets.HBox([civitai_label, current_civitai_token])
-    civitai_input = widgets.Text(placeholder='Paste your API key here', layout=widgets.Layout(width='300px'))
+def webui_settings():
+    settings = []
+    input_list = [
+        (envs.CIVITAI_TOKEN, 'CivitAI API Key', 'Paste your API key here', civitai_token(), False),
+        (envs.HUGGINGFACE_TOKEN, 'HuggingFace Token', 'Paste your HuggingFace token here', huggingface_token(), False),
+        (envs.NGROK_TOKEN, 'Ngrok Token', 'Paste your Ngrok token here', ngrok_token(), False),
+        (envs.NGROK_DOMAIN, 'Ngrok Domain', 'Paste your Ngrok domain here', ngrok_domain(), False),
+        (envs.CUSTOM_CONFIG_URL, 'Custom config.json URL', 'Paste your config.json URL here', custom_config_url(), True),
+        (envs.CUSTOM_UI_CONFIG_URL, 'Custom ui-config.json URL', 'Paste your ui-config.json URL here', custom_ui_config_url(), True)
+    ]
+
+    checkbox_list = [
+        (envs.AUTOUPDATE_FORGE, 'Auto Update Forge', autoupdate_forge()),
+        (envs.DARK_THEME, 'Enable Dark Theme', dark_theme())
+    ]
+
+    for key, input_label, placeholder, input_value, use_btn in input_list:
+        label = widgets.Label(input_label, layout=widgets.Layout(width='200px'))
+        textfield = widgets.Text(placeholder=placeholder, value=input_value, layout=widgets.Layout(width='400px'))
+        settings.append((key, textfield))
+        row = [label, textfield]
+
+        if use_btn:
+            def callback(button):
+                value = str(textfield.value).strip()
+                if len(value) > 0:
+                    match key:
+                        case envs.CUSTOM_CONFIG_URL:
+                            print('Download config.json')
+                            downloader(value, shared_config_path / 'config.json', overwrite=True)
+                        case envs.CUSTOM_UI_CONFIG_URL:
+                            print('Download ui-config.json')
+                            downloader(value, shared_config_path / 'ui-config.json', overwrite=True)
+
+            dl_btn = widgets.Button(description='Download', button_style='success', layout=widgets.Layout(width='100px', margin='2px 0 0 25px'))
+            dl_btn.on_click(callback)
+            row.append(dl_btn)
+
+        print('')
+        display(widgets.HBox(row))
+
+    for cb_env_name, cb_label, cb_value, in checkbox_list:
+        checkbox = widgets.Checkbox(description=cb_label, value=cb_value, indent=False)
+        settings.append((cb_env_name, checkbox))
+        print('')
+        display(checkbox)
+
     save_button = widgets.Button(description='Save', button_style='success')
     output = widgets.Output()
 
     def on_press(button):
-        token = str(civitai_input.value).strip()
-        if len(token) > 10:
-            with open(env_path, 'w') as f:
-                f.write(f'CIVITAI_TOKEN={token}\n')
-            current_civitai_token.value = civitai_token()
+        env_path.touch(mode=0o666, exist_ok=True)
+        output.clear_output()
+        for env_key, option in settings:
+            value = str(option.value).strip()
+            if len(value) > 0:
+                dotenv.set_key(env_path, env_key, value)
+            else:
+                if get_env(env_key) is not None:
+                    os.environ.pop(env_key)
+                    dotenv.unset_key(env_path, env_key)
 
-    display(civitai_info)
-    print('')
-    display(civitai_input)
     print('')
     save_button.on_click(on_press)
     display(save_button, output)
@@ -423,24 +510,23 @@ def get_resources(url: str):
 
 # Download files using aria2c
 def downloader(url: str, path: str | Path, overwrite=False):
-    if url.startswith('https://civitai.com/api/download/') and civitai_token() != 'None':
-        if '?' in url:
-            url += f'&token={civitai_token()}'
-        else:
-            url += f'?token={civitai_token()}'
-
     prev_line = ''
-    parsed_url = urlparse(url)
-    url_path = parsed_url.path
-    filename = os.path.basename(url_path)
-    aria2c = f'stdbuf -oL aria2c --on-download-complete={oncompleted_path} --download-result=hide --console-log-level=error -c -x 16 -s 16 -k 1M -d {path} {url}'
+    filename = os.path.basename(urlparse(url).path)
+
+    if url.startswith('https://civitai.com/api/download/') and civitai_token() is not None:
+        url += f'&token={civitai_token()}' if '?' in url else f'?token={civitai_token()}'
+
+    aria2c = f'stdbuf -oL aria2c {url} -d {path} --on-download-complete={oncompleted_path} --download-result=hide --console-log-level=error -c -x 16 -s 16 -k 1M'
+
+    if url.startswith('https://huggingface.co/') and huggingface_token() is not None:
+        aria2c += f' --header="Authorization: Bearer {huggingface_token()}"'
 
     if overwrite:
         aria2c += ' --allow-overwrite'
     if '.' in filename and filename.split('.')[-1] != '':
         aria2c += f' -o {filename}'
 
-    with subprocess.Popen(aria2c.split(), stdout=subprocess.PIPE, text=True, bufsize=1) as sp:
+    with subprocess.Popen(shlex.split(aria2c), stdout=subprocess.PIPE, text=True, bufsize=1) as sp:
         for line in sp.stdout:
             if line.startswith('[#'):
                 text = 'Download progress {}'.format(line.strip('\n'))
@@ -489,8 +575,8 @@ def install_auto1111():
     downloader(f'https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/{webui_version}/modules/sd_models.py', modules_path, True)
 
     # From ThelastBen
-    run_process(f'sed -i \'s@shared.opts.data\["sd_model_checkpoint"] = checkpoint_info.title@shared.opts.data\["sd_model_checkpoint"] = checkpoint_info.title;model.half()@\' {modules_path}/sd_models.py', use_shell=True)
-    run_process(f"sed -i \"s@map_location='cpu'@map_location='cuda'@\" {modules_path}/extras.py", use_shell=True)
+    run_process(f'sed -i \'s@shared.opts.data["sd_model_checkpoint"] = checkpoint_info.title@shared.opts.data["sd_model_checkpoint"] = checkpoint_info.title;model.half()@\' {modules_path}/sd_models.py')
+    run_process(f"sed -i \"s@map_location='cpu'@map_location='cuda'@\" {modules_path}/extras.py")
 
 
 # Install Web UI Forge
@@ -498,17 +584,20 @@ def install_forge():
     os.chdir(root)
     print('⏳ Installing/Updating Stable Diffusion Web UI Forge...')
     webui_version = 'main'
-    clone_repo(f'-b {webui_version} https://github.com/lllyasviel/stable-diffusion-webui-forge', root, update=True)
+    clone_repo(f'-b {webui_version} https://github.com/lllyasviel/stable-diffusion-webui-forge', root, update=autoupdate_forge())
     os.chdir(webui_path)
 
 
 def download_configs():
+    config_url = custom_config_url() if custom_config_url() else f'{main_repo_url}/configs/config.json'
+    ui_config_url = custom_config_url() if custom_ui_config_url() else f'{main_repo_url}/configs/ui-config.json'
+
     if not os.path.exists(shared_config_path / 'config.json'):
         print('Download config.json')
-        downloader(f'{main_repo_url}/configs/config.json', shared_config_path)
+        downloader(config_url, shared_config_path / 'config.json')
     if not os.path.exists(shared_config_path / 'ui-config.json'):
         print('Download ui-config.json')
-        downloader(f'{main_repo_url}/configs/ui-config.json', shared_config_path)
+        downloader(ui_config_url, shared_config_path / 'ui-config.json')
 
 
 # Install selected extensions
@@ -617,15 +706,15 @@ def launch_webui(webui: WebUI):
                 return f'\nRunning on URL : {proxy_url}\n'.encode()
         return output
 
-    if webui.dark_theme:
+    if dark_theme():
         args += ' --theme dark'
     if webui.username and webui.password:
         args += f' --gradio-auth {webui.username}:{webui.password}'
-    if webui.ngrok_token:
+    if ngrok_token():
         run_process('pip install -q ngrok')
-        args += f' --ngrok {webui.ngrok_token}'
-        if webui.ngrok_domain:
-            ngrok_options = '{"domain":"' + webui.ngrok_domain + '"}'
+        args += f' --ngrok {ngrok_token()}'
+        if ngrok_domain():
+            ngrok_options = '{"domain":"' + ngrok_domain() + '"}'
             args += f' --ngrok-options {ngrok_options}'
     if webui.cors:
         args += f' --cors-allow-origins {webui.cors}'
@@ -634,7 +723,8 @@ def launch_webui(webui: WebUI):
     print('Launching Web UI...')
     try:
         close_port(webui_port)
-        pty.spawn(f'python {webui_path}/webui.py {args}'.split(), read)
+        os.chdir(webui_path)
+        pty.spawn(f'python webui.py {shlex.split(args)}', read)
     except KeyboardInterrupt:
         close_port(webui_port)
         print('\n--Process terminated--')
