@@ -594,10 +594,10 @@ def download_configs():
 
     if not os.path.exists(shared_config_path / 'config.json'):
         print('Download config.json')
-        downloader(config_url, shared_config_path / 'config.json')
+        downloader(config_url, shared_config_path)
     if not os.path.exists(shared_config_path / 'ui-config.json'):
         print('Download ui-config.json')
-        downloader(ui_config_url, shared_config_path / 'ui-config.json')
+        downloader(ui_config_url, shared_config_path)
 
 
 # Install selected extensions
