@@ -237,11 +237,11 @@ def custom_ui_config_url():
 
 
 def autoupdate_forge() -> bool:
-    return get_env(envs.AUTOUPDATE_FORGE, True).lower() == 'true'
+    return get_env(envs.AUTOUPDATE_FORGE, 'True').lower() == 'true'
 
 
 def dark_theme() -> bool:
-    return get_env(envs.DARK_THEME, True).lower() == 'true'
+    return get_env(envs.DARK_THEME, 'True').lower() == 'true'
 
 
 # Run external program
