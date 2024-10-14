@@ -608,7 +608,7 @@ def install_auto1111():
     downloader(f'https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/{webui_version}/modules/sd_models.py', modules_path, True)
 
     # From ThelastBen
-    run_process(f'sed -i \'s@shared.opts.data["sd_model_checkpoint"] = checkpoint_info.title@shared.opts.data["sd_model_checkpoint"] = checkpoint_info.title;model.half()@\' {modules_path}/sd_models.py')
+    run_process(f'sed -i \'s@shared.opts.data\["sd_model_checkpoint"] = checkpoint_info.title@shared.opts.data["sd_model_checkpoint"] = checkpoint_info.title; model.half()@\' {modules_path}/sd_models.py')
     run_process(f"sed -i \"s@map_location='cpu'@map_location='cuda'@\" {modules_path}/extras.py")
 
 
