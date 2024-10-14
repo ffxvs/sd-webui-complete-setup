@@ -301,18 +301,44 @@ def remove_old_dirs():
             unlink(controlnet_preprocessor_path)
 
 
-def remove_old_config():
+def sync_config():
     config_file = shared_config_path / 'config.json'
-    if os.path.exists(config_file) and autoupdate_forge():
-        ui_tab_order = ["txt2img", "Txt2img", "img2img", "Img2img", "Extras",
-                        "PNG Info", "Checkpoint Merger", "Train", "Cleaner",
-                        "Mini Paint", "Photopea", "Infinite image browsing"]
-        with open(config_file, 'r') as file:
-            config = json.load(file)
-        if (sorted(config['ui_tab_order']) != sorted(ui_tab_order) or
-                config['show_progress_type'] != 'TAESD' or
-                config['show_progress_every_n_steps'] != 4):
-            os.remove(config_file)
+    if os.path.exists(config_file):
+        try:
+            default_order = ["txt2img", "Txt2img", "img2img", "Img2img", "Extras",
+                             "PNG Info", "Checkpoint Merger", "Train", "Cleaner",
+                             "Mini Paint", "Photopea", "Infinite image browsing"]
+            with open(config_file, 'r') as file:
+                config = json.load(file)
+
+            # Add 'ui_tab_order' if it doesn't exist or empty
+            if 'ui_tab_order' not in config or not config['ui_tab_order']:
+                config['ui_tab_order'] = default_order
+
+            ui_tab_order: list = config['ui_tab_order']
+
+            # Remove "Model Downloader" from 'ui_tab_order'
+            if 'Model Downloader' in config['ui_tab_order']:
+                ui_tab_order.remove('Model Downloader')
+
+            # Add "Txt2img" and "Img2img" if they don't exist
+            if ui_tab_order[0] == 'txt2img' and ui_tab_order[1] == 'img2img':
+                ui_tab_order.insert(1, 'Txt2img')
+                ui_tab_order.insert(3, 'Img2img')
+
+            config['show_progress_type'] = 'TAESD'
+            config['show_progress_every_n_steps'] = 4
+            config['live_previews_image_format'] = 'jpeg'
+
+            keys_to_add = ['sd_t2i_height', 'xl_t2i_width', 'flux_t2i_width']
+            for key in keys_to_add:
+                if key not in config:
+                    config[key] = 768
+
+            with open(config_file, 'w') as file:
+                json.dump(config, file, indent=4)
+        except (Exception, json.JSONDecodeError) as e:
+            print(e)
 
 
 def remove_old_forge():
@@ -451,16 +477,16 @@ def webui_settings():
     save_button = widgets.Button(description='Save', button_style='success')
     output = widgets.Output()
 
-    def callback(button, tf: widgets.Text):
+    def callback(button, _key: str, _textfield: widgets.Text):
         with output:
             output.clear_output()
             time.sleep(0.5)
-            value = str(tf.value).strip()
+            value = str(_textfield.value).strip()
             if len(value) > 0:
-                if key == envs.CUSTOM_CONFIG_URL:
+                if _key == envs.CUSTOM_CONFIG_URL:
                     print('\nDownload config.json')
                     downloader(value, shared_config_path, overwrite=True)
-                elif key == envs.CUSTOM_UI_CONFIG_URL:
+                elif _key == envs.CUSTOM_UI_CONFIG_URL:
                     print('\nDownload ui-config.json')
                     downloader(value, shared_config_path, overwrite=True)
 
@@ -472,7 +498,7 @@ def webui_settings():
 
         if use_btn:
             dl_btn = widgets.Button(description='Download', button_style='success', layout=widgets.Layout(width='100px', margin='2px 0 0 25px'))
-            dl_btn.on_click(partial(callback, tf=textfield))
+            dl_btn.on_click(partial(callback, _key=key, _textfield=textfield))
             row.append(dl_btn)
 
         print('')
@@ -744,7 +770,7 @@ def initialization():
     create_shared_storage()
     set_oncompleted_permission()
     remove_old_dirs()
-    remove_old_config()
+    sync_config()
     if webui_id == ui.forge:
         remove_old_forge()
         install_forge()
