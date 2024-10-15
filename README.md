@@ -1,7 +1,17 @@
 # Stable Diffusion WebUI Complete Setup  
 Jupyter notebook for Stable Diffusion WebUI and Stable Diffusion WebUI Forge.
 
-## [Major Updates 2024.09.21 Announcement](https://github.com/ffxvs/sd-webui-complete-setup/discussions/15)  
+***
+
+### [Major Updates 2024.09.21 Announcement](https://github.com/ffxvs/sd-webui-complete-setup/discussions/15)  
+### [Update 2024.10.15 Announcement](https://github.com/ffxvs/sd-webui-complete-setup/discussions/)  
+
+***
+
+**Buy Me a Coffee**  
+<a href="https://sociabuzz.com/ffxvs/tribe" target="_blank">
+    <img src="https://storage.sociabuzz.com/storage/landingpage/img/sociabuzz-logo.png" height="35px" style="border:0;height:35px;">
+</a>
 
 <br>
 
