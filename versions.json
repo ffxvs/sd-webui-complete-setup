@@ -2,35 +2,35 @@
     "auto1111": [
         {
             "id": "paperspace",
-            "version": "2024.09.21"
+            "version": "2024.10.15"
         },
         {
             "id": "runpod",
-            "version": "2024.09.21"
+            "version": "2024.10.15"
         }
     ],
     "forge": [
         {
             "id": "paperspace",
-            "version": "2024.09.21"
+            "version": "2024.10.15"
         },
         {
             "id": "runpod",
-            "version": "2024.09.21"
+            "version": "2024.10.15"
         }
     ],
     "resources": [
         {
             "id": "sd15",
-            "version": "2024.09.21"
+            "version": "2024.10.15"
         },
         {
             "id": "sdxl",
-            "version": "2024.09.21"
+            "version": "2024.10.15"
         },
         {
             "id": "flux",
-            "version": "2024.09.21"
+            "version": "2024.10.15"
         }
     ],
     "containers": [
