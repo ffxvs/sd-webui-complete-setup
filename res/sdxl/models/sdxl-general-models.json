@@ -91,7 +91,7 @@
             },
             {
                 "version": "Lightning Euler a v5",
-                "url": "https://huggingface.co/Maxclon/LEOSAM_HelloWorld_XL_Lightning/resolve/main/leosamsHelloworldXL_hw50EulerALightning.safetensors"
+                "url": "https://civitai.com/api/download/models/355837?type=Model&format=SafeTensor&size=pruned&fp=fp16"
             },
             {
                 "version": "Turbo+LCM v2",
