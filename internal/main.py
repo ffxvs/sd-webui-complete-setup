@@ -772,7 +772,7 @@ def initialization():
     remove_old_dirs()
     sync_config()
     if webui_id == ui.forge:
-        remove_old_forge()
+        # remove_old_forge()
         install_forge()
     elif webui_id == ui.auto1111:
         install_auto1111()
