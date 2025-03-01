@@ -711,7 +711,7 @@ def launch_webui(webui: WebUI):
     os.chdir(webui_path)
     print('⏳ Preparing...')
     print('It will take a little longer...')
-    args = '--disable-console-progressbars --disable-safe-unpickle --enable-insecure-extension-access --no-download-sd-model --no-hashing --api --xformers'
+    args = '--loglevel WARNING --disable-console-progressbars --disable-safe-unpickle --enable-insecure-extension-access --no-download-sd-model --no-hashing --api --xformers'
     proxy_url = 'http://127.0.0.1'
     webui_port = 7860
     replace_done = False
