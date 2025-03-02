@@ -326,6 +326,12 @@ def sync_config():
                 ui_tab_order.insert(1, 'Txt2img')
                 ui_tab_order.insert(3, 'Img2img')
 
+            # Add 'negpip' to 'ad_script_names' (Adetailer setting) if it doesn't exist
+            ad_script_names: list = [item for item in config['ad_script_names'].split(',') if item]
+            if 'negpip' not in ad_script_names:
+                ad_script_names.append('negpip')
+                config['ad_script_names'] = ','.join(ad_script_names)
+
             config['show_progress_type'] = 'TAESD'
             config['show_progress_every_n_steps'] = 4
             config['live_previews_image_format'] = 'jpeg'

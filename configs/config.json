@@ -343,7 +343,7 @@
     "ad_save_previews": false,
     "ad_save_images_before": false,
     "ad_only_seleted_scripts": true,
-    "ad_script_names": "dynamic_prompting,dynamic_thresholding,wildcard_recursive,wildcards",
+    "ad_script_names": "dynamic_prompting,dynamic_thresholding,wildcard_recursive,wildcards,negpip",
     "ad_bbox_sortby": "None",
     "arh_show_min_width_or_height": false,
     "arh_min_width_or_height": 1024,
