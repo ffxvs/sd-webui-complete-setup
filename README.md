@@ -60,7 +60,7 @@ Jupyter notebook for Stable Diffusion WebUI and Stable Diffusion WebUI Forge.
     * `sd15_resource_lists.ipynb` for downloading SD v1.5 models.
     * `sdxl_resource_lists.ipynb` for downloading SDXL models.
     * `flux_resource_lists.ipynb` for downloading FLUX models.
-11. Read [Paperspace Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Paperspace-Guide) and [Resource Lists Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Resource-Lists-Guide) to use the notebooks.
+11. Read [WebUI Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/WebUI-Guide) and [Resource Lists Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Resource-Lists-Guide) to use the notebooks.
 
 <br>
 
@@ -79,7 +79,7 @@ Jupyter notebook for Stable Diffusion WebUI and Stable Diffusion WebUI Forge.
    * `sd15_resource_lists.ipynb` for downloading SD v1.5 models.
    * `sdxl_resource_lists.ipynb` for downloading SDXL models.
    * `flux_resource_lists.ipynb` for downloading FLUX models.
-9. Read [Runpod Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Runpod-Guide) and [Resource Lists Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Resource-Lists-Guide) to use the notebooks.
+9. Read [WebUI Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/WebUI-Guide) and [Resource Lists Guide](https://github.com/ffxvs/sd-webui-complete-setup/wiki/Resource-Lists-Guide) to use the notebooks.
 10. You can click **Connect to HTTP Service [Port 3001]** after installing and launching the WebUI.
 11. Stop the Pod if you don't use it anymore. Terminate the pod to delete the Pod and its content. Don't forget to download images you generated.
 
