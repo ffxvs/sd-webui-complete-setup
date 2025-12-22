@@ -617,6 +617,9 @@ def install_auto1111():
     run_process(f'sed -i \'s@shared.opts.data\["sd_model_checkpoint"] = checkpoint_info.title@shared.opts.data["sd_model_checkpoint"] = checkpoint_info.title; model.half()@\' {modules_path}/sd_models.py')
     run_process(f"sed -i \"s@map_location='cpu'@map_location='cuda'@\" {modules_path}/extras.py")
 
+    # Set the new Stable Diffusion repo URL, the original repo has been deleted
+    os.environ['STABLE_DIFFUSION_REPO'] = 'https://github.com/w-e-w/stablediffusion'
+
 
 # Install Web UI Forge
 def install_forge():
