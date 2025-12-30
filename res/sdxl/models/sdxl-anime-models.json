@@ -108,6 +108,26 @@
         ]
     },
     {
+        "id": "illustrious",
+        "name": "Illustrious XL",
+        "homepage": [
+            {
+                "name": "CivitAI",
+                "url": "https://civitai.com/models/1489531"
+            },
+            {
+                "name": "HuggingFace",
+                "url": "https://huggingface.co/OnomaAIResearch/Illustrious-XL-v2.0"
+            }
+        ],
+        "variants": [
+            {
+                "version": "v2.0",
+                "url": "https://huggingface.co/OnomaAIResearch/Illustrious-XL-v2.0/resolve/main/Illustrious-XL-v2.0.safetensors"
+            }
+        ]
+    },
+    {
         "id": "ponyDiffusion",
         "name": "Pony Diffusion XL",
         "homepage": [
